@@ -9,105 +9,226 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #222;
-      background: #f5f7fa;
-      line-height: 1.7;
+      color: #374151;
+      background: #f3f4f6;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Header ── */
     header {
       background: #1B2F5E;
-      padding: 0 24px;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
     .header-inner {
-      max-width: 860px;
+      max-width: 800px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 60px;
     }
     .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-size: 1.25rem;
+      font-weight: 800;
       color: #fff;
       text-decoration: none;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.4px;
     }
     .logo span { color: #4CAF29; }
     .back-link {
-      font-size: 0.85rem;
-      color: #c9d5f0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #93aed8;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       transition: color 0.15s;
     }
     .back-link:hover { color: #fff; }
 
-    /* ── Content ── */
+    /* ── Layout ── */
     main {
-      max-width: 860px;
-      margin: 48px auto;
-      padding: 0 24px 80px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      padding: 48px 56px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
     }
 
-    h1 {
-      font-size: 2rem;
-      color: #1B2F5E;
-      margin-bottom: 6px;
-    }
-    .updated {
-      font-size: 0.85rem;
-      color: #888;
+    /* ── Page title block ── */
+    .page-header {
       margin-bottom: 36px;
     }
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1B2F5E;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .meta {
+      font-size: 0.82rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+    .meta span {
+      display: inline-block;
+      background: #e8f5e2;
+      color: #2d7a18;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
 
-    h2 {
-      font-size: 1.1rem;
+    /* ── Intro ── */
+    .intro {
+      background: #fff;
+      border-radius: 12px;
+      border-left: 4px solid #4CAF29;
+      padding: 20px 24px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .intro p {
+      color: #374151;
+      font-size: 0.97rem;
+      margin: 0;
+    }
+
+    /* ── Sections ── */
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4CAF29;
+      margin-bottom: 12px;
+    }
+    .section h3 {
+      font-size: 1.05rem;
       font-weight: 700;
       color: #1B2F5E;
-      margin: 36px 0 10px;
-      padding-left: 12px;
-      border-left: 4px solid #4CAF29;
+      margin-bottom: 12px;
+    }
+    .section p {
+      color: #4b5563;
+      font-size: 0.94rem;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ── Lists ── */
+    .section ul {
+      list-style: none;
+      margin: 4px 0 12px;
+      padding: 0;
+    }
+    .section ul li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.94rem;
+      color: #4b5563;
+      padding: 5px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .section ul li:last-child { border-bottom: none; }
+    .section ul li::before {
+      content: "";
+      display: block;
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CAF29;
+      margin-top: 8px;
     }
 
-    p { margin-bottom: 14px; color: #444; }
+    strong { color: #1B2F5E; font-weight: 600; }
 
-    ul {
-      margin: 10px 0 14px 20px;
-      color: #444;
-    }
-    ul li { margin-bottom: 6px; }
-
-    a { color: #4CAF29; text-decoration: none; }
+    a { color: #4CAF29; text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
 
-    .contact-box {
-      margin-top: 40px;
-      background: #f0f4ff;
-      border: 1px solid #dce4f5;
-      border-radius: 8px;
-      padding: 20px 24px;
+    /* ── Contact card ── */
+    .contact-card {
+      background: #1B2F5E;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .contact-box p { margin: 0; color: #444; }
+    .contact-card p { color: #c9d5f0; font-size: 0.92rem; margin: 0; }
+    .contact-card p strong { color: #fff; }
+    .contact-card a {
+      display: inline-block;
+      background: #4CAF29;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .contact-card a:hover { background: #3d9922; }
 
     /* ── Footer ── */
     footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 0.8rem;
-      color: #999;
+      background: #1B2F5E;
+      padding: 20px 32px;
+      margin-top: 0;
     }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: #6b87b8;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: #93aed8;
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: #fff; }
 
     /* ── Responsive ── */
-    @media (max-width: 620px) {
-      .card { padding: 32px 24px; }
-      h1 { font-size: 1.6rem; }
+    @media (max-width: 600px) {
+      .page-header h1 { font-size: 1.6rem; }
+      .section { padding: 22px 20px; }
+      .contact-card { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -116,28 +237,39 @@
 <header>
   <div class="header-inner">
     <a class="logo" href="https://recoverjob.com">Recover<span>Job</span></a>
-    <a class="back-link" href="https://recoverjob.com">← Back to RecoverJob</a>
+    <a class="back-link" href="https://recoverjob.com">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      recoverjob.com
+    </a>
   </div>
 </header>
 
 <main>
-  <div class="card">
+  <div class="page-header">
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: May 20, 2026</p>
+    <p class="meta">Last updated: May 20, 2026 <span>Current</span></p>
+  </div>
 
-    <p>RecoverJob ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our missed-call text-back service.</p>
+  <div class="intro">
+    <p>RecoverJob is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our missed-call text-back service.</p>
+  </div>
 
-    <h2>Information We Collect</h2>
+  <div class="section">
+    <h2>Data Collection</h2>
+    <h3>Information We Collect</h3>
     <p>We collect the following types of information to operate our service:</p>
     <ul>
-      <li><strong>Phone numbers</strong> – the business phone number you register and the numbers of callers who reach your business.</li>
-      <li><strong>Call logs</strong> – records of missed calls, including timestamps and call duration, used to trigger automated follow-up messages.</li>
-      <li><strong>Business information</strong> – your business name, contact details, and account preferences provided during signup.</li>
-      <li><strong>Billing information</strong> – payment details processed securely through our payment provider; we do not store full card numbers.</li>
-      <li><strong>Usage data</strong> – how you interact with the RecoverJob dashboard (pages visited, features used) to help us improve the product.</li>
+      <li><strong>Phone numbers</strong> — the business phone number you register and the numbers of callers who reach your business.</li>
+      <li><strong>Call logs</strong> — records of missed calls, including timestamps and call duration, used to trigger automated follow-up messages.</li>
+      <li><strong>Business information</strong> — your business name, contact details, and account preferences provided during signup.</li>
+      <li><strong>Billing information</strong> — payment details processed securely through our payment provider. We do not store full card numbers.</li>
+      <li><strong>Usage data</strong> — how you interact with the RecoverJob dashboard to help us improve the product.</li>
     </ul>
+  </div>
 
-    <h2>How We Use Your Information</h2>
+  <div class="section">
+    <h2>Data Usage</h2>
+    <h3>How We Use Your Information</h3>
     <p>The information we collect is used solely to provide and improve the RecoverJob service:</p>
     <ul>
       <li>Sending automated SMS text messages to callers who missed your business line.</li>
@@ -146,38 +278,55 @@
       <li>Sending service-related communications such as account alerts and support responses.</li>
       <li>Improving reliability, performance, and features of the platform.</li>
     </ul>
+  </div>
 
-    <h2>We Never Sell Your Data</h2>
-    <p>We do not sell, rent, trade, or otherwise transfer your personal information or your customers' information to third parties for marketing or any other commercial purposes. Your data is yours.</p>
-
+  <div class="section">
     <h2>Data Sharing</h2>
-    <p>We share data only with trusted service providers necessary to operate RecoverJob (such as SMS carriers and payment processors), and only to the extent required to deliver the service. These providers are contractually bound to protect your data and may not use it for their own purposes.</p>
+    <h3>We Never Sell Your Data</h3>
+    <p>We do not sell, rent, trade, or otherwise transfer your personal information or your customers' information to third parties for marketing or any other commercial purposes. Your data is yours.</p>
+    <p>We share data only with trusted service providers necessary to operate RecoverJob — such as SMS carriers and payment processors — and only to the extent required to deliver the service. These providers are contractually bound to protect your data and may not use it for their own purposes.</p>
+  </div>
 
-    <h2>Data Retention</h2>
+  <div class="section">
+    <h2>Retention</h2>
+    <h3>Data Retention</h3>
     <p>We retain your data for as long as your account is active or as needed to provide the service. Call logs and message history are retained for up to 24 months. Billing records are retained as required by law.</p>
+  </div>
 
-    <h2>Your Rights &amp; Data Deletion</h2>
-    <p>You have the right to access, correct, or delete your personal data at any time. To request deletion of your account and associated data, please contact us at the address below. We will process your request within 30 days.</p>
+  <div class="section">
+    <h2>Your Rights</h2>
+    <h3>Access, Correction &amp; Deletion</h3>
+    <p>You have the right to access, correct, or delete your personal data at any time. To request deletion of your account and associated data, contact us at the address below. We will process your request within 30 days.</p>
     <p>Callers who received automated texts may also request removal from future messages by replying <strong>STOP</strong> to any message or by contacting us directly.</p>
+  </div>
 
+  <div class="section">
     <h2>Security</h2>
+    <h3>How We Protect Your Data</h3>
     <p>We use industry-standard security measures including encryption in transit (TLS) and at rest to protect your information. No method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+  </div>
 
-    <h2>Changes to This Policy</h2>
+  <div class="section">
+    <h2>Updates</h2>
+    <h3>Changes to This Policy</h3>
     <p>We may update this Privacy Policy from time to time. We will notify you of material changes by email or via an in-app notice. Continued use of the service after changes take effect constitutes your acceptance of the updated policy.</p>
+  </div>
 
-    <div class="contact-box">
-      <p><strong>Questions or data requests?</strong><br />
-      Email us at <a href="mailto:support@recoverjob.com">support@recoverjob.com</a><br />
-      RecoverJob &mdash; <a href="https://recoverjob.com">recoverjob.com</a></p>
-    </div>
+  <div class="contact-card">
+    <p><strong>Questions or data requests?</strong><br>Email us at support@recoverjob.com</p>
+    <a href="mailto:support@recoverjob.com">Contact Support</a>
   </div>
 </main>
 
 <footer>
-  &copy; 2026 RecoverJob. All rights reserved. &nbsp;|&nbsp;
-  <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
-  <a href="/terms.html">Terms &amp; Conditions</a>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 RecoverJob. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://recoverjob.com">recoverjob.com</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms">Terms &amp; Conditions</a>
+    </div>
+  </div>
 </footer>
 
 </body>

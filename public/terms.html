@@ -9,124 +9,283 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #222;
-      background: #f5f7fa;
-      line-height: 1.7;
+      color: #374151;
+      background: #f3f4f6;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Header ── */
     header {
       background: #1B2F5E;
-      padding: 0 24px;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
     .header-inner {
-      max-width: 860px;
+      max-width: 800px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 60px;
     }
     .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-size: 1.25rem;
+      font-weight: 800;
       color: #fff;
       text-decoration: none;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.4px;
     }
     .logo span { color: #4CAF29; }
     .back-link {
-      font-size: 0.85rem;
-      color: #c9d5f0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #93aed8;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       transition: color 0.15s;
     }
     .back-link:hover { color: #fff; }
 
-    /* ── Content ── */
+    /* ── Layout ── */
     main {
-      max-width: 860px;
-      margin: 48px auto;
-      padding: 0 24px 80px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      padding: 48px 56px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
     }
 
-    h1 {
-      font-size: 2rem;
-      color: #1B2F5E;
-      margin-bottom: 6px;
-    }
-    .updated {
-      font-size: 0.85rem;
-      color: #888;
+    /* ── Page title block ── */
+    .page-header {
       margin-bottom: 36px;
     }
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1B2F5E;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .meta {
+      font-size: 0.82rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+    .meta span {
+      display: inline-block;
+      background: #e8f5e2;
+      color: #2d7a18;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
 
-    h2 {
-      font-size: 1.1rem;
+    /* ── Intro ── */
+    .intro {
+      background: #fff;
+      border-radius: 12px;
+      border-left: 4px solid #4CAF29;
+      padding: 20px 24px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .intro p {
+      color: #374151;
+      font-size: 0.97rem;
+      margin: 0;
+    }
+
+    /* ── Sections ── */
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4CAF29;
+      margin-bottom: 12px;
+    }
+    .section h3 {
+      font-size: 1.05rem;
       font-weight: 700;
       color: #1B2F5E;
-      margin: 36px 0 10px;
-      padding-left: 12px;
-      border-left: 4px solid #4CAF29;
+      margin-bottom: 12px;
+    }
+    .section p {
+      color: #4b5563;
+      font-size: 0.94rem;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ── Lists ── */
+    .section ul {
+      list-style: none;
+      margin: 4px 0 12px;
+      padding: 0;
+    }
+    .section ul li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.94rem;
+      color: #4b5563;
+      padding: 5px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .section ul li:last-child { border-bottom: none; }
+    .section ul li::before {
+      content: "";
+      display: block;
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CAF29;
+      margin-top: 8px;
     }
 
-    p { margin-bottom: 14px; color: #444; }
+    strong { color: #1B2F5E; font-weight: 600; }
 
-    ul {
-      margin: 10px 0 14px 20px;
-      color: #444;
-    }
-    ul li { margin-bottom: 6px; }
-
-    a { color: #4CAF29; text-decoration: none; }
+    a { color: #4CAF29; text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
 
-    .highlight-box {
-      background: #f0faf0;
-      border: 1px solid #c3e6c3;
-      border-radius: 8px;
-      padding: 18px 22px;
-      margin: 18px 0;
+    /* ── Price highlight ── */
+    .price-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      background: #e8f5e2;
+      border-radius: 10px;
+      padding: 10px 18px;
+      margin: 8px 0 16px;
     }
-    .highlight-box p { margin: 0; color: #2d6a2d; font-size: 0.95rem; }
+    .price-badge .amount {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #1B2F5E;
+      line-height: 1;
+    }
+    .price-badge .period {
+      font-size: 0.9rem;
+      color: #4b5563;
+      font-weight: 500;
+    }
+    .price-badge .note {
+      font-size: 0.82rem;
+      color: #6b7280;
+      display: block;
+      margin-top: 2px;
+    }
 
-    .sms-compliance {
+    /* ── SMS compliance callout ── */
+    .sms-box {
       background: #fffbf0;
-      border: 1px solid #f0dfa0;
-      border-radius: 8px;
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
       padding: 20px 24px;
-      margin: 18px 0;
+      margin: 12px 0;
     }
-    .sms-compliance p { margin: 0 0 8px; color: #555; font-size: 0.92rem; }
-    .sms-compliance p:last-child { margin-bottom: 0; }
+    .sms-box table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .sms-box td {
+      padding: 8px 0;
+      vertical-align: top;
+      border-bottom: 1px solid #fef3c7;
+      color: #4b5563;
+    }
+    .sms-box td:last-child { border-bottom: none; }
+    .sms-box tr:last-child td { border-bottom: none; }
+    .sms-box td:first-child {
+      font-weight: 700;
+      color: #1B2F5E;
+      white-space: nowrap;
+      padding-right: 20px;
+      width: 130px;
+    }
 
-    .contact-box {
-      margin-top: 40px;
-      background: #f0f4ff;
-      border: 1px solid #dce4f5;
-      border-radius: 8px;
-      padding: 20px 24px;
+    /* ── Contact card ── */
+    .contact-card {
+      background: #1B2F5E;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .contact-box p { margin: 0; color: #444; }
+    .contact-card p { color: #c9d5f0; font-size: 0.92rem; margin: 0; }
+    .contact-card p strong { color: #fff; }
+    .contact-card a {
+      display: inline-block;
+      background: #4CAF29;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .contact-card a:hover { background: #3d9922; }
 
     /* ── Footer ── */
     footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 0.8rem;
-      color: #999;
+      background: #1B2F5E;
+      padding: 20px 32px;
     }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: #6b87b8;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: #93aed8;
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: #fff; }
 
     /* ── Responsive ── */
-    @media (max-width: 620px) {
-      .card { padding: 32px 24px; }
-      h1 { font-size: 1.6rem; }
+    @media (max-width: 600px) {
+      .page-header h1 { font-size: 1.6rem; }
+      .section { padding: 22px 20px; }
+      .contact-card { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .sms-box td:first-child { width: auto; }
     }
   </style>
 </head>
@@ -135,56 +294,95 @@
 <header>
   <div class="header-inner">
     <a class="logo" href="https://recoverjob.com">Recover<span>Job</span></a>
-    <a class="back-link" href="https://recoverjob.com">← Back to RecoverJob</a>
+    <a class="back-link" href="https://recoverjob.com">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      recoverjob.com
+    </a>
   </div>
 </header>
 
 <main>
-  <div class="card">
+  <div class="page-header">
     <h1>Terms &amp; Conditions</h1>
-    <p class="updated">Last updated: May 20, 2026</p>
+    <p class="meta">Last updated: May 20, 2026 <span>Current</span></p>
+  </div>
 
-    <p>Please read these Terms and Conditions ("Terms") carefully before using the RecoverJob service. By creating an account or using RecoverJob, you agree to be bound by these Terms. If you do not agree, do not use the service.</p>
+  <div class="intro">
+    <p>By creating an account or using RecoverJob, you agree to be bound by these Terms. Please read them carefully. If you do not agree, do not use the service.</p>
+  </div>
 
-    <h2>1. Service Description</h2>
-    <p>RecoverJob provides an automated missed-call text-back service for businesses. When a call to your registered business phone number goes unanswered, RecoverJob automatically sends a customizable SMS message to the caller on your behalf to help you recover missed leads and re-engage potential customers.</p>
+  <div class="section">
+    <h2>Overview</h2>
+    <h3>Service Description</h3>
+    <p>RecoverJob provides an automated missed-call text-back service for businesses. When a call to your registered business phone number goes unanswered, RecoverJob automatically sends a customizable SMS to the caller on your behalf — helping you recover missed leads and re-engage potential customers.</p>
+  </div>
 
-    <h2>2. Subscription &amp; Billing</h2>
-    <div class="highlight-box">
-      <p>RecoverJob is available for <strong>$99/month</strong> per business location. You may cancel your subscription at any time — no long-term contracts required.</p>
+  <div class="section">
+    <h2>Billing</h2>
+    <h3>Subscription &amp; Pricing</h3>
+    <div class="price-badge">
+      <span class="amount">$99</span>
+      <span class="period">/month &nbsp;&mdash;&nbsp; cancel anytime</span>
     </div>
     <ul>
       <li>Subscriptions are billed monthly on the date of signup.</li>
-      <li>You may cancel at any time from your account dashboard. Cancellation takes effect at the end of the current billing period; no partial refunds are issued for unused time.</li>
-      <li>We reserve the right to change pricing with 30 days' advance notice to your registered email address.</li>
-      <li>Failed payments may result in temporary suspension of your service until resolved.</li>
+      <li>Cancel at any time from your account dashboard. Cancellation takes effect at the end of the current billing period; no partial refunds are issued for unused time.</li>
+      <li>Pricing may change with 30 days' advance notice to your registered email.</li>
+      <li>Failed payments may result in temporary service suspension until resolved.</li>
     </ul>
+  </div>
 
-    <h2>3. Free Trial</h2>
-    <p>New accounts receive a <strong>30-day free trial</strong>. During the trial:</p>
+  <div class="section">
+    <h2>Free Trial</h2>
+    <h3>30-Day Free Trial</h3>
     <ul>
-      <li>Full access to all RecoverJob features is provided at no charge.</li>
+      <li>New accounts receive full access to all RecoverJob features for 30 days at no charge.</li>
       <li>A valid payment method is required to start the trial.</li>
-      <li>You will not be charged until the trial period ends. You may cancel at any time before the trial ends to avoid any charge.</li>
+      <li>You will not be charged until the trial period ends. Cancel before the trial ends to avoid any charge.</li>
       <li>Each business is eligible for one free trial. Duplicate accounts created to obtain additional trials may be terminated.</li>
     </ul>
+  </div>
 
-    <h2>4. SMS Messaging &amp; Compliance</h2>
-    <p>By using RecoverJob, you agree to send text messages only to individuals who have provided consent or who have called your business number (constituting implied consent for a follow-up response).</p>
-
-    <div class="sms-compliance">
-      <p><strong>OPT-OUT:</strong> Recipients may opt out of future messages at any time by replying <strong>STOP</strong>. All opt-out requests are honored immediately and automatically.</p>
-      <p><strong>HELP:</strong> Recipients may reply <strong>HELP</strong> to any message to receive assistance information.</p>
-      <p><strong>Message frequency:</strong> Message frequency varies based on the number of missed calls your business receives.</p>
-      <p><strong>Message &amp; data rates:</strong> Message and data rates may apply. Carriers are not responsible for delayed or undelivered messages.</p>
+  <div class="section">
+    <h2>SMS Compliance</h2>
+    <h3>Messaging Terms</h3>
+    <p>By using RecoverJob, you agree to send text messages only to individuals who have provided consent or who have called your business number.</p>
+    <div class="sms-box">
+      <table>
+        <tr>
+          <td>Opt-out</td>
+          <td>Reply <strong>STOP</strong> at any time to unsubscribe from messages. All opt-out requests are honored immediately.</td>
+        </tr>
+        <tr>
+          <td>Help</td>
+          <td>Reply <strong>HELP</strong> to any message to receive support information.</td>
+        </tr>
+        <tr>
+          <td>Frequency</td>
+          <td>Message frequency varies based on the number of missed calls your business receives.</td>
+        </tr>
+        <tr>
+          <td>Rates</td>
+          <td>Message and data rates may apply.</td>
+        </tr>
+        <tr>
+          <td>Carriers</td>
+          <td>Carriers are not responsible for delayed or undelivered messages.</td>
+        </tr>
+      </table>
     </div>
+    <p>You are responsible for ensuring your use of RecoverJob messaging complies with all applicable laws, including the TCPA, CAN-SPAM Act, and CTIA guidelines.</p>
+  </div>
 
-    <p>You are responsible for ensuring your use of the RecoverJob messaging service complies with all applicable laws, including the Telephone Consumer Protection Act (TCPA), CAN-SPAM Act, and any regulations set by the CTIA or relevant telecommunications authorities.</p>
+  <div class="section">
+    <h2>Carrier Delivery</h2>
+    <h3>Carrier Delays &amp; Delivery</h3>
+    <p>RecoverJob transmits messages through third-party SMS carriers and telecommunications networks. We are not responsible for delays, failures, or errors in message delivery caused by carriers, network congestion, or factors outside our control. Carrier-related delivery issues are not grounds for a refund or service credit.</p>
+  </div>
 
-    <h2>5. Carrier Delays &amp; Delivery</h2>
-    <p>RecoverJob transmits messages through third-party SMS carriers and telecommunications networks. We are not responsible for delays, failures, or errors in message delivery caused by carriers, network congestion, or factors outside our control. Carrier-related delivery issues are not grounds for refund or service credit.</p>
-
-    <h2>6. Acceptable Use</h2>
+  <div class="section">
+    <h2>Acceptable Use</h2>
+    <h3>Prohibited Activity</h3>
     <p>You may not use RecoverJob to:</p>
     <ul>
       <li>Send spam, unsolicited marketing, or messages to individuals who have not called your business.</li>
@@ -193,34 +391,43 @@
       <li>Violate any applicable federal, state, or local law or regulation.</li>
     </ul>
     <p>We reserve the right to suspend or terminate accounts that violate these policies without prior notice.</p>
+  </div>
 
-    <h2>7. Intellectual Property</h2>
+  <div class="section">
+    <h2>Intellectual Property</h2>
+    <h3>Ownership</h3>
     <p>The RecoverJob platform, branding, and all associated software are the property of RecoverJob. You retain ownership of the message content and business data you provide. By using the service, you grant RecoverJob a limited license to process your content solely to deliver the service.</p>
+  </div>
 
-    <h2>8. Limitation of Liability</h2>
-    <p>To the maximum extent permitted by law, RecoverJob shall not be liable for any indirect, incidental, special, or consequential damages, including lost profits or business opportunities, arising from your use of or inability to use the service. Our total liability for any claim shall not exceed the amount you paid us in the three months preceding the claim.</p>
+  <div class="section">
+    <h2>Liability</h2>
+    <h3>Limitation of Liability</h3>
+    <p>To the maximum extent permitted by law, RecoverJob shall not be liable for any indirect, incidental, special, or consequential damages — including lost profits or business opportunities — arising from your use of or inability to use the service. Our total liability for any claim shall not exceed the amount you paid us in the three months preceding the claim.</p>
+    <p>The service is provided as-is without warranties of any kind, express or implied. We do not warrant that the service will be uninterrupted, error-free, or that messages will be delivered within any particular timeframe.</p>
+  </div>
 
-    <h2>9. Disclaimer of Warranties</h2>
-    <p>The service is provided "as is" without warranties of any kind, express or implied. We do not warrant that the service will be uninterrupted, error-free, or that messages will be delivered within any particular timeframe.</p>
-
-    <h2>10. Modifications to Terms</h2>
-    <p>We may update these Terms from time to time. We will notify you of material changes by email or in-app notice at least 14 days before the changes take effect. Continued use of the service after that date constitutes acceptance of the revised Terms.</p>
-
-    <h2>11. Governing Law</h2>
+  <div class="section">
+    <h2>Changes &amp; Governing Law</h2>
+    <h3>Modifications &amp; Disputes</h3>
+    <p>We may update these Terms from time to time. We will notify you of material changes by email or in-app notice at least 14 days before they take effect. Continued use of the service after that date constitutes acceptance of the revised Terms.</p>
     <p>These Terms are governed by the laws of the United States. Any disputes shall be resolved through binding arbitration in accordance with the AAA Consumer Arbitration Rules, except that either party may seek injunctive relief in a court of competent jurisdiction.</p>
+  </div>
 
-    <div class="contact-box">
-      <p><strong>Questions or concerns?</strong><br />
-      Email us at <a href="mailto:support@recoverjob.com">support@recoverjob.com</a><br />
-      RecoverJob &mdash; <a href="https://recoverjob.com">recoverjob.com</a></p>
-    </div>
+  <div class="contact-card">
+    <p><strong>Questions or concerns?</strong><br>Email us at support@recoverjob.com</p>
+    <a href="mailto:support@recoverjob.com">Contact Support</a>
   </div>
 </main>
 
 <footer>
-  &copy; 2026 RecoverJob. All rights reserved. &nbsp;|&nbsp;
-  <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
-  <a href="/terms.html">Terms &amp; Conditions</a>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 RecoverJob. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://recoverjob.com">recoverjob.com</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms">Terms &amp; Conditions</a>
+    </div>
+  </div>
 </footer>
 
 </body>
