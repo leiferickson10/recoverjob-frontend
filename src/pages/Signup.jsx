@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { supabase } from '../lib/supabaseClient';
+import api from '../lib/api';
 
 export default function Signup() {
-  const { signUp } = useAuth();
   const navigate = useNavigate();
   const [businessName, setBusinessName] = useState('');
+  const [personalPhone, setPersonalPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -16,10 +17,16 @@ export default function Signup() {
     setError('');
     setLoading(true);
     try {
-      await signUp(email, password, businessName);
+      // Create auth user + business record on the backend
+      await api.post('/auth/register', { email, password, businessName, personalPhone });
+
+      // Sign in with Supabase to establish a session
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      if (signInError) throw signInError;
+
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || err.message);
     } finally {
       setLoading(false);
     }
@@ -48,9 +55,21 @@ export default function Signup() {
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
                 required
-                placeholder="Your business name"
+                placeholder="Mike's Plumbing"
                 className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
               />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-medium text-[#3D3D3D]">Your Personal Phone Number</label>
+              <input
+                type="tel"
+                value={personalPhone}
+                onChange={(e) => setPersonalPhone(e.target.value)}
+                required
+                placeholder="+1 (801) 555-0000"
+                className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
+              />
+              <p className="text-xs text-gray-400">We'll forward customer replies to this number.</p>
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#3D3D3D]">Email</label>
