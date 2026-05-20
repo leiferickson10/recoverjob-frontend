@@ -1,6 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
-    { "source": "/terms", "destination": "/terms.html" }
+  "routes": [
+    { "src": "^/privacy-policy$", "dest": "/privacy-policy.html" },
+    { "src": "^/terms$",          "dest": "/terms.html" },
+    { "src": "^/$",               "dest": "/landing.html" },
+    { "handle": "filesystem" },
+    { "src": "^/(.*)$",           "dest": "/index.html" }
   ]
 }
