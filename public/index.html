@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RecoverJob – Stop Losing Jobs to Missed Calls</title>
+  <meta name="description" content="RecoverJob automatically texts back anyone who calls your business and doesn't get an answer — in under 15 seconds. Never lose a lead again." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Tokens ── */
+    :root {
+      --navy: #1B2F5E;
+      --navy-dark: #132347;
+      --navy-light: #243d75;
+      --green: #4CAF29;
+      --green-dark: #3d9922;
+      --green-light: #e8f5e2;
+      --gray-bg: #f3f4f6;
+      --gray-text: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    /* ── Utility ── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      border: none;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn-green {
+      background: var(--green);
+      color: #fff;
+      padding: 13px 28px;
+      box-shadow: 0 4px 14px rgba(76,175,41,0.35);
+    }
+    .btn-green:hover {
+      background: var(--green-dark);
+      box-shadow: 0 6px 20px rgba(76,175,41,0.45);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      padding: 12px 26px;
+      border: 2px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.08);
+    }
+    .btn-lg { font-size: 1.05rem; padding: 16px 36px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    /* ═══════════════════════════════
+       NAVBAR
+    ═══════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.09); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo img { height: 50px; width: auto; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #374151;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-login {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--gray-text);
+      transition: color 0.15s;
+    }
+    .nav-login:hover { color: var(--navy); }
+    .nav-cta { padding: 9px 20px; font-size: 0.88rem; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all 0.25s ease;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 8px 0 16px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 13px 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .mobile-cta {
+      margin: 10px 24px 0;
+      text-align: center;
+      background: var(--green);
+      color: #fff;
+      border-radius: 10px;
+      padding: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(76,175,41,0.3);
+    }
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
+    #hero {
+      background: var(--navy);
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 64px;
+    }
+    .hero-text { padding-top: 8px; }
+    .hero-headline {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.12;
+      letter-spacing: -0.8px;
+      margin-bottom: 22px;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--green);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #93aed8;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .hero-secondary-link {
+      font-size: 0.88rem;
+      color: #93aed8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+      cursor: pointer;
+    }
+    .hero-secondary-link:hover { color: #fff; }
+    .hero-secondary-link svg { transition: transform 0.15s; }
+    .hero-secondary-link:hover svg { transform: translateX(3px); }
+
+    /* iPhone mockup */
+    .hero-phone { display: flex; justify-content: center; align-items: center; }
+    .phone-shell {
+      width: 280px;
+      background: #0d0d0d;
+      border-radius: 40px;
+      padding: 14px 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 2px #2a2a2a, inset 0 0 0 1px #3a3a3a;
+      position: relative;
+    }
+    .phone-notch {
+      width: 100px;
+      height: 26px;
+      background: #0d0d0d;
+      border-radius: 0 0 18px 18px;
+      margin: 0 auto 8px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .phone-notch::before {
+      content: "";
+      width: 10px; height: 10px;
+      background: #1a1a1a;
+      border-radius: 50%;
+      border: 1px solid #333;
+    }
+    .phone-notch::after {
+      content: "";
+      width: 54px; height: 8px;
+      background: #1a1a1a;
+      border-radius: 4px;
+    }
+    .phone-screen {
+      background: #f0f0f0;
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sms-header {
+      background: #f8f8f8;
+      padding: 12px 16px 10px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: center;
+    }
+    .sms-contact-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .sms-contact-sub {
+      font-size: 0.62rem;
+      color: #888;
+      margin-top: 1px;
+    }
+    .sms-body {
+      flex: 1;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #f0f0f0;
+    }
+    .bubble-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    .bubble-wrap.them { align-items: flex-start; }
+    .bubble-wrap.us { align-items: flex-end; }
+    .bubble {
+      max-width: 85%;
+      font-size: 0.75rem;
+      line-height: 1.45;
+      padding: 9px 13px;
+      border-radius: 18px;
+    }
+    .bubble-wrap.them .bubble {
+      background: #e5e5ea;
+      color: #1a1a1a;
+      border-bottom-left-radius: 4px;
+    }
+    .bubble-wrap.us .bubble {
+      background: #4CAF29;
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .bubble-time {
+      font-size: 0.58rem;
+      color: #aaa;
+      margin-top: 3px;
+      padding: 0 4px;
+    }
+    .sms-input-bar {
+      background: #f8f8f8;
+      padding: 10px 12px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sms-input-field {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      color: #aaa;
+    }
+    .sms-send-btn {
+      width: 26px; height: 26px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ═══════════════════════════════
+       TRUST BAR
+    ═══════════════════════════════ */
+    #trust {
+      background: var(--gray-bg);
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .trust-tagline {
+      font-size: 0.9rem;
+      color: var(--gray-text);
+      font-weight: 500;
+      max-width: 260px;
+    }
+    .trust-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-stat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .trust-stat .icon {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    .trust-stat-text .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .trust-stat-text .label {
+      font-size: 0.75rem;
+      color: var(--gray-text);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════
+       HOW IT WORKS
+    ═══════════════════════════════ */
+    #how {
+      background: #fff;
+      padding: 96px 0;
+    }
+    .section-heading {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-heading h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .section-heading p {
+      font-size: 1rem;
+      color: var(--gray-text);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .steps::before {
+      content: "";
+      position: absolute;
+      top: 48px;
+      left: calc(16.66% + 24px);
+      right: calc(16.66% + 24px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--green) 50%, transparent 100%);
+      background-size: 8px 2px;
+      background-repeat: repeat-x;
+      border-top: 2px dashed #d1fae5;
+    }
+    .step {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: #fff;
+      position: relative;
+    }
+    .step:hover {
+      box-shadow: 0 8px 32px rgba(27,47,94,0.1);
+      transform: translateY(-4px);
+    }
+    .step-number {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--green-light);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -2px;
+    }
+    .step-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-size: 0.9rem;
+      color: var(--gray-text);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════
+       FEATURES
+    ═══════════════════════════════ */
+    #features {
+      background: var(--gray-bg);
+      padding: 96px 0;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 8px 32px rgba(27,47,94,0.08);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 0.92rem;
+      color: var(--gray-text);
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════
+       PRICING
+    ═══════════════════════════════ */
+    #pricing {
+      background: #fff;
+      padding: 96px 0;
+    }
+    .pricing-card-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .pricing-card {
+      width: 100%;
+      max-width: 460px;
+      border: 2px solid var(--navy);
+      border-radius: 20px;
+      padding: 48px 44px;
+      box-shadow: 0 16px 48px rgba(27,47,94,0.12);
+      text-align: center;
+    }
+    .pricing-badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .pricing-amount {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .pricing-dollar {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-top: 10px;
+    }
+    .pricing-number {
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+    .pricing-period {
+      font-size: 1rem;
+      color: var(--gray-text);
+      font-weight: 500;
+      margin-top: 16px;
+    }
+    .pricing-trial {
+      font-size: 0.9rem;
+      color: var(--navy);
+      font-weight: 600;
+      margin: 12px 0 32px;
+    }
+    .pricing-features {
+      list-style: none;
+      margin: 0 0 36px;
+      padding: 0;
+      text-align: left;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 0.94rem;
+      color: #374151;
+      font-weight: 500;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features .check {
+      width: 20px;
+      height: 20px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pricing-features .check svg { width: 11px; height: 11px; }
+    .pricing-no-cc {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--gray-text);
+    }
+
+    /* ═══════════════════════════════
+       LIVE DEMO
+    ═══════════════════════════════ */
+    #demo {
+      background: var(--navy);
+      padding: 96px 0;
+      text-align: center;
+    }
+    #demo h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    #demo .demo-sub {
+      font-size: 1rem;
+      color: #93aed8;
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .phone-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--green);
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 18px 40px;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(76,175,41,0.4);
+      transition: all 0.18s ease;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .phone-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(76,175,41,0.5);
+    }
+    .phone-btn .phone-icon {
+      font-size: 1.4rem;
+      animation: ring 2s infinite;
+    }
+    @keyframes ring {
+      0%, 100% { transform: rotate(0deg); }
+      10% { transform: rotate(-15deg); }
+      20% { transform: rotate(15deg); }
+      30% { transform: rotate(-10deg); }
+      40% { transform: rotate(10deg); }
+      50% { transform: rotate(0deg); }
+    }
+    .demo-disclaimer {
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: #6b87b8;
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    footer {
+      background: var(--navy-dark);
+      padding: 48px 0 32px;
+    }
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+    .footer-brand img { height: 40px; width: auto; margin-bottom: 12px; }
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: #6b87b8;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: #93aed8;
+      transition: color 0.15s;
+      font-weight: 500;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: #4a6491;
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+      .hero-actions { align-items: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-phone { order: -1; }
+      .phone-shell { width: 240px; }
+      .steps { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .steps::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+      .trust-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .pricing-card { padding: 36px 28px; }
+    }
+    @media (max-width: 520px) {
+      #hero { padding: 100px 0 60px; }
+      .hero-headline { font-size: 1.85rem; }
+      .trust-stats { gap: 24px; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     NAVBAR
+═══════════════════════════════ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="RecoverJob" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#demo">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="/login" class="nav-login">Log In</a>
+        <a href="/signup" class="btn btn-green nav-cta">Start Free Trial</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#demo">Contact</a>
+    <a href="/login">Log In</a>
+    <a href="/signup" class="mobile-cta">Start Free Trial — It's Free</a>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════
+     HERO
+═══════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left: Text -->
+      <div class="hero-text">
+        <span class="section-label">Built for Trades Businesses</span>
+        <h1 class="hero-headline">
+          Stop Losing Jobs to<br><em>Missed Calls</em>
+        </h1>
+        <p class="hero-sub">
+          RecoverJob automatically texts back anyone who calls your business and doesn't get an answer — in under 15 seconds. Never lose a lead again.
+        </p>
+        <div class="hero-actions">
+          <a href="/signup" class="btn btn-green btn-lg">Start Free Trial — It's Free</a>
+          <a href="#how" class="hero-secondary-link">
+            See how it works
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Phone mockup -->
+      <div class="hero-phone">
+        <div class="phone-shell">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="sms-header">
+              <div class="sms-contact-name">Mike's Plumbing</div>
+              <div class="sms-contact-sub">Text Message • Just now</div>
+            </div>
+            <div class="sms-body">
+              <div class="bubble-wrap them">
+                <div class="bubble">Hey is this Mike's Plumbing?</div>
+                <div class="bubble-time">2:14 PM</div>
+              </div>
+              <div class="bubble-wrap us">
+                <div class="bubble">Hi! Sorry we missed your call. We'll get back to you shortly — reply here if you need anything!</div>
+                <div class="bubble-time">2:14 PM · AutoReply</div>
+              </div>
+              <div class="bubble-wrap them">
+                <div class="bubble">Perfect, I need someone ASAP for a burst pipe 😬</div>
+                <div class="bubble-time">2:15 PM</div>
+              </div>
+              <div class="bubble-wrap us">
+                <div class="bubble">We're on it! What's your address?</div>
+                <div class="bubble-time">2:15 PM</div>
+              </div>
+            </div>
+            <div class="sms-input-bar">
+              <div class="sms-input-field">Text Message</div>
+              <div class="sms-send-btn">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     TRUST BAR
+═══════════════════════════════ -->
+<section id="trust">
+  <div class="container">
+    <div class="trust-inner">
+      <p class="trust-tagline">Trusted by plumbers, electricians and HVAC techs across the US</p>
+      <div class="trust-stats">
+        <div class="trust-stat">
+          <span class="icon">⚡</span>
+          <div class="trust-stat-text">
+            <div class="value">15 sec</div>
+            <div class="label">Response time</div>
+          </div>
+        </div>
+        <div class="trust-stat">
+          <span class="icon">📈</span>
+          <div class="trust-stat-text">
+            <div class="value">30–60%</div>
+            <div class="label">Lead recovery</div>
+          </div>
+        </div>
+        <div class="trust-stat">
+          <span class="icon">💰</span>
+          <div class="trust-stat-text">
+            <div class="value">$99/mo</div>
+            <div class="label">Flat rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-label">Simple Setup</span>
+      <h2>How It Works</h2>
+      <p>Up and running in minutes. No tech skills needed.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-icon">📞</div>
+        <h3>Customer Calls You</h3>
+        <p>A potential customer calls your business while you're on a job, with a client, or simply unavailable to answer.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-icon">💬</div>
+        <h3>We Text Them Back</h3>
+        <p>RecoverJob detects the missed call and automatically fires off a personalized text message in under 15 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-icon">🏆</div>
+        <h3>You Get the Lead</h3>
+        <p>The lead shows up in your dashboard ready to close. Reply from the app and book the job before your competitor does.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     FEATURES
+═══════════════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-label">Everything You Need</span>
+      <h2>Built to Win More Jobs</h2>
+      <p>Every feature is designed to help trades businesses capture more leads with zero extra effort.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3>Instant Auto-Text</h3>
+        <p>The moment a call goes unanswered, your customer gets a friendly text in under 15 seconds — before they even think about calling your competitor.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⏰</span>
+        <h3>Smart Follow-Up</h3>
+        <p>If the customer doesn't reply in 30 minutes, RecoverJob automatically sends a second follow-up to keep the conversation warm and the job in play.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>Lead Dashboard</h3>
+        <p>Every missed call becomes a tracked lead. See who called, when, and where the conversation stands — all in one clean, simple dashboard.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✏️</span>
+        <h3>Custom Messages</h3>
+        <p>Write your own auto-text in your own voice. Add your business name, services, and personality so every reply sounds like it came from you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     PRICING
+═══════════════════════════════ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-label">Simple Pricing</span>
+      <h2>One Plan. No Surprises.</h2>
+      <p>Everything included. No setup fees. No per-message fees.</p>
+    </div>
+    <div class="pricing-card-wrap">
+      <div class="pricing-card">
+        <div class="pricing-badge">30-Day Free Trial</div>
+        <div class="pricing-amount">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-number">99</span>
+          <span class="pricing-period">/month</span>
+        </div>
+        <p class="pricing-trial">First month completely free. Then $99/mo.</p>
+        <ul class="pricing-features">
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Unlimited missed call texts
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Automatic 30-min follow-up
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Lead tracking dashboard
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Custom message editor
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            No contracts — cancel anytime
+          </li>
+        </ul>
+        <a href="/signup" class="btn btn-green btn-lg" style="width:100%;justify-content:center;">
+          Start Free Trial
+        </a>
+        <p class="pricing-no-cc">No credit card required to start</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     LIVE DEMO
+═══════════════════════════════ -->
+<section id="demo">
+  <div class="container">
+    <span class="section-label" style="background:rgba(76,175,41,0.15);color:#7ed659;">Live Demo</span>
+    <h2>See It Work Right Now</h2>
+    <p class="demo-sub">
+      Call <strong style="color:#fff;">(385) 220-7651</strong> from your cell phone. Don't answer when it rings back. See exactly what happens next.
+    </p>
+    <a href="tel:+13852207651" class="phone-btn">
+      <span class="phone-icon">📞</span>
+      (385) 220-7651
+    </a>
+    <p class="demo-disclaimer">This is a live demo — exactly what your customers will experience.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     FOOTER
+═══════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/"><img src="/logo.png" alt="RecoverJob" /></a>
+        <p class="footer-tagline">Stop Losing Jobs to Missed Calls</p>
+      </div>
+      <nav class="footer-links">
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+        <a href="/login">Login</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 RecoverJob. All rights reserved.</span>
+      <span class="footer-copy">support@recoverjob.com</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════
+     JS
+═══════════════════════════════ -->
+<script>
+  /* Sticky nav shadow */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  /* Hamburger toggle */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  /* Close mobile menu on link click */
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  /* Offset smooth-scroll for fixed navbar */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = 76;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
