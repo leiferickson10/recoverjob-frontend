@@ -107,9 +107,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 68px;
+      height: 72px;
     }
-    .nav-logo img { height: 80px; width: auto; }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .nav-logo img { height: 60px; width: auto; object-fit: contain; display: block; }
     .nav-links {
       display: flex;
       align-items: center;
@@ -1132,7 +1137,7 @@
       const target = document.querySelector(anchor.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      const offset = 76;
+      const offset = 80;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     });
