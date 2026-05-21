@@ -1,10 +1,31 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { supabase } from '../lib/supabaseClient';
 import api from '../lib/api';
 
-export default function Signup() {
+const stripePromise = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+  ? loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+  : null;
+
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      fontSize: '14px',
+      fontFamily: 'Inter, -apple-system, sans-serif',
+      color: '#1a1a2e',
+      '::placeholder': { color: '#9ca3af' },
+    },
+    invalid: { color: '#ef4444' },
+  },
+};
+
+function SignupForm() {
   const navigate = useNavigate();
+  const stripe = useStripe();
+  const elements = useElements();
+
   const [businessName, setBusinessName] = useState('');
   const [personalPhone, setPersonalPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -16,11 +37,44 @@ export default function Signup() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    try {
-      // Create auth user + business record on the backend
-      await api.post('/auth/register', { email, password, businessName, personalPhone });
 
-      // Sign in with Supabase to establish a session
+    try {
+      // Step 1: Create account + Stripe subscription on backend
+      const { data } = await api.post('/auth/register', {
+        email,
+        password,
+        businessName,
+        personalPhone,
+      });
+
+      const { clientSecret } = data;
+
+      // Step 2: Confirm card with Stripe if a clientSecret was returned
+      if (clientSecret && stripe && elements) {
+        const cardElement = elements.getElement(CardElement);
+
+        // SetupIntent (seti_) vs PaymentIntent (pi_) require different confirm methods
+        let stripeError;
+        if (clientSecret.startsWith('seti_')) {
+          const result = await stripe.confirmCardSetup(clientSecret, {
+            payment_method: { card: cardElement, billing_details: { email, name: businessName } },
+          });
+          stripeError = result.error;
+        } else {
+          const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: { card: cardElement, billing_details: { email, name: businessName } },
+          });
+          stripeError = result.error;
+        }
+
+        if (stripeError) {
+          setError(stripeError.message);
+          setLoading(false);
+          return;
+        }
+      }
+
+      // Step 3: Sign in with Supabase to establish a session
       const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       if (signInError) throw signInError;
 
@@ -42,12 +96,13 @@ export default function Signup() {
             className="h-12 w-auto"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
-          <h1 className="text-2xl font-bold text-[#1B2F5E] tracking-tight">RecoverJob</h1>
-          <p className="text-gray-500 text-sm">Create your account</p>
+          <h1 className="text-2xl font-bold text-[#1B2F5E] tracking-tight">Start Your Free Trial</h1>
+          <p className="text-gray-500 text-sm text-center">30 days free — no charge until your trial ends</p>
         </div>
 
         <div className="px-10 pb-10">
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#3D3D3D]">Business Name</label>
               <input
@@ -59,6 +114,7 @@ export default function Signup() {
                 className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
               />
             </div>
+
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#3D3D3D]">Your Personal Phone Number</label>
               <input
@@ -71,6 +127,7 @@ export default function Signup() {
               />
               <p className="text-xs text-gray-400">We'll forward customer replies to this number.</p>
             </div>
+
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#3D3D3D]">Email</label>
               <input
@@ -82,6 +139,7 @@ export default function Signup() {
                 className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
               />
             </div>
+
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-[#3D3D3D]">Password</label>
               <input
@@ -93,19 +151,32 @@ export default function Signup() {
                 className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
               />
             </div>
+
+            {stripePromise && (
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-medium text-[#3D3D3D]">Card Details</label>
+                <div className="border border-gray-200 rounded-xl px-4 py-3 focus-within:border-[#1B2F5E] focus-within:ring-2 focus-within:ring-[#1B2F5E]/10 transition-colors">
+                  <CardElement options={CARD_ELEMENT_OPTIONS} />
+                </div>
+                <p className="text-xs text-gray-400">Your card will not be charged for 30 days.</p>
+              </div>
+            )}
+
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600">
                 {error}
               </div>
             )}
+
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || (stripePromise && !stripe)}
               className="bg-[#4CAF29] text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-[#3d9422] disabled:opacity-50 transition-colors mt-1"
             >
-              {loading ? 'Creating account…' : 'Create Account'}
+              {loading ? 'Setting up your account…' : 'Start Free Trial — No charge for 30 days'}
             </button>
           </form>
+
           <p className="mt-6 text-sm text-gray-500 text-center">
             Already have an account?{' '}
             <Link to="/login" className="text-[#4CAF29] font-semibold hover:text-[#3d9422] transition-colors">
@@ -115,5 +186,20 @@ export default function Signup() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Signup() {
+  if (!stripePromise) {
+    return (
+      <Elements stripe={null}>
+        <SignupForm />
+      </Elements>
+    );
+  }
+  return (
+    <Elements stripe={stripePromise}>
+      <SignupForm />
+    </Elements>
   );
 }
