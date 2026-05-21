@@ -27,7 +27,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route
             path="/onboarding"
-            element={<ProtectedLayout><Onboarding /></ProtectedLayout>}
+            element={<ProtectedRoute><Onboarding /></ProtectedRoute>}
           />
           <Route
             path="/dashboard"
