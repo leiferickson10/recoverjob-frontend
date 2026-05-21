@@ -78,7 +78,7 @@ function SignupForm() {
       const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       if (signInError) throw signInError;
 
-      navigate('/dashboard');
+      navigate('/onboarding');
     } catch (err) {
       setError(err.response?.data?.error || err.message);
     } finally {

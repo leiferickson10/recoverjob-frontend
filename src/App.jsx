@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
 import Settings from './pages/Settings';
+import Onboarding from './pages/Onboarding';
 
 function ProtectedLayout({ children }) {
   return (
@@ -24,6 +25,10 @@ export default function App() {
           <Route path="/" element={<Navigate to="/landing.html" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/onboarding"
+            element={<ProtectedLayout><Onboarding /></ProtectedLayout>}
+          />
           <Route
             path="/dashboard"
             element={<ProtectedLayout><Dashboard /></ProtectedLayout>}
