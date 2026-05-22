@@ -15,7 +15,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ── */
     header {
       background: #1B2F5E;
       padding: 0 32px;
@@ -52,17 +51,13 @@
     }
     .back-link:hover { color: #fff; }
 
-    /* ── Layout ── */
     main {
       max-width: 800px;
       margin: 0 auto;
       padding: 48px 24px 96px;
     }
 
-    /* ── Page title block ── */
-    .page-header {
-      margin-bottom: 36px;
-    }
+    .page-header { margin-bottom: 36px; }
     .page-header h1 {
       font-size: 2rem;
       font-weight: 800;
@@ -87,7 +82,6 @@
       vertical-align: middle;
     }
 
-    /* ── Intro ── */
     .intro {
       background: #fff;
       border-radius: 12px;
@@ -96,13 +90,8 @@
       margin-bottom: 8px;
       box-shadow: 0 1px 6px rgba(0,0,0,0.05);
     }
-    .intro p {
-      color: #374151;
-      font-size: 0.97rem;
-      margin: 0;
-    }
+    .intro p { color: #374151; font-size: 0.97rem; margin: 0; }
 
-    /* ── Sections ── */
     .section {
       background: #fff;
       border-radius: 12px;
@@ -131,7 +120,6 @@
     }
     .section p:last-child { margin-bottom: 0; }
 
-    /* ── Lists ── */
     .section ul {
       list-style: none;
       margin: 4px 0 12px;
@@ -158,12 +146,23 @@
       margin-top: 8px;
     }
 
-    strong { color: #1B2F5E; font-weight: 600; }
+    .sample-language {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #4CAF29;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #4b5563;
+      font-style: italic;
+      line-height: 1.6;
+    }
 
+    strong { color: #1B2F5E; font-weight: 600; }
     a { color: #4CAF29; text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
 
-    /* ── Contact card ── */
     .contact-card {
       background: #1B2F5E;
       border-radius: 12px;
@@ -191,11 +190,9 @@
     }
     .contact-card a:hover { background: #3d9922; }
 
-    /* ── Footer ── */
     footer {
       background: #1B2F5E;
       padding: 20px 32px;
-      margin-top: 0;
     }
     .footer-inner {
       max-width: 800px;
@@ -206,14 +203,8 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .footer-copy {
-      font-size: 0.8rem;
-      color: #6b87b8;
-    }
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
+    .footer-copy { font-size: 0.8rem; color: #6b87b8; }
+    .footer-links { display: flex; gap: 20px; }
     .footer-links a {
       font-size: 0.8rem;
       color: #93aed8;
@@ -223,7 +214,6 @@
     }
     .footer-links a:hover { color: #fff; }
 
-    /* ── Responsive ── */
     @media (max-width: 600px) {
       .page-header h1 { font-size: 1.6rem; }
       .section { padding: 22px 20px; }
@@ -247,69 +237,100 @@
 <main>
   <div class="page-header">
     <h1>Privacy Policy</h1>
-    <p class="meta">Last updated: May 20, 2026 <span>Current</span></p>
+    <p class="meta">Last updated: May 22, 2026 <span>Current</span></p>
   </div>
 
   <div class="intro">
-    <p>RecoverJob is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our missed-call text-back service.</p>
+    <p>RecoverJob is committed to protecting your privacy. This policy explains what information we collect, how we use it, and your rights — including those related to automated SMS messaging sent on behalf of businesses that use our platform.</p>
   </div>
 
+  <!-- 1. Information We Collect -->
   <div class="section">
     <h2>Data Collection</h2>
     <h3>Information We Collect</h3>
-    <p>We collect the following types of information to operate our service:</p>
+    <p>We collect the following categories of information to operate the RecoverJob service:</p>
     <ul>
-      <li><strong>Phone numbers</strong> — the business phone number you register and the numbers of callers who reach your business. Callers who dial a business phone number powered by RecoverJob may receive an automated SMS text message response if their call goes unanswered. By calling a RecoverJob-powered business number, callers acknowledge they may receive a single automated follow-up SMS on behalf of the business. Callers may opt out at any time by replying STOP to any message.</li>
-      <li><strong>Call logs</strong> — records of missed calls, including timestamps and call duration, used to trigger automated follow-up messages.</li>
-      <li><strong>Business information</strong> — your business name, contact details, and account preferences provided during signup.</li>
-      <li><strong>Billing information</strong> — payment details processed securely through our payment provider. We do not store full card numbers.</li>
-      <li><strong>Usage data</strong> — how you interact with the RecoverJob dashboard to help us improve the product.</li>
+      <li><strong>Phone numbers</strong> — the business phone number registered with RecoverJob and the phone numbers of individuals who call that business.</li>
+      <li><strong>Call logs</strong> — records of missed calls including timestamps, used to trigger automated follow-up messages.</li>
+      <li><strong>Business information</strong> — business name, contact details, and account preferences provided at signup.</li>
+      <li><strong>Billing information</strong> — payment details processed securely by our payment provider. We do not store full card numbers.</li>
+      <li><strong>Usage data</strong> — how users interact with the RecoverJob dashboard, used to improve the product.</li>
     </ul>
   </div>
 
+  <!-- 2. SMS Program & Consent -->
+  <div class="section">
+    <h2>SMS Messaging</h2>
+    <h3>Automated Text Messages &amp; Consent Basis</h3>
+    <p>RecoverJob sends automated SMS messages on behalf of businesses to individuals who have called that business and did not receive an answer. Placing a call to a RecoverJob-powered business number constitutes implied consent to receive a single automated follow-up text message from that business.</p>
+    <p>Message frequency varies based on call volume. Message and data rates may apply.</p>
+    <p><strong>To opt out:</strong> Reply <strong>STOP</strong> to any message at any time. Opt-outs are honored immediately. For help, reply <strong>HELP</strong>.</p>
+    <p>Phone numbers collected through the RecoverJob platform are never shared with third parties for marketing purposes and are used solely to deliver the automated response service described above.</p>
+  </div>
+
+  <!-- 3. Customer Notification -->
+  <div class="section">
+    <h2>Best Practices</h2>
+    <h3>Customer Notification (Recommended)</h3>
+    <p>Businesses using RecoverJob are strongly encouraged to notify their customer base about this service. Proactive disclosure builds trust and reduces opt-out rates. Recommended notification methods include:</p>
+    <ul>
+      <li>An email announcement to existing customers</li>
+      <li>A disclosure footer on the business contact page or website</li>
+      <li>A notice on invoices, receipts, or other customer-facing documents</li>
+    </ul>
+    <p>Sample language businesses may use:</p>
+    <div class="sample-language">
+      "We've partnered with RecoverJob to ensure we never miss your calls. When you call and we're unavailable, you may receive an automated text acknowledgment on our behalf. Reply STOP to opt out at any time."
+    </div>
+  </div>
+
+  <!-- 4. How We Use Your Information -->
   <div class="section">
     <h2>Data Usage</h2>
     <h3>How We Use Your Information</h3>
-    <p>The information we collect is used solely to provide and improve the RecoverJob service:</p>
+    <p>Information collected through RecoverJob is used exclusively to:</p>
     <ul>
-      <li>Sending automated SMS text messages to callers who missed your business line.</li>
-      <li>Tracking lead activity and response data within your dashboard.</li>
-      <li>Processing your subscription and billing.</li>
-      <li>Sending service-related communications such as account alerts and support responses.</li>
-      <li>Improving reliability, performance, and features of the platform.</li>
+      <li>Send automated SMS responses to missed callers on behalf of the registered business.</li>
+      <li>Track lead activity and response data within the business dashboard.</li>
+      <li>Process subscription billing and send account-related communications.</li>
+      <li>Improve the reliability and features of the platform.</li>
     </ul>
   </div>
 
+  <!-- 5. Data Sharing -->
   <div class="section">
     <h2>Data Sharing</h2>
     <h3>We Never Sell Your Data</h3>
-    <p>We do not sell, rent, trade, or otherwise transfer your personal information or your customers' information to third parties for marketing or any other commercial purposes. Your data is yours.</p>
-    <p>We share data only with trusted service providers necessary to operate RecoverJob — such as SMS carriers and payment processors — and only to the extent required to deliver the service. These providers are contractually bound to protect your data and may not use it for their own purposes.</p>
+    <p>We do not sell, rent, or trade personal information — including caller phone numbers — to any third party for marketing or commercial purposes.</p>
+    <p>We share data only with service providers required to operate RecoverJob (such as SMS carriers and payment processors), and only to the extent necessary to deliver the service. All providers are contractually prohibited from using your data for their own purposes.</p>
   </div>
 
+  <!-- 6. Data Retention -->
   <div class="section">
     <h2>Retention</h2>
     <h3>Data Retention</h3>
-    <p>We retain your data for as long as your account is active or as needed to provide the service. Call logs and message history are retained for up to 24 months. Billing records are retained as required by law.</p>
+    <p>We retain account and business data for as long as your account remains active. Call logs and message history are retained for up to 24 months. Billing records are retained as required by applicable law.</p>
   </div>
 
+  <!-- 7. Your Rights -->
   <div class="section">
     <h2>Your Rights</h2>
     <h3>Access, Correction &amp; Deletion</h3>
-    <p>You have the right to access, correct, or delete your personal data at any time. To request deletion of your account and associated data, contact us at the address below. We will process your request within 30 days.</p>
-    <p>Callers who received automated texts may also request removal from future messages by replying <strong>STOP</strong> to any message or by contacting us directly.</p>
+    <p>You may request access to, correction of, or deletion of your personal data at any time by contacting us at the address below. We will fulfill deletion requests within 30 days. Callers may also remove themselves from future messages by replying <strong>STOP</strong> to any message.</p>
   </div>
 
+  <!-- 8. Security -->
   <div class="section">
     <h2>Security</h2>
     <h3>How We Protect Your Data</h3>
-    <p>We use industry-standard security measures including encryption in transit (TLS) and at rest to protect your information. No method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+    <p>We use industry-standard safeguards including TLS encryption in transit and encryption at rest. No transmission method is 100% secure, and we cannot guarantee absolute security.</p>
   </div>
 
+  <!-- 9. Policy Updates -->
   <div class="section">
     <h2>Updates</h2>
     <h3>Changes to This Policy</h3>
-    <p>We may update this Privacy Policy from time to time. We will notify you of material changes by email or via an in-app notice. Continued use of the service after changes take effect constitutes your acceptance of the updated policy.</p>
+    <p>We may update this Privacy Policy periodically. Material changes will be communicated by email or in-app notice. Continued use of the service after changes take effect constitutes acceptance of the revised policy.</p>
   </div>
 
   <div class="contact-card">
