@@ -1,4 +1,15 @@
+import { useEffect } from 'react';
+
 export default function Signup() {
+  useEffect(() => {
+    if (!document.querySelector('script[src*="buy-button.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://js.stripe.com/v3/buy-button.js';
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
   return (
     <div style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", minHeight: '100vh', background: '#f3f4f6' }}>
 
@@ -24,27 +35,18 @@ export default function Signup() {
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 900, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.8px', marginBottom: 20 }}>
             Never Miss Another<br /><span style={{ color: '#4CAF29' }}>Customer Call</span>
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#93aed8', lineHeight: 1.7, marginBottom: 40, maxWidth: 540, margin: '0 auto 40px' }}>
+          <p style={{ fontSize: '1.1rem', color: '#93aed8', lineHeight: 1.7, maxWidth: 540, margin: '0 auto 40px' }}>
             Automatic text responses for missed calls. Start your 30-day free trial today — set up in minutes.
           </p>
-          <a
-            href="https://buy.stripe.com/3cIdR2cZX514euXdA0bQY00"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 10,
-              background: '#4CAF29', color: '#fff', fontWeight: 700,
-              fontSize: '1.1rem', padding: '18px 44px', borderRadius: 12,
-              textDecoration: 'none', boxShadow: '0 6px 24px rgba(76,175,41,0.4)',
-              transition: 'all 0.18s ease',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#3d9922'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#4CAF29'; e.currentTarget.style.transform = 'translateY(0)'; }}
-          >
-            Start Free Trial
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-          <p style={{ marginTop: 14, fontSize: '0.82rem', color: '#6b87b8' }}>
+
+          {/* Stripe Buy Button */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TZx4e2Wb7bA2t0KycH5yzAZ"
+              publishable-key="pk_live_51TYwt62Wb7bA2t0KAJVNwu6OdN48sT8LNtBJj3cjFF6RY6sdKIBkFvjWxFS4IAZ7GkycSj4EYGdrfJA0aPrGr9yi00iFOeWfNC"
+            />
+          </div>
+          <p style={{ fontSize: '0.82rem', color: '#6b87b8' }}>
             $99/month after trial · Cancel anytime · No contracts
           </p>
         </div>
@@ -55,7 +57,7 @@ export default function Signup() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20 }}>
           {[
             { icon: '⚡', title: 'Capture Every Lead', body: 'Instant automated text responses reach missed callers in under 15 seconds — before they call your competitor.' },
-            { icon: '💼', title: 'Always Professional', body: 'Personalized follow-up texts go out on your behalf, even when you\'re on the job or unavailable.' },
+            { icon: '💼', title: 'Always Professional', body: "Personalized follow-up texts go out on your behalf, even when you're on the job or unavailable." },
             { icon: '📲', title: 'Simple Setup', body: 'Just forward your calls to your RecoverJob number. No complex software, no tech skills needed.' },
             { icon: '💰', title: '$99/Month Flat', body: 'Unlimited missed call texts, lead dashboard, and follow-ups. One price, no surprise fees.' },
           ].map(({ icon, title, body }) => (
@@ -68,7 +70,7 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* Social proof strip */}
+      {/* Stats strip */}
       <div style={{ background: '#fff', borderTop: '1px solid #e5e7eb', borderBottom: '1px solid #e5e7eb', padding: '32px 24px' }}>
         <div style={{ maxWidth: 960, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 48, flexWrap: 'wrap' }}>
           {[
@@ -89,21 +91,16 @@ export default function Signup() {
         <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 800, color: '#fff', marginBottom: 12, letterSpacing: '-0.4px' }}>
           Ready to stop losing jobs?
         </h2>
-        <p style={{ color: '#93aed8', fontSize: '1rem', marginBottom: 32 }}>
+        <p style={{ color: '#93aed8', fontSize: '1rem', marginBottom: 36 }}>
           Join trades businesses using RecoverJob to win more work.
         </p>
-        <a
-          href="https://buy.stripe.com/3cIdR2cZX514euXdA0bQY00"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            background: '#4CAF29', color: '#fff', fontWeight: 700,
-            fontSize: '1rem', padding: '16px 40px', borderRadius: 12,
-            textDecoration: 'none', boxShadow: '0 4px 16px rgba(76,175,41,0.35)',
-          }}
-        >
-          Start Your Free Trial Today →
-        </a>
-        <p style={{ marginTop: 14, fontSize: '0.8rem', color: '#4a6491' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TZx4e2Wb7bA2t0KycH5yzAZ"
+            publishable-key="pk_live_51TYwt62Wb7bA2t0KAJVNwu6OdN48sT8LNtBJj3cjFF6RY6sdKIBkFvjWxFS4IAZ7GkycSj4EYGdrfJA0aPrGr9yi00iFOeWfNC"
+          />
+        </div>
+        <p style={{ fontSize: '0.8rem', color: '#4a6491' }}>
           $99/month after 30 days · Cancel anytime
         </p>
       </div>
