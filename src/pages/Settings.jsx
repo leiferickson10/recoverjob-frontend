@@ -62,6 +62,12 @@ export default function Settings() {
   const [twilioNumber, setTwilioNumber] = useState('');
   const [copied, setCopied] = useState(false);
 
+  const [whitelist, setWhitelist] = useState([]);
+  const [newPhone, setNewPhone] = useState('');
+  const [newLabel, setNewLabel] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const whitelistSave = useSaveState();
+
   useEffect(() => {
     api.get('/businesses/me')
       .then((res) => {
@@ -72,6 +78,7 @@ export default function Settings() {
         setFollowUpDelay(b.followUpDelay ?? 15);
         setFollowUpMessage(b.followUpMessage ?? '');
         setTwilioNumber(b.twilioNumber ?? b.twilio_number ?? b.phone ?? '');
+        setWhitelist(b.whitelist_numbers ?? []);
       })
       .catch((err) => setFetchError(err.message))
       .finally(() => setLoading(false));
@@ -96,6 +103,48 @@ export default function Settings() {
       followUpSave.onSuccess();
     } catch (err) {
       followUpSave.onError(err);
+    }
+  }
+
+  function normalizePhone(raw) {
+    const digits = raw.replace(/\D/g, '');
+    if (digits.length === 10) return `+1${digits}`;
+    if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
+    return null;
+  }
+
+  function formatDisplay(e164) {
+    const d = e164.replace(/\D/g, '');
+    if (d.length === 11) return `+1 (${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7)}`;
+    return e164;
+  }
+
+  function addContact() {
+    setPhoneError('');
+    const normalized = normalizePhone(newPhone);
+    if (!normalized) {
+      setPhoneError('Enter a valid US phone number.');
+      return;
+    }
+    if (whitelist.some(e => e.phone.replace(/\D/g,'') === normalized.replace(/\D/g,''))) {
+      setPhoneError('That number is already in your list.');
+      return;
+    }
+    setWhitelist(prev => [...prev, { phone: normalized, label: newLabel.trim() }]);
+    setNewPhone('');
+    setNewLabel('');
+  }
+
+  function removeContact(phone) {
+    setWhitelist(prev => prev.filter(e => e.phone !== phone));
+  }
+
+  async function saveWhitelist() {
+    try {
+      await api.patch('/businesses/me', { whitelist_numbers: whitelist });
+      whitelistSave.onSuccess();
+    } catch (err) {
+      whitelistSave.onError(err);
     }
   }
 
@@ -227,6 +276,72 @@ export default function Settings() {
           </div>
         </div>
       </div>
+      {/* Whitelist */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 className="text-sm font-semibold text-[#1B2F5E] mb-1">Personal Contacts (Won't Receive Auto-Texts)</h2>
+        <p className="text-xs text-gray-400 mb-5">
+          Add personal phone numbers — family, friends — that shouldn't receive business auto-texts when they call you.
+        </p>
+
+        {/* Existing entries */}
+        {whitelist.length > 0 && (
+          <ul className="flex flex-col gap-2 mb-5">
+            {whitelist.map((entry) => (
+              <li key={entry.phone} className="flex items-center justify-between gap-3 bg-[#F5F7FA] rounded-xl px-4 py-3">
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-[#1B2F5E]">{formatDisplay(entry.phone)}</span>
+                  {entry.label && <span className="text-xs text-gray-400">{entry.label}</span>}
+                </div>
+                <button
+                  onClick={() => removeContact(entry.phone)}
+                  className="text-xs text-red-400 hover:text-red-600 font-medium transition-colors"
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Add form */}
+        <div className="flex flex-col gap-3 mb-5">
+          <div className="flex gap-3">
+            <input
+              type="tel"
+              value={newPhone}
+              onChange={e => { setNewPhone(e.target.value); setPhoneError(''); }}
+              placeholder="(801) 555-0000"
+              className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
+            />
+            <input
+              type="text"
+              value={newLabel}
+              onChange={e => setNewLabel(e.target.value)}
+              placeholder="Label (e.g. Wife)"
+              className="w-36 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
+            />
+            <button
+              onClick={addContact}
+              className="px-4 py-2.5 rounded-xl bg-[#1B2F5E] text-white text-sm font-semibold hover:bg-[#152549] transition-colors whitespace-nowrap"
+            >
+              Add
+            </button>
+          </div>
+          {phoneError && <p className="text-xs text-red-500">{phoneError}</p>}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <button
+            onClick={saveWhitelist}
+            className="px-5 py-2.5 rounded-xl bg-[#4CAF29] text-white text-sm font-semibold hover:bg-[#3d9422] transition-colors"
+          >
+            Save
+          </button>
+          {whitelistSave.saved && <span className="text-sm text-[#4CAF29] font-medium">Saved!</span>}
+          {whitelistSave.error && <span className="text-sm text-red-600">{whitelistSave.error}</span>}
+        </div>
+      </div>
+
     </div>
   );
 }
