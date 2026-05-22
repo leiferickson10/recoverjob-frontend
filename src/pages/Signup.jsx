@@ -1,205 +1,125 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { supabase } from '../lib/supabaseClient';
-import api from '../lib/api';
-
-const stripePromise = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-  ? loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
-  : null;
-
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      fontSize: '14px',
-      fontFamily: 'Inter, -apple-system, sans-serif',
-      color: '#1a1a2e',
-      '::placeholder': { color: '#9ca3af' },
-    },
-    invalid: { color: '#ef4444' },
-  },
-};
-
-function SignupForm() {
-  const navigate = useNavigate();
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const [businessName, setBusinessName] = useState('');
-  const [personalPhone, setPersonalPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      // Step 1: Create account + Stripe subscription on backend
-      const { data } = await api.post('/auth/register', {
-        email,
-        password,
-        businessName,
-        personalPhone,
-      });
-
-      const { clientSecret } = data;
-
-      // Step 2: Confirm card with Stripe if a clientSecret was returned
-      if (clientSecret && stripe && elements) {
-        const cardElement = elements.getElement(CardElement);
-
-        // SetupIntent (seti_) vs PaymentIntent (pi_) require different confirm methods
-        let stripeError;
-        if (clientSecret.startsWith('seti_')) {
-          const result = await stripe.confirmCardSetup(clientSecret, {
-            payment_method: { card: cardElement, billing_details: { email, name: businessName } },
-          });
-          stripeError = result.error;
-        } else {
-          const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { card: cardElement, billing_details: { email, name: businessName } },
-          });
-          stripeError = result.error;
-        }
-
-        if (stripeError) {
-          setError(stripeError.message);
-          setLoading(false);
-          return;
-        }
-      }
-
-      // Step 3: Sign in with Supabase to establish a session
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-      if (signInError) throw signInError;
-
-      navigate('/onboarding');
-    } catch (err) {
-      setError(err.response?.data?.error || err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
+export default function Signup() {
   return (
-    <div className="min-h-screen bg-[#1B2F5E] flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div className="px-10 pt-10 pb-6 flex flex-col items-center gap-3">
-          <img
-            src="/logo.png"
-            alt="RecoverJob"
-            className="h-12 w-auto"
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
-          <h1 className="text-2xl font-bold text-[#1B2F5E] tracking-tight">Start Your Free Trial</h1>
-          <p className="text-gray-500 text-sm text-center">30 days free — no charge until your trial ends</p>
+    <div style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", minHeight: '100vh', background: '#f3f4f6' }}>
+
+      {/* Navbar */}
+      <nav style={{ background: '#1B2F5E', padding: '0 24px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <a href="/" style={{ textDecoration: 'none' }}>
+            <img src="/logo.png" alt="RecoverJob" style={{ height: 44, width: 'auto', display: 'block' }}
+              onError={e => { e.target.style.display = 'none'; }} />
+          </a>
+          <a href="/login" style={{ fontSize: '0.85rem', fontWeight: 500, color: '#93aed8', textDecoration: 'none' }}>
+            Already have an account? <span style={{ color: '#fff' }}>Log in →</span>
+          </a>
         </div>
+      </nav>
 
-        <div className="px-10 pb-10">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-[#3D3D3D]">Business Name</label>
-              <input
-                type="text"
-                value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
-                required
-                placeholder="Mike's Plumbing"
-                className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-[#3D3D3D]">Your Personal Phone Number</label>
-              <input
-                type="tel"
-                value={personalPhone}
-                onChange={(e) => setPersonalPhone(e.target.value)}
-                required
-                placeholder="+1 (801) 555-0000"
-                className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
-              />
-              <p className="text-xs text-gray-400">We'll forward customer replies to this number.</p>
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-[#3D3D3D]">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="you@example.com"
-                className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-[#3D3D3D]">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="••••••••"
-                className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
-              />
-            </div>
-
-            {stripePromise && (
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-[#3D3D3D]">Card Details</label>
-                <div className="border border-gray-200 rounded-xl px-4 py-3 focus-within:border-[#1B2F5E] focus-within:ring-2 focus-within:ring-[#1B2F5E]/10 transition-colors">
-                  <CardElement options={CARD_ELEMENT_OPTIONS} />
-                </div>
-                <p className="text-xs text-gray-400">Your card will not be charged for 30 days.</p>
-              </div>
-            )}
-
-            {error && (
-              <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600">
-                {error}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading || (stripePromise && !stripe)}
-              className="bg-[#4CAF29] text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-[#3d9422] disabled:opacity-50 transition-colors mt-1"
-            >
-              {loading ? 'Setting up your account…' : 'Start Free Trial — No charge for 30 days'}
-            </button>
-          </form>
-
-          <p className="mt-6 text-sm text-gray-500 text-center">
-            Already have an account?{' '}
-            <Link to="/login" className="text-[#4CAF29] font-semibold hover:text-[#3d9422] transition-colors">
-              Sign in
-            </Link>
+      {/* Hero */}
+      <div style={{ background: 'linear-gradient(160deg, #1B2F5E 0%, #243d75 100%)', padding: '72px 24px 80px' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(76,175,41,0.15)', color: '#7ed659', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', padding: '6px 16px', borderRadius: 20, marginBottom: 28 }}>
+            <span>✓</span> 30-Day Free Trial — No Credit Card Risk
+          </div>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 900, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.8px', marginBottom: 20 }}>
+            Never Miss Another<br /><span style={{ color: '#4CAF29' }}>Customer Call</span>
+          </h1>
+          <p style={{ fontSize: '1.1rem', color: '#93aed8', lineHeight: 1.7, marginBottom: 40, maxWidth: 540, margin: '0 auto 40px' }}>
+            Automatic text responses for missed calls. Start your 30-day free trial today — set up in minutes.
+          </p>
+          <a
+            href="https://buy.stripe.com/3cIdR2cZX514euXdA0bQY00"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              background: '#4CAF29', color: '#fff', fontWeight: 700,
+              fontSize: '1.1rem', padding: '18px 44px', borderRadius: 12,
+              textDecoration: 'none', boxShadow: '0 6px 24px rgba(76,175,41,0.4)',
+              transition: 'all 0.18s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#3d9922'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#4CAF29'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            Start Free Trial
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+          <p style={{ marginTop: 14, fontSize: '0.82rem', color: '#6b87b8' }}>
+            $99/month after trial · Cancel anytime · No contracts
           </p>
         </div>
       </div>
-    </div>
-  );
-}
 
-export default function Signup() {
-  if (!stripePromise) {
-    return (
-      <Elements stripe={null}>
-        <SignupForm />
-      </Elements>
-    );
-  }
-  return (
-    <Elements stripe={stripePromise}>
-      <SignupForm />
-    </Elements>
+      {/* Benefits */}
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '64px 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20 }}>
+          {[
+            { icon: '⚡', title: 'Capture Every Lead', body: 'Instant automated text responses reach missed callers in under 15 seconds — before they call your competitor.' },
+            { icon: '💼', title: 'Always Professional', body: 'Personalized follow-up texts go out on your behalf, even when you\'re on the job or unavailable.' },
+            { icon: '📲', title: 'Simple Setup', body: 'Just forward your calls to your RecoverJob number. No complex software, no tech skills needed.' },
+            { icon: '💰', title: '$99/Month Flat', body: 'Unlimited missed call texts, lead dashboard, and follow-ups. One price, no surprise fees.' },
+          ].map(({ icon, title, body }) => (
+            <div key={title} style={{ background: '#fff', borderRadius: 16, padding: '28px 24px', border: '1px solid #e5e7eb', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+              <div style={{ fontSize: '2rem', marginBottom: 14 }}>{icon}</div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#1B2F5E', marginBottom: 8 }}>{title}</h3>
+              <p style={{ fontSize: '0.9rem', color: '#6b7280', lineHeight: 1.6, margin: 0 }}>{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Social proof strip */}
+      <div style={{ background: '#fff', borderTop: '1px solid #e5e7eb', borderBottom: '1px solid #e5e7eb', padding: '32px 24px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 48, flexWrap: 'wrap' }}>
+          {[
+            { value: '15 sec', label: 'Average response time' },
+            { value: '30–60%', label: 'More leads recovered' },
+            { value: '30 days', label: 'Free trial, no risk' },
+          ].map(({ value, label }) => (
+            <div key={label} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '1.6rem', fontWeight: 900, color: '#1B2F5E', lineHeight: 1 }}>{value}</div>
+              <div style={{ fontSize: '0.8rem', color: '#6b7280', marginTop: 4 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom CTA */}
+      <div style={{ background: '#1B2F5E', padding: '64px 24px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 800, color: '#fff', marginBottom: 12, letterSpacing: '-0.4px' }}>
+          Ready to stop losing jobs?
+        </h2>
+        <p style={{ color: '#93aed8', fontSize: '1rem', marginBottom: 32 }}>
+          Join trades businesses using RecoverJob to win more work.
+        </p>
+        <a
+          href="https://buy.stripe.com/3cIdR2cZX514euXdA0bQY00"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            background: '#4CAF29', color: '#fff', fontWeight: 700,
+            fontSize: '1rem', padding: '16px 40px', borderRadius: 12,
+            textDecoration: 'none', boxShadow: '0 4px 16px rgba(76,175,41,0.35)',
+          }}
+        >
+          Start Your Free Trial Today →
+        </a>
+        <p style={{ marginTop: 14, fontSize: '0.8rem', color: '#4a6491' }}>
+          $99/month after 30 days · Cancel anytime
+        </p>
+      </div>
+
+      {/* Footer */}
+      <div style={{ background: '#132347', padding: '20px 24px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+          <span style={{ fontSize: '0.8rem', color: '#4a6491' }}>© 2026 RecoverJob. All rights reserved.</span>
+          <div style={{ display: 'flex', gap: 20 }}>
+            {[['Privacy Policy', '/privacy-policy'], ['Terms', '/terms-and-conditions'], ['Login', '/login']].map(([label, href]) => (
+              <a key={href} href={href} style={{ fontSize: '0.8rem', color: '#6b87b8', textDecoration: 'none' }}>{label}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
   );
 }
