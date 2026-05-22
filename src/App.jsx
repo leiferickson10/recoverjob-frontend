@@ -1,4 +1,12 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+function StripeRedirect() {
+  useEffect(() => {
+    window.location.replace('https://buy.stripe.com/3cIdR2cZX514euXdA0bQY00');
+  }, []);
+  return null;
+}
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
@@ -24,7 +32,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/landing.html" replace />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<StripeRedirect />} />
           <Route
             path="/onboarding"
             element={<ProtectedRoute><Onboarding /></ProtectedRoute>}
