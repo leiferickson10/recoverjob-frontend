@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
 import Settings from './pages/Settings';
 import Onboarding from './pages/Onboarding';
+import SmsConsent from './pages/SmsConsent';
 
 function ProtectedLayout({ children }) {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Navigate to="/landing.html" replace />} />
+          <Route path="/sms-consent" element={<SmsConsent />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route

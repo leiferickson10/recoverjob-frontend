@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMS Consent &amp; Messaging Disclosure – RecoverJob</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #374151;
+      background: #f3f4f6;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: #1B2F5E;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.4px;
+    }
+    .logo span { color: #4CAF29; }
+    .back-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #93aed8;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: #fff; }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+
+    .page-header { margin-bottom: 36px; }
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1B2F5E;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .meta {
+      font-size: 0.82rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+    .meta span {
+      display: inline-block;
+      background: #e8f5e2;
+      color: #2d7a18;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .intro {
+      background: #fff;
+      border-radius: 12px;
+      border-left: 4px solid #4CAF29;
+      padding: 20px 24px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .intro p { color: #374151; font-size: 0.97rem; margin: 0; }
+
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4CAF29;
+      margin-bottom: 12px;
+    }
+    .section h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1B2F5E;
+      margin-bottom: 12px;
+    }
+    .section p {
+      color: #4b5563;
+      font-size: 0.94rem;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    .section ul {
+      list-style: none;
+      margin: 4px 0 12px;
+      padding: 0;
+    }
+    .section ul li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.94rem;
+      color: #4b5563;
+      padding: 5px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .section ul li:last-child { border-bottom: none; }
+    .section ul li::before {
+      content: "";
+      display: block;
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CAF29;
+      margin-top: 8px;
+    }
+
+    .sample-language {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #4CAF29;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #4b5563;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .consent-option {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+    }
+    .consent-option:last-child { margin-bottom: 0; }
+    .consent-option-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #4CAF29;
+      margin-bottom: 6px;
+    }
+    .consent-option h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1B2F5E;
+      margin-bottom: 10px;
+    }
+    .consent-option p {
+      color: #4b5563;
+      font-size: 0.93rem;
+      margin-bottom: 10px;
+    }
+    .consent-option p:last-child { margin-bottom: 0; }
+
+    /* SMS bubbles */
+    .phone-frame {
+      background: #1a1a2e;
+      border-radius: 24px;
+      padding: 20px 16px;
+      max-width: 360px;
+      margin: 16px auto 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .phone-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .phone-contact { font-size: 0.78rem; font-weight: 600; color: #a0aec0; }
+    .phone-tag { font-size: 0.7rem; color: #4a5568; }
+    .bubbles { display: flex; flex-direction: column; gap: 10px; padding: 0 4px; }
+    .bubble {
+      max-width: 82%;
+      padding: 11px 15px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+    .bubble-in {
+      background: #2d3748;
+      color: #e2e8f0;
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+    }
+    .bubble-out {
+      background: #4CAF29;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+    .bubble-label {
+      font-size: 0.68rem;
+      color: #4a5568;
+      margin-bottom: 4px;
+      padding: 0 4px;
+    }
+    .bubble-label-right {
+      text-align: right;
+    }
+
+    /* SMS details table */
+    .sms-box {
+      background: #fffbf0;
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 12px 0;
+    }
+    .sms-box table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .sms-box td {
+      padding: 8px 0;
+      vertical-align: top;
+      border-bottom: 1px solid #fef3c7;
+      color: #4b5563;
+    }
+    .sms-box tr:last-child td { border-bottom: none; }
+    .sms-box td:first-child {
+      font-weight: 700;
+      color: #1B2F5E;
+      white-space: nowrap;
+      padding-right: 20px;
+      width: 130px;
+    }
+
+    /* Legal doc buttons */
+    .legal-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .legal-btn {
+      flex: 1;
+      min-width: 160px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 9px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .legal-btn-primary {
+      background: #1B2F5E;
+      color: #fff;
+      border: 2px solid #1B2F5E;
+    }
+    .legal-btn-primary:hover { background: #15254d; border-color: #15254d; text-decoration: none; }
+    .legal-btn-outline {
+      background: transparent;
+      color: #1B2F5E;
+      border: 2px solid #1B2F5E;
+    }
+    .legal-btn-outline:hover { background: #f0f4ff; text-decoration: none; }
+
+    strong { color: #1B2F5E; font-weight: 600; }
+    a { color: #4CAF29; text-decoration: none; font-weight: 500; }
+    a:hover { text-decoration: underline; }
+
+    .contact-card {
+      background: #1B2F5E;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .contact-card p { color: #c9d5f0; font-size: 0.92rem; margin: 0; }
+    .contact-card p strong { color: #fff; }
+    .contact-card a {
+      display: inline-block;
+      background: #4CAF29;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .contact-card a:hover { background: #3d9922; }
+
+    footer {
+      background: #1B2F5E;
+      padding: 20px 32px;
+    }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 0.8rem; color: #6b87b8; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: #93aed8;
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    @media (max-width: 600px) {
+      .page-header h1 { font-size: 1.6rem; }
+      .section { padding: 22px 20px; }
+      .consent-option { padding: 16px 18px; }
+      .contact-card { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .sms-box td:first-child { width: auto; }
+      .legal-btn { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="https://recoverjob.com">Recover<span>Job</span></a>
+    <a class="back-link" href="https://recoverjob.com">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      recoverjob.com
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="page-header">
+    <h1>SMS Consent &amp; Messaging Disclosure</h1>
+    <p class="meta">Last updated: May 26, 2026 <span>Current</span></p>
+  </div>
+
+  <div class="intro">
+    <p>This page explains how RecoverJob sends automated SMS messages on behalf of businesses, how recipient consent is established, and how recipients can opt out at any time.</p>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <h2>About the Service</h2>
+    <h3>About RecoverJob SMS</h3>
+    <p>RecoverJob is a SaaS platform that sends automated SMS messages on behalf of trades businesses (plumbers, HVAC, electricians, etc.) to individuals who called that business and did not reach anyone. Messages are sent as a direct transactional response to the caller's inbound service request.</p>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <h2>Consent</h2>
+    <h3>How Consent Works</h3>
+    <p>RecoverJob establishes consent through one of two methods before sending any automated message:</p>
+
+    <div style="margin-top:16px;">
+      <div class="consent-option">
+        <div class="consent-option-label">Option 1</div>
+        <h4>Advance Notice — Explicit Consent</h4>
+        <p>Businesses using RecoverJob are strongly encouraged to notify their customers before activation. The notification template states:</p>
+        <div class="sample-language">"We've partnered with RecoverJob to ensure we never miss your calls. When you call and we're unavailable, you may receive an automated text acknowledgment. Reply STOP to opt out at any time."</div>
+        <p style="margin-top:12px;">Customers who opt out in advance are permanently added to a do-not-text list and never receive automated messages.</p>
+      </div>
+
+      <div class="consent-option">
+        <div class="consent-option-label">Option 2</div>
+        <h4>Inbound Call — Implied Consent</h4>
+        <p>When a customer voluntarily calls a business and does not reach anyone, the call forwards to a RecoverJob-managed number. RecoverJob checks the do-not-text list then sends a single transactional SMS on behalf of the business. The voluntary inbound call establishes an existing business relationship and implied consent for a transactional response under TCPA.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <h2>Sample Messages</h2>
+    <h3>Example Messages</h3>
+    <p>The messages below are representative examples of automated SMS sent by RecoverJob on behalf of a business:</p>
+
+    <div class="phone-frame">
+      <div class="phone-bar">
+        <span class="phone-contact">Bob's Plumbing</span>
+        <span class="phone-tag">SMS</span>
+      </div>
+      <div class="bubbles">
+        <div class="bubble-label">Initial message</div>
+        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. Sorry we missed your call. We'll get back to you as soon as possible. What can we help you with? Reply STOP to opt out.</div>
+
+        <div class="bubble-label" style="margin-top:6px;">Follow-up</div>
+        <div class="bubble bubble-in">Bob's Plumbing here — we still want to help. Please call us back or reply here with details. Reply STOP to opt out.</div>
+
+        <div class="bubble-label bubble-label-right" style="margin-top:6px;">Business reply</div>
+        <div class="bubble bubble-out">Hi, this is Bob from Bob's Plumbing. Got your message — when's a good time to call you back? Reply STOP to opt out.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section">
+    <h2>Message Details</h2>
+    <h3>Program Information</h3>
+    <div class="sms-box">
+      <table>
+        <tr>
+          <td>Frequency</td>
+          <td>1–2 messages per missed call</td>
+        </tr>
+        <tr>
+          <td>Rates</td>
+          <td>Message and data rates may apply</td>
+        </tr>
+        <tr>
+          <td>Opt-Out</td>
+          <td>Reply <strong>STOP</strong> to any message. Opt-outs are honored immediately and permanently.</td>
+        </tr>
+        <tr>
+          <td>Help</td>
+          <td>Reply <strong>HELP</strong> for assistance</td>
+        </tr>
+        <tr>
+          <td>Data</td>
+          <td>Mobile numbers are never shared with third parties for marketing purposes</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section">
+    <h2>Legal Documents</h2>
+    <h3>Policies &amp; Terms</h3>
+    <p>Review our full legal documents below:</p>
+    <div class="legal-links">
+      <a class="legal-btn legal-btn-primary" href="https://recoverjob.com/privacy-policy" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Privacy Policy
+      </a>
+      <a class="legal-btn legal-btn-outline" href="https://recoverjob.com/terms" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Terms &amp; Conditions
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <p><strong>Questions about our messaging practices?</strong><br>Email us at support@recoverjob.com</p>
+    <a href="mailto:support@recoverjob.com">Contact Support</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 RecoverJob. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://recoverjob.com">recoverjob.com</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
