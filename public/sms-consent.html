@@ -214,13 +214,13 @@
       line-height: 1.55;
     }
     .bubble-in {
-      background: #2d3748;
-      color: #e2e8f0;
+      background: #e5e5ea;
+      color: #1c1c1e;
       align-self: flex-start;
       border-bottom-left-radius: 5px;
     }
     .bubble-out {
-      background: #4CAF29;
+      background: #007AFF;
       color: #fff;
       align-self: flex-end;
       border-bottom-right-radius: 5px;
@@ -419,7 +419,7 @@
   <div class="section">
     <h2>Sample Messages</h2>
     <h3>Example Messages</h3>
-    <p>The messages below are representative examples of automated SMS sent by RecoverJob on behalf of a business:</p>
+    <p>The exchange below is a representative example conversation showing how RecoverJob messages work in practice. Bubbles on the left are from the business; bubbles on the right are the customer's replies.</p>
 
     <div class="phone-frame">
       <div class="phone-bar">
@@ -427,14 +427,14 @@
         <span class="phone-tag">SMS</span>
       </div>
       <div class="bubbles">
-        <div class="bubble-label">Initial message</div>
+        <div class="bubble-label">Business</div>
         <div class="bubble bubble-in">Hi, this is Bob's Plumbing. Sorry we missed your call. We'll get back to you as soon as possible. What can we help you with? Reply STOP to opt out.</div>
 
-        <div class="bubble-label" style="margin-top:6px;">Follow-up</div>
-        <div class="bubble bubble-in">Bob's Plumbing here — we still want to help. Please call us back or reply here with details. Reply STOP to opt out.</div>
+        <div class="bubble-label bubble-label-right" style="margin-top:6px;">Customer</div>
+        <div class="bubble bubble-out">My water heater is leaking, need someone today if possible.</div>
 
-        <div class="bubble-label bubble-label-right" style="margin-top:6px;">Business reply</div>
-        <div class="bubble bubble-out">Hi, this is Bob from Bob's Plumbing. Got your message — when's a good time to call you back? Reply STOP to opt out.</div>
+        <div class="bubble-label" style="margin-top:6px;">Business</div>
+        <div class="bubble bubble-in">Thanks! This is Bob from Bob's Plumbing. I can come by this afternoon — what's the address and a good callback number?</div>
       </div>
     </div>
   </div>
