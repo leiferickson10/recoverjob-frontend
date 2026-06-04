@@ -187,6 +187,22 @@
     }
     .consent-option p:last-child { margin-bottom: 0; }
 
+    .consent-option .sample-language { margin-top: 10px; }
+
+    .step-required {
+      display: inline-block;
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
     /* SMS bubbles */
     .phone-frame {
       background: #1a1a2e;
@@ -225,6 +241,15 @@
       align-self: flex-end;
       border-bottom-right-radius: 5px;
     }
+    .bubble-out-yes {
+      background: #4CAF29;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
     .bubble-label {
       font-size: 0.68rem;
       color: #4a5568;
@@ -260,8 +285,45 @@
       color: #1B2F5E;
       white-space: nowrap;
       padding-right: 20px;
-      width: 130px;
+      width: 140px;
     }
+
+    /* Keyword reference table */
+    .keyword-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.92rem;
+    }
+    .keyword-table th {
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9ca3af;
+      border-bottom: 2px solid #f3f4f6;
+    }
+    .keyword-table td {
+      padding: 11px 12px;
+      border-bottom: 1px solid #f3f4f6;
+      color: #4b5563;
+      vertical-align: middle;
+    }
+    .keyword-table tr:last-child td { border-bottom: none; }
+    .keyword-pill {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+    .pill-yes  { background: #e8f5e2; color: #2d7a18; }
+    .pill-stop { background: #fee2e2; color: #b91c1c; }
+    .pill-start{ background: #dbeafe; color: #1d4ed8; }
+    .pill-help { background: #fef3c7; color: #92400e; }
 
     /* Legal doc buttons */
     .legal-links {
@@ -378,46 +440,64 @@
 <main>
   <div class="page-header">
     <h1>SMS Consent &amp; Messaging Disclosure</h1>
-    <p class="meta">Last updated: May 26, 2026 <span>Current</span></p>
+    <p class="meta">Last updated: June 4, 2026 <span>Current</span></p>
   </div>
 
   <div class="intro">
-    <p>This page explains how RecoverJob sends automated SMS messages on behalf of businesses, how recipient consent is established, and how recipients can opt out at any time.</p>
+    <p>This page explains how RecoverJob sends automated SMS messages on behalf of businesses, how recipient consent is obtained via SMS keyword opt-in, and how recipients can opt out at any time.</p>
   </div>
 
-  <!-- Section 1 -->
+  <!-- Section 1: About -->
   <div class="section">
     <h2>About the Service</h2>
     <h3>About RecoverJob SMS</h3>
-    <p>RecoverJob is a SaaS platform that sends automated SMS messages on behalf of trades businesses (plumbers, HVAC, electricians, etc.) to individuals who called that business and did not reach anyone. Messages are sent as a direct transactional response to the caller's inbound service request.</p>
+    <p>RecoverJob is a SaaS platform that sends automated SMS messages on behalf of trades businesses (plumbers, HVAC, electricians, etc.). Before any follow-up messages are sent, RecoverJob first obtains explicit consent from the caller via SMS keyword opt-in. No marketing or follow-up messages are delivered until the recipient actively replies <strong>YES</strong>.</p>
   </div>
 
-  <!-- Section 2 -->
+  <!-- Section 2: How Consent Works -->
   <div class="section">
     <h2>Consent</h2>
-    <h3>How Consent Works</h3>
-    <p>Before any automated SMS is sent, each business using RecoverJob is <strong>required</strong> to notify its customers through advance disclosure. RecoverJob does not send messages based on implied consent.</p>
+    <h3>How Consent Works — SMS Keyword Opt-In</h3>
+    <p>RecoverJob uses a keyword opt-in flow. The recipient must actively reply <strong>YES</strong> before any follow-up messages are sent. The steps below describe the exact experience every recipient goes through.</p>
 
-    <div style="margin-top:16px;">
+    <div style="margin-top:20px; display:flex; flex-direction:column; gap:12px;">
+
       <div class="consent-option">
-        <h4>Advance Disclosure — Required Before Activation</h4>
-        <p>Every business must complete two disclosure steps before RecoverJob begins sending messages on their behalf:</p>
-        <ul>
-          <li><strong>Voicemail greeting:</strong> The business updates its outgoing voicemail to state that callers may receive an automated SMS follow-up.</li>
-          <li><strong>Customer notification:</strong> The business notifies its existing customer base via email, website disclosure, or invoices using templates provided by RecoverJob.</li>
-        </ul>
-        <p style="margin-top:10px;">Sample customer notification language:</p>
-        <div class="sample-language">"We've partnered with RecoverJob to ensure we never miss your calls. When you call and we're unavailable, you may receive an automated text acknowledgment. Reply STOP to opt out at any time."</div>
-        <p style="margin-top:12px;">Customers who wish to opt out in advance may do so at any time. They are permanently added to a do-not-text list and never receive automated messages.</p>
+        <div class="consent-option-label">Step 1</div>
+        <h4>Missed Call Trigger</h4>
+        <p>When a customer calls a RecoverJob business partner and does not reach anyone, the call is detected by our system. No SMS is sent at this point.</p>
       </div>
+
+      <div class="consent-option">
+        <div class="consent-option-label">Step 2</div>
+        <h4>Opt-In Request — First &amp; Only Message Sent Without Consent</h4>
+        <div class="step-required">Action required from recipient</div>
+        <p>The customer receives a single opt-in SMS asking for permission to follow up. This is the only message ever sent before consent is confirmed.</p>
+        <div class="sample-language">"Hi, this is [Business Name]. We noticed you called us recently. Would you like us to text you back regarding your missed call? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply."</div>
+      </div>
+
+      <div class="consent-option">
+        <div class="consent-option-label">Step 3</div>
+        <h4>Customer Action Required</h4>
+        <p>The customer must actively reply <strong>YES</strong> to receive any further messages. If they do not reply, or reply <strong>STOP</strong>, no additional messages are ever sent. Consent is never assumed.</p>
+      </div>
+
+      <div class="consent-option">
+        <div class="consent-option-label">Step 4</div>
+        <h4>Follow-Up — Sent Only After YES</h4>
+        <p>After the customer replies YES, they receive one follow-up message from the business:</p>
+        <div class="sample-language">"Hi, this is [Business Name]. Sorry we missed your call. What can we help you with? Reply STOP to opt out."</div>
+        <p style="margin-top:10px;">The customer's opt-in is recorded and their reply is forwarded to the business owner so they can respond directly.</p>
+      </div>
+
     </div>
   </div>
 
-  <!-- Section 3 -->
+  <!-- Section 3: Sample Conversation -->
   <div class="section">
     <h2>Sample Messages</h2>
-    <h3>Example Messages</h3>
-    <p>The exchange below is a representative example conversation showing how RecoverJob messages work in practice. Bubbles on the left are from the business; bubbles on the right are the customer's replies.</p>
+    <h3>Example Conversation</h3>
+    <p>The exchange below shows the complete opt-in flow as a real customer would experience it. Business messages appear on the left; customer replies appear on the right.</p>
 
     <div class="phone-frame">
       <div class="phone-bar">
@@ -425,35 +505,48 @@
         <span class="phone-tag">SMS</span>
       </div>
       <div class="bubbles">
-        <div class="bubble-label">Business</div>
-        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. Sorry we missed your call. We'll get back to you as soon as possible. What can we help you with? Reply STOP to opt out.</div>
 
-        <div class="bubble-label bubble-label-right" style="margin-top:6px;">Customer</div>
-        <div class="bubble bubble-out">My water heater is leaking, need someone today if possible.</div>
+        <div class="bubble-label">Bob's Plumbing</div>
+        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. We noticed you called us recently. Would you like us to text you back regarding your missed call? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply.</div>
 
-        <div class="bubble-label" style="margin-top:6px;">Business</div>
-        <div class="bubble bubble-in">Thanks! This is Bob from Bob's Plumbing. I can come by this afternoon — what's the address and a good callback number?</div>
+        <div class="bubble-label bubble-label-right" style="margin-top:8px;">You — opt-in confirmation</div>
+        <div class="bubble bubble-out-yes">YES</div>
+
+        <div class="bubble-label" style="margin-top:8px;">Bob's Plumbing</div>
+        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. Sorry we missed your call. What can we help you with? Reply STOP to opt out.</div>
+
+        <div class="bubble-label bubble-label-right" style="margin-top:8px;">You</div>
+        <div class="bubble bubble-out">Hi, I need someone to look at a leaking pipe under my sink.</div>
+
       </div>
     </div>
   </div>
 
-  <!-- Section 4 -->
+  <!-- Section 4: Program Information -->
   <div class="section">
     <h2>Message Details</h2>
     <h3>Program Information</h3>
     <div class="sms-box">
       <table>
         <tr>
+          <td>Opt-In Method</td>
+          <td>SMS keyword — reply <strong>YES</strong> to opt-in request</td>
+        </tr>
+        <tr>
+          <td>Opt-In Keyword</td>
+          <td><strong>YES</strong></td>
+        </tr>
+        <tr>
+          <td>Opt-Out Keyword</td>
+          <td>Reply <strong>STOP</strong> to any message. Opt-outs are honored immediately and permanently.</td>
+        </tr>
+        <tr>
           <td>Frequency</td>
-          <td>1–2 messages per missed call</td>
+          <td>1–2 messages per missed call after consent is confirmed</td>
         </tr>
         <tr>
           <td>Rates</td>
           <td>Message and data rates may apply</td>
-        </tr>
-        <tr>
-          <td>Opt-Out</td>
-          <td>Reply <strong>STOP</strong> to any message. Opt-outs are honored immediately and permanently.</td>
         </tr>
         <tr>
           <td>Help</td>
@@ -467,17 +560,50 @@
     </div>
   </div>
 
-  <!-- Section 5 -->
+  <!-- Section 5: Keyword Reference -->
+  <div class="section">
+    <h2>Keywords</h2>
+    <h3>Keyword Reference</h3>
+    <p>At any time you may send one of the following keywords to control your messaging preferences:</p>
+    <table class="keyword-table">
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>What it does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="keyword-pill pill-yes">YES</span></td>
+          <td>Opt in to receive follow-up messages from the business</td>
+        </tr>
+        <tr>
+          <td><span class="keyword-pill pill-stop">STOP</span></td>
+          <td>Opt out immediately and permanently — no further messages will be sent</td>
+        </tr>
+        <tr>
+          <td><span class="keyword-pill pill-start">START</span></td>
+          <td>Resubscribe after opting out</td>
+        </tr>
+        <tr>
+          <td><span class="keyword-pill pill-help">HELP</span></td>
+          <td>Receive support contact information</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 6: Legal Documents -->
   <div class="section">
     <h2>Legal Documents</h2>
     <h3>Policies &amp; Terms</h3>
     <p>Review our full legal documents below:</p>
     <div class="legal-links">
-      <a class="legal-btn legal-btn-primary" href="https://recoverjob.com/privacy-policy" target="_blank" rel="noopener noreferrer">
+      <a class="legal-btn legal-btn-primary" href="https://www.recoverjob.com/privacy-policy" target="_blank" rel="noopener noreferrer">
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         Privacy Policy
       </a>
-      <a class="legal-btn legal-btn-outline" href="https://recoverjob.com/terms" target="_blank" rel="noopener noreferrer">
+      <a class="legal-btn legal-btn-outline" href="https://www.recoverjob.com/terms-and-conditions" target="_blank" rel="noopener noreferrer">
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         Terms &amp; Conditions
       </a>
@@ -495,8 +621,8 @@
     <span class="footer-copy">&copy; 2026 RecoverJob. All rights reserved.</span>
     <div class="footer-links">
       <a href="https://recoverjob.com">recoverjob.com</a>
-      <a href="/privacy-policy">Privacy Policy</a>
-      <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+      <a href="https://www.recoverjob.com/privacy-policy">Privacy Policy</a>
+      <a href="https://www.recoverjob.com/terms-and-conditions">Terms &amp; Conditions</a>
     </div>
   </div>
 </footer>
