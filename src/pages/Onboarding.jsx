@@ -94,7 +94,7 @@ export default function Onboarding() {
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           <div className="inline-flex items-center gap-2 bg-[#4CAF29]/20 text-[#7ed659] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">
-            ✓ Account Created
+            Account Created
           </div>
           <h1 className="text-3xl font-extrabold text-white mb-3 tracking-tight">
             Welcome to RecoverJob!
@@ -165,7 +165,7 @@ export default function Onboarding() {
           <div className="px-6 py-6">
             {current.note && (
               <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-800 mb-5 leading-relaxed">
-                💡 {current.note}
+                {current.note}
               </div>
             )}
             <ol className="flex flex-col gap-4">
