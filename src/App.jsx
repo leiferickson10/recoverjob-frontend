@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import SettingUp from './pages/SettingUp';
 import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
 import Settings from './pages/Settings';
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/sms-consent" element={<SmsConsent />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/setting-up" element={<SettingUp />} />
           <Route
             path="/onboarding"
             element={<ProtectedRoute><Onboarding /></ProtectedRoute>}
