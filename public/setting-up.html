@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setting Up Your Account – RecoverJob</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #1B2F5E;
+      color: #374151;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      padding: 56px 48px;
+      max-width: 420px;
+      width: 100%;
+      margin: 24px;
+      text-align: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      margin: 0 auto 28px;
+      display: block;
+    }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid #e5e7eb;
+      border-top-color: #4CAF29;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #1B2F5E;
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+    }
+
+    p.message {
+      font-size: 0.92rem;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .support {
+      margin-top: 4px;
+    }
+    .support a {
+      color: #4CAF29;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .support a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img class="logo" src="/logo.png" alt="RecoverJob" onerror="this.style.display='none'" />
+    <div class="spinner" id="spinner"></div>
+    <h1 id="heading">Setting up your account...</h1>
+    <p class="message" id="message">This usually takes just a few seconds.</p>
+  </div>
+
+  <script>
+    const API_BASE = 'https://recoverjob-backend-production.up.railway.app';
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+
+    const heading = document.getElementById('heading');
+    const message = document.getElementById('message');
+    const spinner = document.getElementById('spinner');
+
+    const POLL_INTERVAL_MS = 2000;
+    const SLOW_THRESHOLD_MS = 15000;
+    const TIMEOUT_MS = 60000;
+
+    let pollTimer = null;
+    const startTime = Date.now();
+
+    function stopPolling() {
+      if (pollTimer) {
+        clearInterval(pollTimer);
+        pollTimer = null;
+      }
+    }
+
+    function showTimeoutState() {
+      spinner.style.display = 'none';
+      heading.textContent = 'This is taking longer than expected.';
+      message.innerHTML = 'Please contact <a href="mailto:support@recoverjob.com">support@recoverjob.com</a> and we\'ll get you set up right away.';
+      stopPolling();
+    }
+
+    if (!sessionId) {
+      showTimeoutState();
+    } else {
+      async function checkStatus() {
+        const elapsed = Date.now() - startTime;
+
+        if (elapsed >= TIMEOUT_MS) {
+          showTimeoutState();
+          return;
+        }
+
+        if (elapsed >= SLOW_THRESHOLD_MS) {
+          heading.textContent = 'Almost there, hang tight...';
+        }
+
+        try {
+          const res = await fetch(`${API_BASE}/api/account-status?session_id=${encodeURIComponent(sessionId)}`);
+          const data = await res.json();
+          if (data.ready) {
+            stopPolling();
+            window.location.href = '/onboarding';
+          }
+        } catch (err) {
+          // ignore transient network errors, keep polling until timeout
+        }
+      }
+
+      checkStatus();
+      pollTimer = setInterval(checkStatus, POLL_INTERVAL_MS);
+    }
+  </script>
+
+</body>
+</html>
