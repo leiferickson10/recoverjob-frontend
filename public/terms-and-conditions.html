@@ -15,7 +15,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ── */
     header {
       background: #1B2F5E;
       padding: 0 32px;
@@ -52,17 +51,13 @@
     }
     .back-link:hover { color: #fff; }
 
-    /* ── Layout ── */
     main {
       max-width: 800px;
       margin: 0 auto;
       padding: 48px 24px 96px;
     }
 
-    /* ── Page title block ── */
-    .page-header {
-      margin-bottom: 36px;
-    }
+    .page-header { margin-bottom: 36px; }
     .page-header h1 {
       font-size: 2rem;
       font-weight: 800;
@@ -87,7 +82,6 @@
       vertical-align: middle;
     }
 
-    /* ── Intro ── */
     .intro {
       background: #fff;
       border-radius: 12px;
@@ -96,13 +90,8 @@
       margin-bottom: 8px;
       box-shadow: 0 1px 6px rgba(0,0,0,0.05);
     }
-    .intro p {
-      color: #374151;
-      font-size: 0.97rem;
-      margin: 0;
-    }
+    .intro p { color: #374151; font-size: 0.97rem; margin: 0; }
 
-    /* ── Sections ── */
     .section {
       background: #fff;
       border-radius: 12px;
@@ -131,7 +120,6 @@
     }
     .section p:last-child { margin-bottom: 0; }
 
-    /* ── Lists ── */
     .section ul {
       list-style: none;
       margin: 4px 0 12px;
@@ -159,11 +147,9 @@
     }
 
     strong { color: #1B2F5E; font-weight: 600; }
-
     a { color: #4CAF29; text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
 
-    /* ── Price highlight ── */
     .price-badge {
       display: inline-flex;
       align-items: baseline;
@@ -184,14 +170,7 @@
       color: #4b5563;
       font-weight: 500;
     }
-    .price-badge .note {
-      font-size: 0.82rem;
-      color: #6b7280;
-      display: block;
-      margin-top: 2px;
-    }
 
-    /* ── SMS compliance callout ── */
     .sms-box {
       background: #fffbf0;
       border: 1px solid #fcd34d;
@@ -210,7 +189,6 @@
       border-bottom: 1px solid #fef3c7;
       color: #4b5563;
     }
-    .sms-box td:last-child { border-bottom: none; }
     .sms-box tr:last-child td { border-bottom: none; }
     .sms-box td:first-child {
       font-weight: 700;
@@ -220,7 +198,6 @@
       width: 130px;
     }
 
-    /* ── Contact card ── */
     .contact-card {
       background: #1B2F5E;
       border-radius: 12px;
@@ -248,7 +225,6 @@
     }
     .contact-card a:hover { background: #3d9922; }
 
-    /* ── Footer ── */
     footer {
       background: #1B2F5E;
       padding: 20px 32px;
@@ -262,14 +238,8 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .footer-copy {
-      font-size: 0.8rem;
-      color: #6b87b8;
-    }
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
+    .footer-copy { font-size: 0.8rem; color: #6b87b8; }
+    .footer-links { display: flex; gap: 20px; }
     .footer-links a {
       font-size: 0.8rem;
       color: #93aed8;
@@ -279,7 +249,6 @@
     }
     .footer-links a:hover { color: #fff; }
 
-    /* ── Responsive ── */
     @media (max-width: 600px) {
       .page-header h1 { font-size: 1.6rem; }
       .section { padding: 22px 20px; }
@@ -304,19 +273,21 @@
 <main>
   <div class="page-header">
     <h1>Terms &amp; Conditions</h1>
-    <p class="meta">Last updated: June 4, 2026 <span>Current</span></p>
+    <p class="meta">Last updated: June 25, 2026 <span>Current</span></p>
   </div>
 
   <div class="intro">
     <p>By creating an account or using RecoverJob, you agree to be bound by these Terms. Please read them carefully. If you do not agree, do not use the service.</p>
   </div>
 
+  <!-- 1. Overview -->
   <div class="section">
     <h2>Overview</h2>
     <h3>Service Description</h3>
-    <p>RecoverJob provides an automated missed-call text-back service for businesses. When a call to your registered business phone number goes unanswered, RecoverJob automatically sends a customizable SMS to the caller on your behalf — helping you recover missed leads and re-engage potential customers.</p>
+    <p>RecoverJob provides an automated SMS review request service for local trades businesses — including plumbers, HVAC technicians, electricians, and similar contractors. After a completed job, businesses use RecoverJob to trigger a two-message flow: first, an opt-in text identifying the business is sent to the customer; second, a Google review link is delivered only if the customer replies <strong>YES</strong>. Customers who reply <strong>STOP</strong> or do not respond receive no further messages.</p>
   </div>
 
+  <!-- 2. Billing -->
   <div class="section">
     <h2>Billing</h2>
     <h3>Subscription &amp; Pricing</h3>
@@ -325,13 +296,15 @@
       <span class="period">/month &nbsp;&mdash;&nbsp; cancel anytime</span>
     </div>
     <ul>
+      <li>A one-time setup fee of <strong>$149</strong> is charged at account creation.</li>
       <li>Subscriptions are billed monthly on the date of signup.</li>
-      <li>Cancel at any time from your account dashboard. Cancellation takes effect at the end of the current billing period; no partial refunds are issued for unused time.</li>
-      <li>Pricing may change with 30 days' advance notice to your registered email.</li>
-      <li>Failed payments may result in temporary service suspension until resolved.</li>
+      <li>Cancel at any time from your account dashboard. Cancellation takes effect at the end of the current billing period. No partial refunds are issued for unused time.</li>
+      <li>Pricing may change with 30 days' advance notice to your registered email address.</li>
+      <li>Failed payments may result in temporary service suspension until the balance is resolved.</li>
     </ul>
   </div>
 
+  <!-- 3. Free Trial -->
   <div class="section">
     <h2>Free Trial</h2>
     <h3>14-Day Free Trial</h3>
@@ -343,14 +316,15 @@
     </ul>
   </div>
 
+  <!-- 4. SMS Compliance -->
   <div class="section">
     <h2>SMS Compliance</h2>
     <h3>Automated Messaging &amp; Consent</h3>
-    <p>RecoverJob uses an SMS keyword opt-in system before sending any automated messages. When a call to your registered business phone number goes unanswered, RecoverJob sends a single opt-in request to the caller:</p>
+    <p>RecoverJob uses a two-message SMS flow with explicit keyword opt-in before delivering any review link. When a review request is triggered for a customer, RecoverJob sends a single opt-in message on behalf of the business:</p>
     <div class="sms-box" style="background:#f8fafc;border-color:#e2e8f0;border-left:3px solid #4CAF29;margin-bottom:12px;">
-      <p style="font-style:italic;color:#4b5563;font-size:0.88rem;margin:0;">"Hi, this is [Business Name]. We noticed you called us recently. Would you like us to text you back regarding your missed call? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply."</p>
+      <p style="font-style:italic;color:#4b5563;font-size:0.88rem;margin:0;">"Hi [Name], this is [Business Name]. We just completed your service. Would you be willing to leave us a quick review? Reply YES for a link or STOP to opt out. Msg and data rates may apply."</p>
     </div>
-    <p>No follow-up messages are sent until the caller explicitly replies <strong>YES</strong>. If the caller replies <strong>STOP</strong> or does not reply, no further messages are sent. Consent is never assumed.</p>
+    <p>A Google review link is sent only if the customer explicitly replies <strong>YES</strong>. If the customer replies <strong>STOP</strong> or does not reply, no further messages are sent. Consent is never assumed.</p>
     <div class="sms-box">
       <table>
         <tr>
@@ -363,7 +337,7 @@
         </tr>
         <tr>
           <td>Frequency</td>
-          <td>Up to 2 messages per missed call after consent is confirmed.</td>
+          <td>Up to 2 messages per triggered review request.</td>
         </tr>
         <tr>
           <td>Rates</td>
@@ -383,24 +357,39 @@
     <p>Full SMS consent disclosure: <a href="https://www.recoverjob.com/sms-consent">recoverjob.com/sms-consent</a></p>
   </div>
 
+  <!-- 5. SMS Keyword Opt-In Requirements -->
   <div class="section">
     <h2>SMS Keyword Opt-In</h2>
     <h3>SMS Keyword Opt-In Requirements</h3>
-    <p>By using RecoverJob, you agree that all automated messages are sent only after the recipient has explicitly replied <strong>YES</strong> to an opt-in request. You agree not to send messages to any individual who has not actively opted in through the <strong>YES</strong> keyword response.</p>
+    <p>By using RecoverJob, you agree that all automated messages are sent only after the recipient has explicitly replied <strong>YES</strong> to an opt-in request. You agree not to trigger review requests for any customer who did not receive an actual completed service from your business.</p>
   </div>
 
+  <!-- 6. Contractor Responsibilities -->
+  <div class="section">
+    <h2>Contractor Responsibilities</h2>
+    <h3>Your Obligations</h3>
+    <p>As the business using RecoverJob, you are responsible for:</p>
+    <ul>
+      <li>Ensuring that every customer you add to RecoverJob has received an actual completed service from your business before a review request is triggered.</li>
+      <li>Compliance with the Telephone Consumer Protection Act (TCPA) and all other applicable federal, state, and local laws governing commercial SMS messaging in your use of the platform.</li>
+      <li>Not using RecoverJob to send unsolicited messages to individuals who have not had a direct service relationship with your business.</li>
+    </ul>
+  </div>
+
+  <!-- 7. Carrier Delivery -->
   <div class="section">
     <h2>Carrier Delivery</h2>
     <h3>Carrier Delays &amp; Delivery</h3>
     <p>RecoverJob transmits messages through third-party SMS carriers and telecommunications networks. We are not responsible for delays, failures, or errors in message delivery caused by carriers, network congestion, or factors outside our control. Carrier-related delivery issues are not grounds for a refund or service credit.</p>
   </div>
 
+  <!-- 8. Acceptable Use -->
   <div class="section">
     <h2>Acceptable Use</h2>
     <h3>Prohibited Activity</h3>
     <p>You may not use RecoverJob to:</p>
     <ul>
-      <li>Send spam, unsolicited marketing, or messages to individuals who have not called your business.</li>
+      <li>Send review requests to individuals who have not received a completed service from your business.</li>
       <li>Transmit illegal, harassing, defamatory, or abusive content.</li>
       <li>Impersonate another business or individual.</li>
       <li>Violate any applicable federal, state, or local law or regulation.</li>
@@ -408,12 +397,14 @@
     <p>We reserve the right to suspend or terminate accounts that violate these policies without prior notice.</p>
   </div>
 
+  <!-- 9. Intellectual Property -->
   <div class="section">
     <h2>Intellectual Property</h2>
     <h3>Ownership</h3>
-    <p>The RecoverJob platform, branding, and all associated software are the property of RecoverJob. You retain ownership of the message content and business data you provide. By using the service, you grant RecoverJob a limited license to process your content solely to deliver the service.</p>
+    <p>The RecoverJob platform, branding, and all associated software are the property of RecoverJob. You retain ownership of the business data and customer information you provide. By using the service, you grant RecoverJob a limited license to process your content solely to deliver the service.</p>
   </div>
 
+  <!-- 10. Liability -->
   <div class="section">
     <h2>Liability</h2>
     <h3>Limitation of Liability</h3>
@@ -421,6 +412,7 @@
     <p>The service is provided as-is without warranties of any kind, express or implied. We do not warrant that the service will be uninterrupted, error-free, or that messages will be delivered within any particular timeframe.</p>
   </div>
 
+  <!-- 11. Changes & Governing Law -->
   <div class="section">
     <h2>Changes &amp; Governing Law</h2>
     <h3>Modifications &amp; Disputes</h3>
@@ -429,8 +421,8 @@
   </div>
 
   <div class="contact-card">
-    <p><strong>Questions or concerns?</strong><br>Email us at support@recoverjob.com</p>
-    <a href="mailto:support@recoverjob.com">Contact Support</a>
+    <p><strong>Questions or concerns?</strong><br>Email us at leif@recoverjob.com</p>
+    <a href="mailto:leif@recoverjob.com">Contact Support</a>
   </div>
 </main>
 
