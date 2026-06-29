@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RecoverJob – Stop Losing Jobs to Missed Calls</title>
-  <meta name="description" content="RecoverJob automatically texts back anyone who calls your business and doesn't get an answer — in under 15 seconds. Never lose a lead again." />
+  <title>RecoverJob – Get More Google Reviews Automatically</title>
+  <meta name="description" content="RecoverJob sends a review request to your customers after every job. They reply YES, they get your Google review link. You get more 5-star reviews without lifting a finger." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -249,127 +249,27 @@
     .hero-secondary-link svg { transition: transform 0.15s; }
     .hero-secondary-link:hover svg { transform: translateX(3px); }
 
-    /* iPhone mockup */
-    .hero-phone { display: flex; justify-content: center; align-items: center; }
-    .phone-shell {
-      width: 280px;
-      background: #0d0d0d;
-      border-radius: 40px;
-      padding: 14px 12px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 2px #2a2a2a, inset 0 0 0 1px #3a3a3a;
-      position: relative;
+    /* Hero stats */
+    .hero-stats { display: flex; justify-content: center; align-items: center; }
+    .hero-stat-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 24px 28px;
     }
-    .phone-notch {
-      width: 100px;
-      height: 26px;
-      background: #0d0d0d;
-      border-radius: 0 0 18px 18px;
-      margin: 0 auto 8px;
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+    .hero-stat-card + .hero-stat-card { margin-top: 20px; }
+    .hero-stat-value {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--green);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
     }
-    .phone-notch::before {
-      content: "";
-      width: 10px; height: 10px;
-      background: #1a1a1a;
-      border-radius: 50%;
-      border: 1px solid #333;
-    }
-    .phone-notch::after {
-      content: "";
-      width: 54px; height: 8px;
-      background: #1a1a1a;
-      border-radius: 4px;
-    }
-    .phone-screen {
-      background: #f0f0f0;
-      border-radius: 28px;
-      overflow: hidden;
-      min-height: 460px;
-      display: flex;
-      flex-direction: column;
-    }
-    .sms-header {
-      background: #f8f8f8;
-      padding: 12px 16px 10px;
-      border-bottom: 1px solid #e0e0e0;
-      text-align: center;
-    }
-    .sms-contact-name {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-    .sms-contact-sub {
-      font-size: 0.62rem;
-      color: #888;
-      margin-top: 1px;
-    }
-    .sms-body {
-      flex: 1;
-      padding: 16px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: #f0f0f0;
-    }
-    .bubble-wrap {
-      display: flex;
-      flex-direction: column;
-    }
-    .bubble-wrap.them { align-items: flex-start; }
-    .bubble-wrap.us { align-items: flex-end; }
-    .bubble {
-      max-width: 85%;
-      font-size: 0.75rem;
-      line-height: 1.45;
-      padding: 9px 13px;
-      border-radius: 18px;
-    }
-    .bubble-wrap.them .bubble {
-      background: #e5e5ea;
-      color: #1a1a1a;
-      border-bottom-left-radius: 4px;
-    }
-    .bubble-wrap.us .bubble {
-      background: #4CAF29;
-      color: #fff;
-      border-bottom-right-radius: 4px;
-    }
-    .bubble-time {
-      font-size: 0.58rem;
-      color: #aaa;
-      margin-top: 3px;
-      padding: 0 4px;
-    }
-    .sms-input-bar {
-      background: #f8f8f8;
-      padding: 10px 12px;
-      border-top: 1px solid #e0e0e0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .sms-input-field {
-      flex: 1;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 18px;
-      padding: 6px 12px;
-      font-size: 0.7rem;
-      color: #aaa;
-    }
-    .sms-send-btn {
-      width: 26px; height: 26px;
-      background: var(--green);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .hero-stat-label {
+      font-size: 0.9rem;
+      color: #93aed8;
+      line-height: 1.5;
     }
 
     /* ═══════════════════════════════
@@ -402,10 +302,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-    .trust-stat .icon {
-      font-size: 1.4rem;
-      line-height: 1;
     }
     .trust-stat-text .value {
       font-size: 1.25rem;
@@ -445,21 +341,9 @@
     }
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 32px;
       position: relative;
-    }
-    .steps::before {
-      content: "";
-      position: absolute;
-      top: 48px;
-      left: calc(16.66% + 24px);
-      right: calc(16.66% + 24px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--green) 0%, var(--green) 50%, transparent 100%);
-      background-size: 8px 2px;
-      background-repeat: repeat-x;
-      border-top: 2px dashed #d1fae5;
     }
     .step {
       text-align: center;
@@ -481,10 +365,6 @@
       line-height: 1;
       margin-bottom: 8px;
       letter-spacing: -2px;
-    }
-    .step-icon {
-      font-size: 2.2rem;
-      margin-bottom: 16px;
     }
     .step h3 {
       font-size: 1.1rem;
@@ -521,11 +401,6 @@
       box-shadow: 0 8px 32px rgba(27,47,94,0.08);
       transform: translateY(-3px);
     }
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
-      display: block;
-    }
     .feature-card h3 {
       font-size: 1.05rem;
       font-weight: 700;
@@ -558,18 +433,6 @@
       box-shadow: 0 16px 48px rgba(27,47,94,0.12);
       text-align: center;
     }
-    .pricing-badge {
-      display: inline-block;
-      background: var(--green-light);
-      color: var(--green-dark);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 20px;
-      margin-bottom: 24px;
-    }
     .pricing-amount {
       display: flex;
       align-items: flex-start;
@@ -595,12 +458,6 @@
       color: var(--gray-text);
       font-weight: 500;
       margin-top: 16px;
-    }
-    .pricing-trial {
-      font-size: 0.9rem;
-      color: var(--navy);
-      font-weight: 600;
-      margin: 12px 0 32px;
     }
     .pricing-features {
       list-style: none;
@@ -630,74 +487,6 @@
       flex-shrink: 0;
     }
     .pricing-features .check svg { width: 11px; height: 11px; }
-    .pricing-no-cc {
-      margin-top: 12px;
-      font-size: 0.8rem;
-      color: var(--gray-text);
-    }
-
-    /* ═══════════════════════════════
-       LIVE DEMO
-    ═══════════════════════════════ */
-    #demo {
-      background: var(--navy);
-      padding: 96px 0;
-      text-align: center;
-    }
-    #demo h2 {
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-      margin-bottom: 16px;
-    }
-    #demo .demo-sub {
-      font-size: 1rem;
-      color: #93aed8;
-      max-width: 500px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
-    }
-    .phone-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--green);
-      color: #fff;
-      font-size: 1.4rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      padding: 18px 40px;
-      border-radius: 14px;
-      box-shadow: 0 6px 24px rgba(76,175,41,0.4);
-      transition: all 0.18s ease;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .phone-btn:hover {
-      background: var(--green-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(76,175,41,0.5);
-    }
-    .phone-btn .phone-icon {
-      font-size: 1.4rem;
-      animation: ring 2s infinite;
-    }
-    @keyframes ring {
-      0%, 100% { transform: rotate(0deg); }
-      10% { transform: rotate(-15deg); }
-      20% { transform: rotate(15deg); }
-      30% { transform: rotate(-10deg); }
-      40% { transform: rotate(10deg); }
-      50% { transform: rotate(0deg); }
-    }
-    .demo-disclaimer {
-      margin-top: 20px;
-      font-size: 0.82rem;
-      color: #6b87b8;
-      font-style: italic;
-    }
 
     /* ═══════════════════════════════
        FOOTER
@@ -755,10 +544,8 @@
       .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 48px; }
       .hero-actions { align-items: center; }
       .hero-sub { margin-left: auto; margin-right: auto; }
-      .hero-phone { order: -1; }
-      .phone-shell { width: 240px; }
+      .hero-stats { order: -1; }
       .steps { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
-      .steps::before { display: none; }
     }
     @media (max-width: 768px) {
       .nav-links, .nav-actions { display: none; }
@@ -822,10 +609,10 @@
       <div class="hero-text">
         <span class="section-label">Built for Trades Businesses</span>
         <h1 class="hero-headline">
-          Stop Losing Jobs to<br><em>Missed Calls</em>
+          Get More Google Reviews —<br><em>Automatically</em>
         </h1>
         <p class="hero-sub">
-          RecoverJob automatically texts back anyone who calls your business and doesn't get an answer — in under 15 seconds. Never lose a lead again.
+          RecoverJob sends a review request to your customers after every job. They reply YES, they get your Google review link. You get more 5-star reviews without lifting a finger.
         </p>
         <div class="hero-actions">
           <a href="/signup" class="btn btn-green btn-lg">Get Started</a>
@@ -838,41 +625,20 @@
         </div>
       </div>
 
-      <!-- Right: Phone mockup -->
-      <div class="hero-phone">
-        <div class="phone-shell">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="sms-header">
-              <div class="sms-contact-name">Mike's Plumbing</div>
-              <div class="sms-contact-sub">Text Message • Just now</div>
-            </div>
-            <div class="sms-body">
-              <div class="bubble-wrap them">
-                <div class="bubble">Hey is this Mike's Plumbing?</div>
-                <div class="bubble-time">2:14 PM</div>
-              </div>
-              <div class="bubble-wrap us">
-                <div class="bubble">Hi! Sorry we missed your call. We'll get back to you shortly — reply here if you need anything!</div>
-                <div class="bubble-time">2:14 PM · AutoReply</div>
-              </div>
-              <div class="bubble-wrap them">
-                <div class="bubble">Perfect, I need someone ASAP for a burst pipe 😬</div>
-                <div class="bubble-time">2:15 PM</div>
-              </div>
-              <div class="bubble-wrap us">
-                <div class="bubble">We're on it! What's your address?</div>
-                <div class="bubble-time">2:15 PM</div>
-              </div>
-            </div>
-            <div class="sms-input-bar">
-              <div class="sms-input-field">Text Message</div>
-              <div class="sms-send-btn">
-                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
+      <!-- Right: Stats -->
+      <div class="hero-stats">
+        <div style="display:flex;flex-direction:column;gap:20px;width:100%;max-width:340px;">
+          <div class="hero-stat-card">
+            <div class="hero-stat-value">15 sec</div>
+            <div class="hero-stat-label">to send a review request after every job</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-value">15–30%</div>
+            <div class="hero-stat-label">of customers reply YES and leave a review</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-value">30+</div>
+            <div class="hero-stat-label">new Google reviews per month on average</div>
           </div>
         </div>
       </div>
@@ -888,27 +654,24 @@
 <section id="trust">
   <div class="container">
     <div class="trust-inner">
-      <p class="trust-tagline">Trusted by plumbers, electricians and HVAC techs across the US</p>
+      <p class="trust-tagline">Trusted by plumbers, electricians, and HVAC technicians across Utah</p>
       <div class="trust-stats">
         <div class="trust-stat">
-          <span class="icon">⚡</span>
           <div class="trust-stat-text">
             <div class="value">15 sec</div>
-            <div class="label">Response time</div>
+            <div class="label">Request sent</div>
           </div>
         </div>
         <div class="trust-stat">
-          <span class="icon">📈</span>
           <div class="trust-stat-text">
-            <div class="value">30–60%</div>
-            <div class="label">Lead recovery</div>
+            <div class="value">15–30%</div>
+            <div class="label">Customer opt-in rate</div>
           </div>
         </div>
         <div class="trust-stat">
-          <span class="icon">💰</span>
           <div class="trust-stat-text">
-            <div class="value">$99/mo</div>
-            <div class="label">Flat rate</div>
+            <div class="value">30+</div>
+            <div class="label">New reviews per month</div>
           </div>
         </div>
       </div>
@@ -930,21 +693,23 @@
     <div class="steps">
       <div class="step">
         <div class="step-number">01</div>
-        <div class="step-icon">📞</div>
-        <h3>Customer Calls You</h3>
-        <p>A potential customer calls your business while you're on a job, with a client, or simply unavailable to answer.</p>
+        <h3>Finish a Job</h3>
+        <p>Complete a service call for your customer. You are already on your phone.</p>
       </div>
       <div class="step">
         <div class="step-number">02</div>
-        <div class="step-icon">💬</div>
-        <h3>We Text Them Back</h3>
-        <p>RecoverJob detects the missed call and automatically fires off a personalized text message in under 15 seconds.</p>
+        <h3>Text Your RecoverJob Number</h3>
+        <p>Send your customer name and phone number to your dedicated RecoverJob number. Takes five seconds.</p>
       </div>
       <div class="step">
         <div class="step-number">03</div>
-        <div class="step-icon">🏆</div>
-        <h3>You Get the Lead</h3>
-        <p>The lead shows up in your dashboard ready to close. Reply from the app and book the job before your competitor does.</p>
+        <h3>Your Customer Gets a Review Request</h3>
+        <p>They receive a text asking if they are willing to leave a review. If they reply YES they get your Google review link automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <h3>Watch Your Reviews Grow</h3>
+        <p>Log into your dashboard and watch your Google review count climb. Every new review means more jobs from Google search.</p>
       </div>
     </div>
   </div>
@@ -958,31 +723,61 @@
   <div class="container">
     <div class="section-heading">
       <span class="section-label">Everything You Need</span>
-      <h2>Built to Win More Jobs</h2>
-      <p>Every feature is designed to help trades businesses capture more leads with zero extra effort.</p>
+      <h2>Built to Get You More Reviews</h2>
+      <p>Every feature is designed to grow your Google presence with zero extra effort.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
-        <span class="feature-icon">📱</span>
-        <h3>Instant Auto-Text</h3>
-        <p>The moment a call goes unanswered, your customer gets a friendly text in under 15 seconds — before they even think about calling your competitor.</p>
+        <h3>Dedicated Business Number</h3>
+        <p>Every RecoverJob member gets their own dedicated phone number. Text it after every job to trigger a review request.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">⏰</span>
-        <h3>Smart Follow-Up</h3>
-        <p>If the customer doesn't reply in 30 minutes, RecoverJob automatically sends a second follow-up to keep the conversation warm and the job in play.</p>
+        <h3>Two-Step Opt-In Flow</h3>
+        <p>Customers receive an opt-in text first. Only customers who reply YES get your Google review link. Fully compliant and respectful of their time.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">📊</span>
-        <h3>Lead Dashboard</h3>
-        <p>Every missed call becomes a tracked lead. See who called, when, and where the conversation stands — all in one clean, simple dashboard.</p>
+        <h3>Live Google Dashboard</h3>
+        <p>See your current Google rating, total review count, and how many reviews you have gained since joining RecoverJob. Updated daily.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">✏️</span>
-        <h3>Custom Messages</h3>
-        <p>Write your own auto-text in your own voice. Add your business name, services, and personality so every reply sounds like it came from you.</p>
+        <h3>Review Request Tracking</h3>
+        <p>See every request you have sent, who opted in, and who received your review link. All in one clean dashboard.</p>
       </div>
     </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     LIVE DEMO
+═══════════════════════════════ -->
+<section id="demo" style="background:var(--navy);padding:96px 0;text-align:center;">
+  <div class="container">
+    <span class="section-label" style="background:rgba(76,175,41,0.15);color:#7ed659;">Live Demo</span>
+    <h2 style="font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;">Experience It Yourself</h2>
+    <p style="font-size:1rem;color:#93aed8;max-width:520px;margin:0 auto 48px;line-height:1.7;">Text your name and phone number to our demo line and see exactly what your customers will receive.</p>
+
+    <div style="display:inline-block;background:rgba(76,175,41,0.12);border:2px solid rgba(76,175,41,0.3);border-radius:16px;padding:24px 52px;margin-bottom:52px;">
+      <p style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b87b8;margin-bottom:10px;">Demo Number</p>
+      <p style="font-size:2.8rem;font-weight:900;color:#4CAF29;letter-spacing:2px;">(385) 526-7573</p>
+    </div>
+
+    <div style="max-width:520px;margin:0 auto 44px;text-align:left;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="flex-shrink:0;width:28px;height:28px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:#fff;margin-top:2px;">1</div>
+        <p style="font-size:0.95rem;color:#93aed8;line-height:1.6;"><strong style="color:#fff;">Text your name and phone number</strong> to that number.<br><span style="display:inline-block;margin-top:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);padding:5px 14px;border-radius:6px;font-family:monospace;font-size:0.88rem;color:#c7d8f0;">John Smith 8015551234</span></p>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="flex-shrink:0;width:28px;height:28px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:#fff;margin-top:2px;">2</div>
+        <p style="font-size:0.95rem;color:#93aed8;line-height:1.6;">You will receive an opt-in text within seconds.</p>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="flex-shrink:0;width:28px;height:28px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:#fff;margin-top:2px;">3</div>
+        <p style="font-size:0.95rem;color:#93aed8;line-height:1.6;">Reply <strong style="color:#fff;">YES</strong> to receive a sample review link.</p>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;color:#4a6491;font-style:italic;max-width:480px;margin:0 auto;">This is a live demo. You will receive real text messages to the number you provide. Reply STOP at any time to opt out.</p>
   </div>
 </section>
 
@@ -1011,7 +806,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
               </svg>
             </span>
-            Unlimited missed call texts
+            Unlimited review requests
           </li>
           <li>
             <span class="check">
@@ -1019,7 +814,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
               </svg>
             </span>
-            Automatic 30-min follow-up
+            Dedicated business phone number
           </li>
           <li>
             <span class="check">
@@ -1027,7 +822,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
               </svg>
             </span>
-            Lead tracking dashboard
+            Live Google review dashboard
           </li>
           <li>
             <span class="check">
@@ -1035,7 +830,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
               </svg>
             </span>
-            Custom message editor
+            Review request tracking
           </li>
           <li>
             <span class="check">
@@ -1056,25 +851,6 @@
 
 
 <!-- ═══════════════════════════════
-     LIVE DEMO
-═══════════════════════════════ -->
-<section id="demo">
-  <div class="container">
-    <span class="section-label" style="background:rgba(76,175,41,0.15);color:#7ed659;">Live Demo</span>
-    <h2>See It Work Right Now</h2>
-    <p class="demo-sub">
-      Call <strong style="color:#fff;">(385) 220-7651</strong> from your cell phone. Don't answer when it rings back. See exactly what happens next.
-    </p>
-    <a href="tel:+13852207651" class="phone-btn">
-      <span class="phone-icon">📞</span>
-      (385) 220-7651
-    </a>
-    <p class="demo-disclaimer">This is a live demo — exactly what your customers will experience.</p>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════
      FOOTER
 ═══════════════════════════════ -->
 <footer>
@@ -1082,14 +858,14 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="/"><img src="/logo.png" alt="RecoverJob" /></a>
-        <p class="footer-tagline">Stop Losing Jobs to Missed Calls</p>
+        <p class="footer-tagline">Get More Google Reviews — Automatically</p>
       </div>
       <nav class="footer-links">
         <a href="#how">How It Works</a>
         <a href="#pricing">Pricing</a>
         <a href="https://www.recoverjob.com/privacy-policy">Privacy Policy</a>
         <a href="https://www.recoverjob.com/terms-and-conditions">Terms</a>
-        <a href="/login">Login</a>
+        <a href="/login">Log In</a>
       </nav>
     </div>
     <div class="footer-bottom">
