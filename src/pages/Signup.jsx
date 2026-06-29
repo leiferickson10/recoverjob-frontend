@@ -169,7 +169,7 @@ export default function Signup() {
           </form>
 
           <p className="mt-5 text-xs text-gray-400 text-center">
-            14-day free trial. $99/month after. Cancel anytime.
+            $99/month. Cancel anytime.
           </p>
 
           <p className="mt-6 text-sm text-gray-500 text-center">
