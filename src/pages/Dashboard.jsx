@@ -71,6 +71,7 @@ export default function Dashboard() {
   const [stats, setStats] = useState({ today: 0, this_week: 0, opted_in: 0, reviews_sent: 0 });
   const [recent, setRecent] = useState([]);
   const [twilioNumber, setTwilioNumber] = useState('');
+  const [googleProfile, setGoogleProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -83,7 +84,16 @@ export default function Dashboard() {
       .then(([statsRes, recentRes, bizRes]) => {
         setStats(statsRes.data);
         setRecent(recentRes.data);
-        setTwilioNumber(bizRes.data.twilioNumber ?? bizRes.data.twilio_number ?? '');
+        const b = bizRes.data;
+        setTwilioNumber(b.twilioNumber ?? b.twilio_number ?? '');
+        if (b.google_place_id) {
+          setGoogleProfile({
+            rating:        b.google_rating ?? null,
+            reviewCount:   b.review_count_current ?? 0,
+            baseline:      b.review_count_baseline ?? 0,
+            lastSynced:    b.last_synced_at ?? null,
+          });
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -121,6 +131,46 @@ export default function Dashboard() {
         <StatCard label="Opted In"          value={stats.opted_in} />
         <StatCard label="Reviews Sent"      value={stats.reviews_sent} />
       </div>
+
+      {/* Google Profile card */}
+      {googleProfile && (
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-semibold text-[#1B2F5E]">Google Business Profile</p>
+            {googleProfile.lastSynced && (
+              <p className="text-xs text-gray-400">
+                Synced {new Date(googleProfile.lastSynced).toLocaleDateString()}
+              </p>
+            )}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-gray-500 font-medium">Current Rating</span>
+              {googleProfile.rating ? (
+                <span className="flex items-center gap-1.5">
+                  <svg className="w-5 h-5 text-amber-400 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span className="text-2xl font-bold text-[#1B2F5E]">{googleProfile.rating.toFixed(1)}</span>
+                  <span className="text-sm text-gray-400">/ 5</span>
+                </span>
+              ) : (
+                <span className="text-2xl font-bold text-gray-300">—</span>
+              )}
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-gray-500 font-medium">Total Reviews</span>
+              <span className="text-2xl font-bold text-[#4CAF29]">{googleProfile.reviewCount.toLocaleString()}</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-gray-500 font-medium">Reviews Gained with RecoverJob</span>
+              <span className="text-2xl font-bold text-[#4CAF29]">
+                +{Math.max(0, googleProfile.reviewCount - googleProfile.baseline)}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Line chart */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
