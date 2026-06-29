@@ -3,7 +3,8 @@
     { "src": "^/privacy-policy$",       "dest": "/privacy-policy.html" },
     { "src": "^/terms-and-conditions$", "dest": "/terms-and-conditions.html" },
     { "src": "^/terms$",                "status": 301, "headers": { "Location": "/terms-and-conditions" } },
-    { "src": "^/sms-consent$",         "dest": "/sms-consent.html" },
+    { "src": "^/sms-consent$",          "dest": "/sms-consent.html" },
+    { "src": "^/terms-members$",        "dest": "/terms-members.html" },
     { "src": "^/$",                     "dest": "/landing.html" },
     { "handle": "filesystem" },
     { "src": "^/(.*)$",                 "dest": "/index.html" }

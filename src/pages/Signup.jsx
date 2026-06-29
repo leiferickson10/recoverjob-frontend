@@ -141,7 +141,7 @@ export default function Signup() {
               <span className="text-xs text-gray-500 leading-relaxed">
                 I agree to RecoverJob's{' '}
                 <a
-                  href="https://www.recoverjob.com/terms-members.html"
+                  href="https://www.recoverjob.com/terms-members"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#4CAF29] font-semibold hover:underline"
