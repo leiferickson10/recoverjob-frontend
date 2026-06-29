@@ -10,58 +10,81 @@ function formatPhone(e164) {
   return e164 || '';
 }
 
+function StarRating({ rating }) {
+  if (!rating) return null;
+  return (
+    <span className="flex items-center gap-1 text-amber-400 text-sm font-semibold">
+      <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      {rating.toFixed(1)}
+    </span>
+  );
+}
+
 export default function Onboarding() {
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState('');
   const [twilioNumber, setTwilioNumber] = useState('');
-  const [reviewUrl, setReviewUrl] = useState('');
-  const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState('');
-  const [saved, setSaved] = useState(false);
+
+  // Step 1 — search
+  const [query, setQuery]         = useState('');
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState('');
+  const [results, setResults]     = useState(null); // null = not searched yet
+
+  // Step 2 — confirmation
+  const [selected, setSelected]   = useState(null);
+  const [confirming, setConfirming] = useState(false);
+  const [confirmError, setConfirmError] = useState('');
+
+  // Step 3 — success
+  const [done, setDone] = useState(false);
+
+  const step = done ? 3 : selected ? 2 : 1;
 
   useEffect(() => {
     api.get('/businesses/me')
       .then((res) => {
         const b = res.data;
         setTwilioNumber(b.twilioNumber ?? b.twilio_number ?? '');
-        setReviewUrl(b.google_review_url ?? '');
       })
-      .catch((err) => setFetchError(err.message))
-      .finally(() => setLoading(false));
+      .catch(() => {});
   }, []);
 
-  async function handleSave() {
-    setSaveError('');
-    setSaving(true);
+  async function handleSearch(e) {
+    e.preventDefault();
+    if (!query.trim()) return;
+    setSearchError('');
+    setResults(null);
+    setSearching(true);
     try {
-      await api.patch('/businesses/me', { google_review_url: reviewUrl });
-      setSaved(true);
-      setTimeout(() => navigate('/dashboard'), 2000);
+      const res = await api.get('/places/search', { params: { q: query.trim() } });
+      setResults(res.data);
     } catch (err) {
-      setSaveError(err.response?.data?.error || err.message);
+      setSearchError(err?.response?.data?.error || 'Search failed. Check your connection and try again.');
     } finally {
-      setSaving(false);
+      setSearching(false);
     }
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f3f4f6] flex items-center justify-center">
-        <p className="text-gray-400 text-sm">Loading…</p>
-      </div>
-    );
+  async function handleConfirm() {
+    setConfirmError('');
+    setConfirming(true);
+    try {
+      await api.post('/places/select', { place_id: selected.place_id });
+      setDone(true);
+      setTimeout(() => navigate('/dashboard'), 2000);
+    } catch (err) {
+      setConfirmError(err?.response?.data?.error || 'Something went wrong. Please try again.');
+    } finally {
+      setConfirming(false);
+    }
   }
 
-  if (fetchError) {
-    return (
-      <div className="min-h-screen bg-[#f3f4f6] flex items-center justify-center px-4">
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-600 max-w-md w-full">
-          {fetchError}
-        </div>
-      </div>
-    );
+  function resetSearch() {
+    setSelected(null);
+    setConfirmError('');
   }
 
   return (
@@ -83,71 +106,147 @@ export default function Onboarding() {
             One Last Step
           </h1>
           <p className="text-[#93aed8] text-base leading-relaxed max-w-lg mx-auto">
-            Add your Google review link so customers can leave you a review.
+            Find your business on Google so we know where to send your customers to leave a review.
           </p>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8 flex flex-col gap-6">
 
-        {/* How to find your Google review link */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-bold text-[#1B2F5E] mb-1">How to find your Google review link</h2>
-          <p className="text-sm text-gray-500 mb-5">Follow these steps to get your shareable review link from Google Maps.</p>
+        {/* ── Step 1: Search ── */}
+        {step === 1 && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-bold text-[#1B2F5E] mb-1">Find Your Business</h2>
+            <p className="text-sm text-gray-500 mb-5">Search for your business as it appears on Google Maps.</p>
 
-          <ol className="flex flex-col gap-4 mb-6">
-            {[
-              'Go to <strong>google.com/maps</strong>',
-              'Search your <strong>business name</strong>',
-              'Click on <strong>your listing</strong>',
-              'Click the <strong>three dots menu</strong> and select <strong>Share</strong>',
-              'Copy the link and paste it below',
-            ].map((step, i) => (
-              <li key={i} className="flex gap-4 items-start">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#e8f5e2] text-[#2d7a18] text-sm font-bold flex items-center justify-center mt-0.5">
-                  {i + 1}
-                </span>
-                <span
-                  className="text-sm text-gray-700 leading-relaxed pt-1"
-                  dangerouslySetInnerHTML={{ __html: step }}
-                />
-              </li>
-            ))}
-          </ol>
-
-          {/* Input + save */}
-          {saved ? (
-            <div className="flex items-center gap-3 bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl px-5 py-4">
-              <svg className="w-5 h-5 text-[#4CAF29] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-              <p className="text-sm font-semibold text-[#166534]">You are all set! Your review link is saved.</p>
-            </div>
-          ) : (
-            <>
-              <div className="flex flex-col gap-1.5 mb-4">
-                <label className="text-sm font-semibold text-[#1B2F5E]">Your Google Review Link</label>
-                <input
-                  type="url"
-                  value={reviewUrl}
-                  onChange={(e) => { setReviewUrl(e.target.value); setSaveError(''); }}
-                  placeholder="https://g.page/r/..."
-                  className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
-                />
-              </div>
-              {saveError && (
-                <p className="text-xs text-red-500 mb-3">{saveError}</p>
-              )}
+            <form onSubmit={handleSearch} className="flex gap-3 mb-5">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => { setQuery(e.target.value); setSearchError(''); setResults(null); }}
+                placeholder="Mike's Plumbing Salt Lake City"
+                className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"
+              />
               <button
-                onClick={handleSave}
-                disabled={saving || !reviewUrl.trim()}
+                type="submit"
+                disabled={searching || !query.trim()}
+                className="px-5 py-3 rounded-xl bg-[#1B2F5E] hover:bg-[#152549] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors whitespace-nowrap"
+              >
+                {searching ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                    </svg>
+                    Searching…
+                  </span>
+                ) : 'Search'}
+              </button>
+            </form>
+
+            {searchError && (
+              <p className="text-sm text-red-500 mb-4">{searchError}</p>
+            )}
+
+            {results !== null && (
+              results.length === 0 ? (
+                <p className="text-sm text-gray-400 text-center py-6">
+                  No results found. Try adding your city name.
+                </p>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {results.map((place) => (
+                    <div
+                      key={place.place_id}
+                      className="flex items-center justify-between gap-4 border border-gray-100 rounded-xl px-4 py-4 hover:border-[#1B2F5E]/30 hover:bg-[#f8f9ff] transition-colors"
+                    >
+                      <div className="flex flex-col gap-1 min-w-0">
+                        <p className="text-sm font-semibold text-[#1B2F5E] truncate">{place.name}</p>
+                        <p className="text-xs text-gray-400 truncate">{place.address}</p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <StarRating rating={place.rating} />
+                          {place.review_count > 0 && (
+                            <span className="text-xs text-gray-400">{place.review_count.toLocaleString()} reviews</span>
+                          )}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setSelected(place)}
+                        className="flex-shrink-0 px-4 py-2 rounded-xl bg-[#4CAF29] hover:bg-[#3d9922] text-white text-xs font-semibold transition-colors"
+                      >
+                        That's Me
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {/* ── Step 2: Confirmation ── */}
+        {step === 2 && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-bold text-[#1B2F5E] mb-5">Confirm Your Business</h2>
+
+            <div className="flex items-start gap-4 bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-4 mb-5">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#4CAF29] flex items-center justify-center mt-0.5">
+                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div className="flex flex-col gap-1 min-w-0">
+                <p className="text-sm font-semibold text-[#1B2F5E]">{selected.name}</p>
+                <p className="text-xs text-gray-500">{selected.address}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <StarRating rating={selected.rating} />
+                  {selected.review_count > 0 && (
+                    <span className="text-xs text-gray-500">{selected.review_count.toLocaleString()} reviews</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+              Great! We found your business. Your current Google review count is{' '}
+              <strong>{selected.review_count.toLocaleString()} reviews</strong>.
+            </p>
+
+            {confirmError && (
+              <p className="text-sm text-red-500 mb-4">{confirmError}</p>
+            )}
+
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleConfirm}
+                disabled={confirming}
                 className="w-full bg-[#4CAF29] hover:bg-[#3d9922] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm py-3.5 rounded-xl transition-colors"
               >
-                {saving ? 'Saving…' : 'Save Review Link'}
+                {confirming ? 'Saving…' : 'Confirm'}
               </button>
-            </>
-          )}
-        </div>
+              <button
+                onClick={resetSearch}
+                className="text-sm text-gray-400 hover:text-gray-600 transition-colors text-center"
+              >
+                Search Again
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── Step 3: Success ── */}
+        {step === 3 && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center gap-3">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#4CAF29] flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="text-sm font-semibold text-[#166534]">You are all set! Your Google review link is saved.</p>
+            </div>
+          </div>
+        )}
 
         {/* RecoverJob number card */}
         {twilioNumber && (
