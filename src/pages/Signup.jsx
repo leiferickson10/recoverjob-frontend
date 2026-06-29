@@ -15,6 +15,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [tosChecked, setTosChecked] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -130,6 +131,28 @@ export default function Signup() {
               {errors.password && <p className="text-xs text-red-600 mt-0.5">{errors.password}</p>}
             </div>
 
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={tosChecked}
+                onChange={(e) => setTosChecked(e.target.checked)}
+                className="mt-0.5 h-4 w-4 flex-shrink-0 rounded border-gray-300 text-[#4CAF29] focus:ring-[#1B2F5E] focus:ring-2 cursor-pointer"
+              />
+              <span className="text-xs text-gray-500 leading-relaxed">
+                I agree to RecoverJob's{' '}
+                <a
+                  href="https://www.recoverjob.com/terms-members"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#4CAF29] font-semibold hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Terms of Service
+                </a>
+                , including my responsibility to obtain customer consent before sending review requests.
+              </span>
+            </label>
+
             {submitError && (
               <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600">
                 {submitError}
@@ -138,8 +161,8 @@ export default function Signup() {
 
             <button
               type="submit"
-              disabled={loading}
-              className="bg-[#4CAF29] text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-[#3d9422] disabled:opacity-50 transition-colors mt-1"
+              disabled={loading || !tosChecked}
+              className="bg-[#4CAF29] text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-[#3d9422] disabled:opacity-50 disabled:cursor-not-allowed transition-colors mt-1"
             >
               {loading ? 'Setting up your account…' : 'Create Account'}
             </button>
