@@ -10,6 +10,7 @@ import Leads from './pages/Leads';
 import Settings from './pages/Settings';
 import Onboarding from './pages/Onboarding';
 import SmsConsent from './pages/SmsConsent';
+import ReviewLanding from './pages/ReviewLanding';
 
 function ProtectedLayout({ children }) {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/landing.html" replace />} />
           <Route path="/sms-consent" element={<SmsConsent />} />
+          <Route path="/review/:businessId" element={<ReviewLanding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/setting-up" element={<SettingUp />} />
