@@ -74,6 +74,8 @@ export default function Dashboard() {
   const [googleProfile, setGoogleProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [qrCode, setQrCode] = useState(null);
+  const [qrLoading, setQrLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
@@ -97,6 +99,11 @@ export default function Dashboard() {
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
+
+    api.get('/businesses/qrcode')
+      .then((res) => setQrCode(res.data.qr_code))
+      .catch(() => {})
+      .finally(() => setQrLoading(false));
   }, []);
 
   if (loading) {
@@ -171,6 +178,39 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* QR Code card */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <p className="text-sm font-semibold text-[#1B2F5E] mb-4">Your QR Code</p>
+        {qrLoading ? (
+          <div className="flex items-center justify-center py-10">
+            <div className="w-8 h-8 border-4 border-[#1B2F5E] border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : qrCode ? (
+          <div className="flex flex-col items-center gap-4">
+            <img src={qrCode} alt="Review QR code" className="w-48 h-48 rounded-xl" />
+            <p className="text-sm text-gray-500 text-center max-w-sm leading-relaxed">
+              Print this and place it at your front counter. Customers scan it to leave you a Google review instantly.
+            </p>
+            <button
+              onClick={() => {
+                const a = document.createElement('a');
+                a.href = qrCode;
+                a.download = 'recoverjob-qrcode.png';
+                a.click();
+              }}
+              className="flex items-center gap-2 bg-[#1B2F5E] hover:bg-[#15254d] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download QR Code
+            </button>
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400 text-center py-6">QR code unavailable.</p>
+        )}
+      </div>
 
       {/* Line chart */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
