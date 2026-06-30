@@ -7,7 +7,7 @@ export default function SmsConsent() {
           <img
             src="/logo.png"
             alt="RecoverJob"
-            className="h-9 w-auto"
+            className="h-12 w-auto"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           <span className="text-white text-xl font-bold tracking-tight">RecoverJob</span>

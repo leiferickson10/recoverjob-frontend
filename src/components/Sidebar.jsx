@@ -22,7 +22,7 @@ export default function Sidebar() {
         <img
           src="/logo.png"
           alt="RecoverJob"
-          className="h-8 w-auto"
+          className="h-10 w-auto"
           onError={(e) => { e.target.style.display = 'none'; }}
         />
         <span className="font-bold text-lg tracking-tight">RecoverJob</span>

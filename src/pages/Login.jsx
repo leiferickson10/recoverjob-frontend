@@ -31,7 +31,7 @@ export default function Login() {
           <img
             src="/logo.png"
             alt="RecoverJob"
-            className="h-12 w-auto"
+            className="h-16 w-auto"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           <h1 className="text-2xl font-bold text-[#1B2F5E] tracking-tight">RecoverJob</h1>

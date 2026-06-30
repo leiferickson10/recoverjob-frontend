@@ -96,7 +96,7 @@ export default function Onboarding() {
           <img
             src="/logo.png"
             alt="RecoverJob"
-            className="h-10 w-auto mx-auto mb-6"
+            className="h-12 w-auto mx-auto mb-6"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           <div className="inline-flex items-center gap-2 bg-[#4CAF29]/20 text-[#7ed659] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">

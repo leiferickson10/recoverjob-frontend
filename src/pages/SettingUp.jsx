@@ -60,7 +60,7 @@ export default function SettingUp() {
         <img
           src="/logo.png"
           alt="RecoverJob"
-          className="h-10 w-auto mx-auto mb-7"
+          className="h-12 w-auto mx-auto mb-7"
           onError={(e) => { e.target.style.display = 'none'; }}
         />
 

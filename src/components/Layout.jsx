@@ -28,7 +28,7 @@ export default function Layout({ children }) {
               <img
                 src="/logo.png"
                 alt="RecoverJob"
-                className="h-8 w-auto"
+                className="h-10 w-auto"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
               <span className="font-bold text-[#1B2F5E] text-lg tracking-tight">RecoverJob</span>
