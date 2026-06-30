@@ -13,6 +13,8 @@ dist
 .env.*
 ~$*
 RecoverJob Logo.png
+RecoverJob Main Logo.png
+public - Copy/
 dist-ssr
 *.local
 
