@@ -28,7 +28,7 @@ export default function SmsConsent() {
             About RecoverJob SMS
           </h2>
           <p className="text-gray-700 leading-relaxed">
-            RecoverJob is a SaaS platform that sends automated SMS messages on behalf of trades businesses
+            RecoverJob is a SaaS platform that sends automated SMS messages on behalf of service businesses
             (plumbers, HVAC, electricians, etc.) to individuals who called that business and did not reach
             anyone. Messages are sent as a direct transactional response to the caller's inbound service
             request.
