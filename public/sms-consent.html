@@ -203,61 +203,28 @@
       margin-bottom: 10px;
     }
 
-    /* SMS bubbles */
-    .phone-frame {
-      background: #1a1a2e;
-      border-radius: 24px;
-      padding: 20px 16px;
-      max-width: 360px;
-      margin: 16px auto 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    }
-    .phone-bar {
+    /* Step + screenshot layout */
+    .step-block {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 0 4px;
+      gap: 24px;
+      align-items: flex-start;
     }
-    .phone-contact { font-size: 0.78rem; font-weight: 600; color: #a0aec0; }
-    .phone-tag { font-size: 0.7rem; color: #4a5568; }
-    .bubbles { display: flex; flex-direction: column; gap: 10px; padding: 0 4px; }
-    .bubble {
-      max-width: 82%;
-      padding: 11px 15px;
-      border-radius: 18px;
-      font-size: 0.85rem;
-      line-height: 1.55;
+    .step-text { flex: 1; min-width: 0; }
+    .step-shot {
+      flex-shrink: 0;
+      width: 220px;
+      text-align: center;
     }
-    .bubble-in {
-      background: #e5e5ea;
-      color: #1c1c1e;
-      align-self: flex-start;
-      border-bottom-left-radius: 5px;
+    .step-shot img {
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+      border: 1px solid #e5e7eb;
     }
-    .bubble-out {
-      background: #007AFF;
-      color: #fff;
-      align-self: flex-end;
-      border-bottom-right-radius: 5px;
-    }
-    .bubble-out-yes {
-      background: #4CAF29;
-      color: #fff;
-      align-self: flex-end;
-      border-bottom-right-radius: 5px;
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-    }
-    .bubble-label {
-      font-size: 0.68rem;
-      color: #4a5568;
-      margin-bottom: 4px;
-      padding: 0 4px;
-    }
-    .bubble-label-right {
-      text-align: right;
+    .step-shot .sample-language {
+      text-align: left;
+      margin-top: 12px;
     }
 
     /* SMS details table */
@@ -422,6 +389,8 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .sms-box td:first-child { width: auto; }
       .legal-btn { min-width: 100%; }
+      .step-block { flex-direction: column; }
+      .step-shot { width: 100%; max-width: 260px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -440,115 +409,105 @@
 <main>
   <div class="page-header">
     <h1>SMS Consent &amp; Messaging Disclosure</h1>
-    <p class="meta">Last updated: June 4, 2026 <span>Current</span></p>
+    <p class="meta">Last updated: July 6, 2026 <span>Current</span></p>
   </div>
 
   <div class="intro">
-    <p>This page explains how RecoverJob sends automated SMS messages on behalf of businesses, how recipient consent is obtained via SMS keyword opt-in, and how recipients can opt out at any time.</p>
+    <p>This page explains how RecoverJob's Missed Call Text Back (MCTB) and AI qualifying agent send automated SMS messages on behalf of businesses, how recipient consent is obtained via SMS keyword opt-in, and how recipients can opt out at any time.</p>
   </div>
 
-  <!-- Section 1: About -->
+  <!-- Section 1: How It Works -->
   <div class="section">
-    <h2>About the Service</h2>
-    <h3>About RecoverJob SMS</h3>
-    <p>RecoverJob is a SaaS platform that sends automated SMS messages on behalf of service businesses (plumbers, HVAC, electricians, etc.). Before any follow-up messages are sent, RecoverJob first obtains explicit consent from the caller via SMS keyword opt-in. No marketing or follow-up messages are delivered until the recipient actively replies <strong>YES</strong>.</p>
-  </div>
+    <h2>How It Works</h2>
+    <h3>How Our Missed Call Text Back System Works</h3>
+    <p>The steps below describe the exact experience every caller goes through, with real screenshots and the exact message wording sent at each step.</p>
 
-  <!-- Section 2: How Consent Works -->
-  <div class="section">
-    <h2>Consent</h2>
-    <h3>How Consent Works — SMS Keyword Opt-In</h3>
-    <p>RecoverJob uses a keyword opt-in flow. The recipient must actively reply <strong>YES</strong> before any follow-up messages are sent. The steps below describe the exact experience every recipient goes through.</p>
+    <div style="margin-top:20px; display:flex; flex-direction:column; gap:20px;">
 
-    <div style="margin-top:20px; display:flex; flex-direction:column; gap:12px;">
-
+      <!-- Step 1 -->
       <div class="consent-option">
         <div class="consent-option-label">Step 1</div>
-        <h4>Missed Call Trigger</h4>
-        <p>When a customer calls a RecoverJob business partner and does not reach anyone, the call is detected by our system. No SMS is sent at this point.</p>
+        <h4>Customer Calls the Business Number</h4>
+        <p>A customer calls the contractor's dedicated RecoverJob business number and the call goes unanswered. No SMS is sent at this point — the missed call is simply detected by our system.</p>
       </div>
 
+      <!-- Step 2 -->
       <div class="consent-option">
         <div class="consent-option-label">Step 2</div>
-        <h4>Opt-In Request — First &amp; Only Message Sent Without Consent</h4>
-        <div class="step-required">Action required from recipient</div>
-        <p>The customer receives a single opt-in SMS asking for permission to follow up. This is the only message ever sent before consent is confirmed.</p>
-        <div class="sample-language">"Hi, this is [Business Name]. We noticed you called us recently. Would you like us to text you back regarding your missed call? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply."</div>
-        <p style="margin-top:8px;font-size:0.82rem;font-style:italic;color:#6b7280;">Note: [Business Name] is dynamically replaced with the actual name of the specific business the customer called (e.g., Bob's Plumbing, ABC HVAC, Smith Electric). RecoverJob sends messages on behalf of that specific business only.</p>
+        <div class="step-block">
+          <div class="step-text">
+            <h4>Opt-In Request — First &amp; Only Message Sent Without Consent</h4>
+            <div class="step-required">Action required from recipient</div>
+            <p>The customer receives a single opt-in SMS identifying the business and asking permission to continue by text. This is the only message ever sent before consent is confirmed.</p>
+            <p style="font-size:0.82rem;font-style:italic;color:#6b7280;">{Business Name} is dynamically replaced with the actual name of the specific business the customer called. RecoverJob sends messages on behalf of that specific business only.</p>
+          </div>
+          <div class="step-shot">
+            <img src="/images/mctb/step2-optin.webp" alt="Screenshot of the missed-call opt-in text message" />
+            <div class="sample-language">"Hi, this is {Business Name}. We noticed you called but couldn't reach us. Would you like to continue by text? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply."</div>
+          </div>
+        </div>
       </div>
 
+      <!-- Step 3 -->
       <div class="consent-option">
         <div class="consent-option-label">Step 3</div>
-        <h4>Customer Action Required</h4>
-        <p>The customer must actively reply <strong>YES</strong> to receive any further messages. If they do not reply, or reply <strong>STOP</strong>, no additional messages are ever sent. Consent is never assumed.</p>
+        <div class="step-block">
+          <div class="step-text">
+            <h4>Customer Replies YES to Opt In</h4>
+            <p>The customer must actively reply <strong>YES</strong> to receive any further messages. If they do not reply, or reply <strong>STOP</strong>, no additional messages are ever sent. Consent is never assumed.</p>
+          </div>
+          <div class="step-shot">
+            <img src="/images/mctb/step3-optin-yes.webp" alt="Screenshot of the opt-in text followed by the customer replying YES" />
+            <div class="sample-language">Business: "Hi, this is {Business Name}. We noticed you called but couldn't reach us. Would you like to continue by text? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply."<br><br>Customer: "Yes"</div>
+          </div>
+        </div>
       </div>
 
+      <!-- Step 4 -->
       <div class="consent-option">
         <div class="consent-option-label">Step 4</div>
-        <h4>Follow-Up — Sent Only After YES</h4>
-        <p>After the customer replies YES, they receive one follow-up message from the business:</p>
-        <div class="sample-language">"Hi, this is [Business Name]. Sorry we missed your call. What can we help you with? Reply STOP to opt out."</div>
-        <p style="margin-top:8px;font-size:0.82rem;font-style:italic;color:#6b7280;">Note: [Business Name] is dynamically replaced with the actual name of the specific business the customer called (e.g., Bob's Plumbing, ABC HVAC, Smith Electric). RecoverJob sends messages on behalf of that specific business only.</p>
-        <p style="margin-top:10px;">The customer's opt-in is recorded and their reply is forwarded to the business owner so they can respond directly.</p>
+        <div class="step-block">
+          <div class="step-text">
+            <h4>AI Asks 3 Qualifying Questions</h4>
+            <p>Once the customer opts in, our AI agent asks three quick questions by text to understand what they need — what service, how soon, and what type of property — so the business can call back a warm, qualified lead instead of a cold missed call.</p>
+          </div>
+          <div class="step-shot">
+            <img src="/images/mctb/step4-qualifying.webp" alt="Screenshot of the full AI qualifying question conversation" />
+            <div class="sample-language">
+              "Great! To help connect you with the right person, I have a few quick questions."<br><br>
+              "What service do you need help with?"<br><br>
+              "We understand. How soon do you need someone out there?"<br><br>
+              "One more — is this for a home, rental property, or commercial space?"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="consent-option">
+        <div class="consent-option-label">Step 5</div>
+        <div class="step-block">
+          <div class="step-text">
+            <h4>Closing Message — With Booking Link</h4>
+            <p>After the customer answers all three questions, they receive a closing message thanking them for their answers. If the business has a booking link on file, it's included so the customer can book directly; the business is also notified to follow up personally.</p>
+          </div>
+          <div class="step-shot">
+            <img src="/images/mctb/step5-closing-booking.webp" alt="Screenshot of the closing message with a Calendly booking link" />
+            <div class="sample-language">"Thank you for your answers! You can book directly here: https://calendly.com/contractor-booking. We'll also have someone reach out to you shortly. Reply STOP to opt out. Msg &amp; data rates may apply."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="consent-option" style="border-style:dashed;">
+        <div class="consent-option-label">If No Booking Link Is On File</div>
+        <p style="margin-bottom:0;">Businesses without a booking link on file send this closing message instead:</p>
+        <div class="sample-language">"Thank you for your answers! We'll have someone reach out to you shortly. Reply STOP to opt out. Msg &amp; data rates may apply."</div>
       </div>
 
     </div>
   </div>
 
-  <!-- Section 3: Sample Conversations -->
-  <div class="section">
-    <h2>Sample Messages</h2>
-    <h3>Sample Conversation — Opt-In (YES)</h3>
-    <p>The exchange below shows the complete opt-in flow as a real customer would experience it. Business messages appear on the left; customer replies appear on the right.</p>
-
-    <div class="phone-frame">
-      <div class="phone-bar">
-        <span class="phone-contact">Bob's Plumbing</span>
-        <span class="phone-tag">SMS</span>
-      </div>
-      <div class="bubbles">
-
-        <div class="bubble-label">Bob's Plumbing</div>
-        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. We noticed you called us recently. Would you like us to text you back regarding your missed call? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply.</div>
-
-        <div class="bubble-label bubble-label-right" style="margin-top:8px;">You — opt-in confirmation</div>
-        <div class="bubble bubble-out-yes">YES</div>
-
-        <div class="bubble-label" style="margin-top:8px;">Bob's Plumbing</div>
-        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. Sorry we missed your call. What can we help you with? Reply STOP to opt out.</div>
-
-        <div class="bubble-label bubble-label-right" style="margin-top:8px;">You</div>
-        <div class="bubble bubble-out">Hi, I need someone to look at a leaking pipe under my sink.</div>
-
-      </div>
-    </div>
-
-    <h3 style="margin-top:32px;">Sample Conversation — Opt-Out (STOP)</h3>
-    <p>The exchange below shows what happens when a customer opts out. No further messages are sent after the confirmation.</p>
-
-    <div class="phone-frame">
-      <div class="phone-bar">
-        <span class="phone-contact">Bob's Plumbing</span>
-        <span class="phone-tag">SMS</span>
-      </div>
-      <div class="bubbles">
-
-        <div class="bubble-label">Bob's Plumbing</div>
-        <div class="bubble bubble-in">Hi, this is Bob's Plumbing. We noticed you called us recently. Would you like us to text you back regarding your missed call? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply.</div>
-
-        <div class="bubble-label bubble-label-right" style="margin-top:8px;">You — opt-out request</div>
-        <div class="bubble" style="background:#fee2e2;color:#991b1b;align-self:flex-end;border-bottom-right-radius:5px;font-weight:700;font-size:1rem;letter-spacing:0.5px;">STOP</div>
-
-        <div class="bubble-label" style="margin-top:8px;">Bob's Plumbing — confirmation</div>
-        <div class="bubble bubble-in">You have been unsubscribed from Bob's Plumbing messages and will not receive further texts. Reply START to resubscribe.</div>
-
-      </div>
-    </div>
-
-    <p style="margin-top:16px;font-size:0.82rem;font-style:italic;color:#6b7280;">Opt-outs are honored immediately and permanently. The customer will never receive further messages unless they reply START to resubscribe.</p>
-  </div>
-
-  <!-- Section 4: Program Information -->
+  <!-- Section 2: Program Information -->
   <div class="section">
     <h2>Message Details</h2>
     <h3>Program Information</h3>
@@ -556,7 +515,7 @@
       <table>
         <tr>
           <td>Opt-In Method</td>
-          <td>SMS keyword — reply <strong>YES</strong> to opt-in request</td>
+          <td>SMS keyword — reply <strong>YES</strong> to the opt-in request</td>
         </tr>
         <tr>
           <td>Opt-In Keyword</td>
@@ -568,7 +527,7 @@
         </tr>
         <tr>
           <td>Frequency</td>
-          <td>You will receive up to 2 messages per missed call after consent is confirmed</td>
+          <td>Up to 6 messages per missed call event after consent is confirmed</td>
         </tr>
         <tr>
           <td>Rates</td>
@@ -586,7 +545,7 @@
     </div>
   </div>
 
-  <!-- Section 5: Keyword Reference -->
+  <!-- Section 3: Keyword Reference -->
   <div class="section">
     <h2>Keywords</h2>
     <h3>Keyword Reference</h3>
@@ -599,10 +558,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><span class="keyword-pill pill-yes">YES</span></td>
-          <td>Opt in to receive follow-up messages from the business</td>
-        </tr>
         <tr>
           <td><span class="keyword-pill pill-stop">STOP</span></td>
           <td>Opt out immediately and permanently — no further messages will be sent</td>
@@ -619,7 +574,7 @@
     </table>
   </div>
 
-  <!-- Section 6: Legal Documents -->
+  <!-- Section 4: Legal Documents -->
   <div class="section">
     <h2>Legal Documents</h2>
     <h3>Policies &amp; Terms</h3>
