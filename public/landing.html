@@ -284,39 +284,12 @@
       padding: 36px 0;
       border-bottom: 1px solid var(--border);
     }
-    .trust-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .trust-tagline {
-      font-size: 0.9rem;
-      color: var(--gray-text);
+    .trust-line {
+      text-align: center;
+      font-size: 0.85rem;
       font-weight: 500;
-      max-width: 260px;
-    }
-    .trust-stats {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-    .trust-stat {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .trust-stat-text .value {
-      font-size: 1.25rem;
-      font-weight: 800;
       color: var(--navy);
-      line-height: 1;
-    }
-    .trust-stat-text .label {
-      font-size: 0.75rem;
-      color: var(--gray-text);
-      margin-top: 2px;
+      letter-spacing: 0.2px;
     }
 
     /* ═══════════════════════════════
@@ -554,14 +527,12 @@
     @media (max-width: 768px) {
       .nav-links, .nav-actions { display: none; }
       .hamburger { display: flex; }
-      .trust-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
       .features-grid { grid-template-columns: 1fr; }
       .pricing-card { padding: 36px 28px; }
     }
     @media (max-width: 520px) {
       #hero { padding: 100px 0 60px; }
       .hero-headline { font-size: 1.85rem; }
-      .trust-stats { gap: 24px; }
       .footer-top { flex-direction: column; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
@@ -672,29 +643,7 @@
 ═══════════════════════════════ -->
 <section id="trust">
   <div class="container">
-    <div class="trust-inner">
-      <p class="trust-tagline">Trusted by local service businesses across Utah</p>
-      <div class="trust-stats">
-        <div class="trust-stat">
-          <div class="trust-stat-text">
-            <div class="value">15 sec</div>
-            <div class="label">Missed call texted back</div>
-          </div>
-        </div>
-        <div class="trust-stat">
-          <div class="trust-stat-text">
-            <div class="value">2-3</div>
-            <div class="label">Qualified leads recovered monthly</div>
-          </div>
-        </div>
-        <div class="trust-stat">
-          <div class="trust-stat-text">
-            <div class="value">$0</div>
-            <div class="label">Jobs recovered without RecoverJob</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <p class="trust-line">TCPA Compliant &middot; A2P 10DLC Registered &middot; SSL Encrypted &middot; Cancel Anytime</p>
   </div>
 </section>
 
