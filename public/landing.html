@@ -27,7 +27,6 @@
       --navy: #1B2F5E;
       --navy-dark: #132347;
       --navy-light: #243d75;
-      --navy-deep: #0F172A;
       --green: #4CAF29;
       --green-dark: #3d9922;
       --green-light: #e8f5e2;
@@ -70,24 +69,13 @@
     }
     .btn-outline {
       background: transparent;
-      color: var(--navy-deep);
+      color: #fff;
       padding: 12px 26px;
-      border: 2px solid var(--navy-deep);
+      border: 2px solid rgba(255,255,255,0.35);
     }
     .btn-outline:hover {
-      background: var(--navy-deep);
-      color: #fff;
-    }
-    .btn-navy-solid {
-      background: var(--navy-deep);
-      color: #fff;
-      padding: 13px 28px;
-      box-shadow: 0 4px 14px rgba(15,23,42,0.3);
-    }
-    .btn-navy-solid:hover {
-      background: #1e293b;
-      box-shadow: 0 6px 20px rgba(15,23,42,0.4);
-      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.08);
     }
     .btn-lg { font-size: 1.05rem; padding: 16px 36px; }
     .section-label {
@@ -110,11 +98,11 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: var(--navy-deep);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: #fff;
+      border-bottom: 1px solid var(--border);
       transition: box-shadow 0.2s;
     }
-    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.09); }
     .nav-inner {
       display: flex;
       align-items: center;
@@ -126,7 +114,7 @@
       align-items: center;
       overflow: visible;
     }
-    .nav-logo img { height: 64px; width: auto; object-fit: contain; display: block; filter: brightness(0) invert(1); }
+    .nav-logo img { height: 64px; width: auto; object-fit: contain; display: block; }
     .nav-links {
       display: flex;
       align-items: center;
@@ -136,10 +124,10 @@
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.82);
+      color: #374151;
       transition: color 0.15s;
     }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover { color: var(--navy); }
     .nav-actions {
       display: flex;
       align-items: center;
@@ -148,10 +136,10 @@
     .nav-login {
       font-size: 0.88rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.7);
+      color: var(--gray-text);
       transition: color 0.15s;
     }
-    .nav-login:hover { color: #fff; }
+    .nav-login:hover { color: var(--navy); }
     .nav-cta { padding: 9px 20px; font-size: 0.88rem; }
 
     /* Hamburger */
@@ -170,7 +158,7 @@
     .hamburger span {
       display: block;
       height: 2px;
-      background: #fff;
+      background: var(--navy);
       border-radius: 2px;
       transition: all 0.25s ease;
       transform-origin: center;
@@ -184,8 +172,8 @@
       display: none;
       flex-direction: column;
       gap: 0;
-      background: var(--navy-deep);
-      border-top: 1px solid rgba(255,255,255,0.08);
+      background: #fff;
+      border-top: 1px solid var(--border);
       padding: 8px 0 16px;
     }
     .mobile-menu.open { display: flex; }
@@ -193,8 +181,8 @@
       padding: 13px 24px;
       font-size: 0.95rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.85);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
     }
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu .mobile-cta {
@@ -212,7 +200,7 @@
        HERO
     ═══════════════════════════════ */
     #hero {
-      background: #fff;
+      background: var(--navy);
       padding: 120px 0 80px;
       overflow: hidden;
     }
@@ -226,18 +214,18 @@
     .hero-headline {
       font-size: clamp(2rem, 4vw, 3.1rem);
       font-weight: 900;
-      color: var(--navy-deep);
+      color: #fff;
       line-height: 1.12;
       letter-spacing: -0.8px;
       margin-bottom: 22px;
     }
     .hero-headline em {
       font-style: normal;
-      color: #22C55E;
+      color: var(--green);
     }
     .hero-sub {
       font-size: 1.05rem;
-      color: var(--gray-text);
+      color: #93aed8;
       line-height: 1.7;
       margin-bottom: 36px;
       max-width: 480px;
@@ -250,22 +238,22 @@
     }
     .hero-secondary-link {
       font-size: 0.88rem;
-      color: var(--gray-text);
+      color: #93aed8;
       display: flex;
       align-items: center;
       gap: 6px;
       transition: color 0.15s;
       cursor: pointer;
     }
-    .hero-secondary-link:hover { color: var(--navy-deep); }
+    .hero-secondary-link:hover { color: #fff; }
     .hero-secondary-link svg { transition: transform 0.15s; }
     .hero-secondary-link:hover svg { transform: translateX(3px); }
 
     /* Hero stats */
     .hero-stats { display: flex; justify-content: center; align-items: center; }
     .hero-stat-card {
-      background: #F8FAFC;
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 16px;
       padding: 24px 28px;
     }
@@ -280,7 +268,7 @@
     }
     .hero-stat-label {
       font-size: 0.9rem;
-      color: var(--navy-deep);
+      color: #93aed8;
       line-height: 1.5;
     }
 
@@ -620,14 +608,14 @@
       <!-- Left: Text -->
       <div class="hero-text">
         <h1 class="hero-headline">
-          Turn Missed Calls Into <em>More Jobs</em>
+          Turn Missed Calls Into <em style="color:#22C55E;">More Jobs</em>
         </h1>
         <p class="hero-sub">
           RecoverJob automatically texts back every customer who calls and doesn't reach you — then our AI qualifies the lead and sends you a ready-to-call summary. You focus on the job. We handle the follow-up.
         </p>
         <div class="hero-actions">
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
-            <a href="/signup" class="btn btn-navy-solid btn-lg">Get Started</a>
+            <a href="/signup" class="btn btn-green btn-lg">Get Started</a>
             <a href="mailto:leif@recoverjob.com" class="btn btn-outline btn-lg">Book a Demo</a>
           </div>
           <a href="#how" class="hero-secondary-link">
