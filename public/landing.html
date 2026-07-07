@@ -14,7 +14,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #0F172A;
+      color: #1a1a2e;
       background: #fff;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
@@ -24,19 +24,20 @@
 
     /* ── Tokens ── */
     :root {
-      --navy: #0F172A;
-      --navy-soft: #1E293B;
-      --green: #22C55E;
-      --green-dark: #16A34A;
-      --green-light: #DCFCE7;
-      --gray-bg: #F8FAFC;
-      --gray-text: #64748B;
-      --border: #E2E8F0;
+      --navy: #1B2F5E;
+      --navy-dark: #132347;
+      --navy-light: #243d75;
+      --green: #4CAF29;
+      --green-dark: #3d9922;
+      --green-light: #e8f5e2;
+      --gray-bg: #f3f4f6;
+      --gray-text: #6b7280;
+      --border: #e5e7eb;
     }
 
     /* ── Utility ── */
     .container {
-      max-width: 1160px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -59,39 +60,22 @@
       background: var(--green);
       color: #fff;
       padding: 13px 28px;
-      box-shadow: 0 4px 14px rgba(34,197,94,0.35);
+      box-shadow: 0 4px 14px rgba(76,175,41,0.35);
     }
     .btn-green:hover {
       background: var(--green-dark);
-      box-shadow: 0 6px 20px rgba(34,197,94,0.45);
+      box-shadow: 0 6px 20px rgba(76,175,41,0.45);
       transform: translateY(-1px);
     }
     .btn-outline {
-      background: transparent;
-      color: var(--navy);
-      padding: 12px 26px;
-      border: 2px solid var(--border);
-    }
-    .btn-outline:hover {
-      border-color: var(--navy);
-      background: var(--gray-bg);
-    }
-    .btn-outline-dark {
       background: transparent;
       color: #fff;
       padding: 12px 26px;
       border: 2px solid rgba(255,255,255,0.35);
     }
-    .btn-outline-dark:hover {
+    .btn-outline:hover {
       border-color: rgba(255,255,255,0.7);
       background: rgba(255,255,255,0.08);
-    }
-    .btn-disabled {
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.45);
-      padding: 12px 26px;
-      border: 2px solid rgba(255,255,255,0.14);
-      cursor: not-allowed;
     }
     .btn-lg { font-size: 1.05rem; padding: 16px 36px; }
     .section-label {
@@ -100,15 +84,11 @@
       font-weight: 700;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: var(--green-dark);
+      color: var(--green);
       background: var(--green-light);
       padding: 5px 12px;
       border-radius: 20px;
       margin-bottom: 18px;
-    }
-    .section-label-dark {
-      color: #7ee9a3;
-      background: rgba(34,197,94,0.14);
     }
 
     /* ═══════════════════════════════
@@ -122,31 +102,27 @@
       border-bottom: 1px solid var(--border);
       transition: box-shadow 0.2s;
     }
-    #navbar.scrolled { box-shadow: 0 2px 16px rgba(15,23,42,0.08); }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.09); }
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 76px;
-      gap: 24px;
+      height: 72px;
     }
     .nav-logo {
       display: flex;
       align-items: center;
       overflow: visible;
-      flex-shrink: 0;
     }
-    .nav-logo img { height: 56px; width: auto; object-fit: contain; display: block; }
+    .nav-logo img { height: 64px; width: auto; object-fit: contain; display: block; }
     .nav-links {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 32px;
       list-style: none;
-      flex: 1;
     }
     .nav-links a {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: #374151;
       transition: color 0.15s;
@@ -156,8 +132,14 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      flex-shrink: 0;
     }
+    .nav-login {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--gray-text);
+      transition: color 0.15s;
+    }
+    .nav-login:hover { color: var(--navy); }
     .nav-cta { padding: 9px 20px; font-size: 0.88rem; }
 
     /* Hamburger */
@@ -211,138 +193,83 @@
       border-radius: 10px;
       padding: 13px;
       font-weight: 600;
-      box-shadow: 0 4px 14px rgba(34,197,94,0.3);
+      box-shadow: 0 4px 14px rgba(76,175,41,0.3);
     }
 
     /* ═══════════════════════════════
        HERO
     ═══════════════════════════════ */
     #hero {
-      background: #fff;
-      padding: 156px 0 88px;
+      background: var(--navy);
+      padding: 120px 0 80px;
       overflow: hidden;
     }
     .hero-inner {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
       gap: 64px;
     }
     .hero-text { padding-top: 8px; }
     .hero-headline {
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2rem, 4vw, 3.1rem);
       font-weight: 900;
-      color: var(--navy);
+      color: #fff;
       line-height: 1.12;
       letter-spacing: -0.8px;
       margin-bottom: 22px;
     }
     .hero-headline em {
       font-style: normal;
-      color: var(--green-dark);
+      color: var(--green);
     }
     .hero-sub {
       font-size: 1.05rem;
-      color: var(--gray-text);
+      color: #93aed8;
       line-height: 1.7;
       margin-bottom: 36px;
       max-width: 480px;
     }
     .hero-actions {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 14px;
     }
-
-    /* Hero phone mockup */
-    .hero-visual { display: flex; justify-content: center; position: relative; }
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      width: 380px;
-      height: 380px;
-      background: radial-gradient(circle, var(--green-light) 0%, rgba(220,252,231,0) 70%);
-      border-radius: 50%;
-      z-index: 0;
-    }
-    .phone-mock {
-      position: relative;
-      z-index: 1;
-      width: 280px;
-      background: var(--navy);
-      border-radius: 36px;
-      padding: 14px;
-      box-shadow: 0 24px 64px rgba(15,23,42,0.28);
-    }
-    .phone-notch {
-      width: 90px;
-      height: 20px;
-      background: var(--navy);
-      border-radius: 0 0 14px 14px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-    .phone-screen {
-      background: #fff;
-      border-radius: 26px;
-      margin-top: -14px;
-      padding: 28px 14px 20px;
-      min-height: 400px;
-    }
-    .missed-call-banner {
+    .hero-secondary-link {
+      font-size: 0.88rem;
+      color: #93aed8;
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: #FEF2F2;
-      border: 1px solid #FECACA;
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 18px;
+      gap: 6px;
+      transition: color 0.15s;
+      cursor: pointer;
     }
-    .missed-call-banner .icon {
-      width: 30px; height: 30px;
-      background: #EF4444;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+    .hero-secondary-link:hover { color: #fff; }
+    .hero-secondary-link svg { transition: transform 0.15s; }
+    .hero-secondary-link:hover svg { transform: translateX(3px); }
+
+    /* Hero stats */
+    .hero-stats { display: flex; justify-content: center; align-items: center; }
+    .hero-stat-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 24px 28px;
     }
-    .missed-call-banner .text { flex: 1; }
-    .missed-call-banner .title { font-size: 0.85rem; font-weight: 700; color: #991B1B; }
-    .missed-call-banner .time { font-size: 0.72rem; color: #b45454; }
-    .chat-bubble {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+    .hero-stat-card + .hero-stat-card { margin-top: 20px; }
+    .hero-stat-value {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--green);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
     }
-    .chat-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--green);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .chat-text {
-      background: #F1F5F9;
-      border-radius: 14px;
-      border-top-left-radius: 4px;
-      padding: 12px 14px;
-    }
-    .chat-text .sender { font-size: 0.74rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; display: block; }
-    .chat-text p { font-size: 0.8rem; color: #334155; line-height: 1.55; }
-    .chat-text .reply {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--green);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.78rem;
-      padding: 5px 16px;
-      border-radius: 20px;
+    .hero-stat-label {
+      font-size: 0.9rem;
+      color: #93aed8;
+      line-height: 1.5;
     }
 
     /* ═══════════════════════════════
@@ -351,7 +278,6 @@
     #trust {
       background: var(--gray-bg);
       padding: 36px 0;
-      border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
     .trust-inner {
@@ -390,29 +316,6 @@
     }
 
     /* ═══════════════════════════════
-       ABOUT / WHY RECOVERJOB
-    ═══════════════════════════════ */
-    #about {
-      background: #fff;
-      padding: 80px 0;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    #about .about-inner { max-width: 680px; margin: 0 auto; }
-    #about h2 {
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: -0.4px;
-      margin-bottom: 16px;
-    }
-    #about p {
-      font-size: 1rem;
-      color: var(--gray-text);
-      line-height: 1.8;
-    }
-
-    /* ═══════════════════════════════
        HOW IT WORKS
     ═══════════════════════════════ */
     #how {
@@ -438,130 +341,77 @@
     }
     .steps {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
       position: relative;
-    }
-    .steps::before {
-      content: "";
-      position: absolute;
-      top: 34px;
-      left: 12%;
-      right: 12%;
-      height: 0;
-      border-top: 2px dashed var(--border);
-      z-index: 0;
     }
     .step {
       text-align: center;
+      padding: 36px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: #fff;
       position: relative;
-      z-index: 1;
     }
-    .step-icon {
-      width: 68px;
-      height: 68px;
-      margin: 0 auto 20px;
-      background: var(--green-light);
-      border: 1px solid #bbf0ce;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--green-dark);
+    .step:hover {
+      box-shadow: 0 8px 32px rgba(27,47,94,0.1);
+      transform: translateY(-4px);
+    }
+    .step-number {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--green-light);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -2px;
     }
     .step h3 {
-      font-size: 1.02rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .step p {
-      font-size: 0.87rem;
+      font-size: 0.9rem;
       color: var(--gray-text);
       line-height: 1.6;
     }
 
     /* ═══════════════════════════════
-       FEATURES (dark)
+       FEATURES
     ═══════════════════════════════ */
     #features {
-      background: var(--navy);
+      background: var(--gray-bg);
       padding: 96px 0;
     }
-    #features .section-heading h2 { color: #fff; }
-    #features .section-heading p { color: #94A3B8; }
     .features-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
     .feature-card {
-      background: var(--navy-soft);
+      background: #fff;
       border-radius: 16px;
       padding: 32px;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
     }
     .feature-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 32px rgba(27,47,94,0.08);
       transform: translateY(-3px);
-      border-color: rgba(34,197,94,0.4);
-    }
-    .feature-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(34,197,94,0.14);
-      color: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
     }
     .feature-card h3 {
       font-size: 1.05rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--navy);
       margin-bottom: 10px;
     }
     .feature-card p {
       font-size: 0.92rem;
-      color: #94A3B8;
+      color: var(--gray-text);
       line-height: 1.65;
     }
-
-    /* ═══════════════════════════════
-       LIVE DEMO / CONTACT
-    ═══════════════════════════════ */
-    #demo {
-      background: var(--gray-bg);
-      padding: 96px 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    #demo h2 { color: var(--navy); }
-    #demo .demo-sub { color: var(--gray-text); }
-    .demo-number-card {
-      display: inline-block;
-      background: var(--green-light);
-      border: 2px solid #bbf0ce;
-      border-radius: 16px;
-      padding: 24px 52px;
-      margin-bottom: 52px;
-    }
-    .demo-number-card .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-text); margin-bottom: 10px; }
-    .demo-number-card .number { font-size: 2.8rem; font-weight: 900; color: var(--green-dark); letter-spacing: 2px; }
-    .demo-steps { max-width: 520px; margin: 0 auto 44px; text-align: left; display: flex; flex-direction: column; gap: 24px; }
-    .demo-steps .demo-step { display: flex; align-items: flex-start; gap: 16px; }
-    .demo-steps .num {
-      flex-shrink: 0; width: 28px; height: 28px;
-      background: var(--green); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem; font-weight: 800; color: #fff; margin-top: 2px;
-    }
-    .demo-steps p { font-size: 0.95rem; color: #374151; line-height: 1.6; }
-    .demo-disclaimer { font-size: 0.82rem; color: var(--gray-text); font-style: italic; max-width: 480px; margin: 0 auto; }
 
     /* ═══════════════════════════════
        PRICING
@@ -570,110 +420,65 @@
       background: #fff;
       padding: 96px 0;
     }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-      max-width: 780px;
-      margin: 0 auto;
-      align-items: stretch;
+    .pricing-card-wrap {
+      display: flex;
+      justify-content: center;
     }
     .pricing-card {
-      background: #fff;
-      border: 2px solid var(--border);
+      width: 100%;
+      max-width: 460px;
+      border: 2px solid var(--navy);
       border-radius: 20px;
-      padding: 40px 36px;
-      display: flex;
-      flex-direction: column;
+      padding: 48px 44px;
+      box-shadow: 0 16px 48px rgba(27,47,94,0.12);
+      text-align: center;
     }
-    .pricing-card-featured {
-      background: var(--navy);
-      border-color: var(--navy);
-      position: relative;
-      box-shadow: 0 16px 48px rgba(15,23,42,0.18);
-    }
-    .pricing-badge {
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--green);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      padding: 5px 16px;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-    .pricing-plan-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-    .pricing-card-featured .pricing-plan-name { color: #fff; }
     .pricing-amount {
       display: flex;
       align-items: flex-start;
-      gap: 3px;
-      margin: 8px 0 4px;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
     }
     .pricing-dollar {
-      font-size: 1.3rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--green-dark);
-      margin-top: 6px;
+      color: var(--green);
+      margin-top: 10px;
     }
-    .pricing-card-featured .pricing-dollar { color: var(--green); }
     .pricing-number {
-      font-size: 3.4rem;
+      font-size: 5rem;
       font-weight: 900;
-      color: var(--green-dark);
+      color: var(--green);
       line-height: 1;
-      letter-spacing: -2px;
+      letter-spacing: -3px;
     }
-    .pricing-card-featured .pricing-number { color: var(--green); }
     .pricing-period {
-      font-size: 0.92rem;
+      font-size: 1rem;
       color: var(--gray-text);
       font-weight: 500;
-      margin-top: 12px;
+      margin-top: 16px;
     }
-    .pricing-card-featured .pricing-period { color: #94A3B8; }
-    .pricing-note {
-      font-size: 0.86rem;
-      color: var(--gray-text);
-      margin: 10px 0 20px;
-      line-height: 1.55;
-    }
-    .pricing-card-featured .pricing-note { color: #94A3B8; }
     .pricing-features {
       list-style: none;
-      margin: 0 0 28px;
+      margin: 0 0 36px;
       padding: 0;
       text-align: left;
-      flex: 1;
     }
     .pricing-features li {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 0;
+      gap: 12px;
+      padding: 10px 0;
       border-bottom: 1px solid #f3f4f6;
-      font-size: 0.88rem;
+      font-size: 0.94rem;
       color: #374151;
       font-weight: 500;
     }
-    .pricing-card-featured .pricing-features li {
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      color: #cbd5e1;
-    }
     .pricing-features li:last-child { border-bottom: none; }
     .pricing-features .check {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       background: var(--green);
       border-radius: 50%;
       display: flex;
@@ -681,32 +486,13 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .pricing-features .check svg { width: 10px; height: 10px; }
-    .pricing-note-bottom {
-      text-align: center;
-      font-size: 0.86rem;
-      color: var(--gray-text);
-      margin-top: 32px;
-    }
+    .pricing-features .check svg { width: 11px; height: 11px; }
 
     /* ═══════════════════════════════
        FOOTER
     ═══════════════════════════════ */
-    #footer-cta {
-      background: var(--navy);
-      padding: 72px 0;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    #footer-cta h2 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-      margin-bottom: 28px;
-    }
     footer {
-      background: var(--navy);
+      background: var(--navy-dark);
       padding: 48px 0 32px;
     }
     .footer-top {
@@ -718,10 +504,10 @@
       border-bottom: 1px solid rgba(255,255,255,0.08);
       flex-wrap: wrap;
     }
-    .footer-brand img { height: 44px; width: auto; margin-bottom: 12px; }
+    .footer-brand img { height: 50px; width: auto; margin-bottom: 12px; }
     .footer-tagline {
       font-size: 0.85rem;
-      color: #94A3B8;
+      color: #6b87b8;
       max-width: 220px;
       line-height: 1.5;
     }
@@ -733,7 +519,7 @@
     }
     .footer-links a {
       font-size: 0.85rem;
-      color: #94A3B8;
+      color: #93aed8;
       transition: color 0.15s;
       font-weight: 500;
     }
@@ -748,37 +534,32 @@
     }
     .footer-copy {
       font-size: 0.8rem;
-      color: #64748B;
+      color: #4a6491;
     }
 
     /* ═══════════════════════════════
        RESPONSIVE
     ═══════════════════════════════ */
-    @media (max-width: 1000px) {
-      .steps { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
-      .steps::before { display: none; }
-    }
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 48px; }
-      .hero-actions { justify-content: center; }
+      .hero-actions { align-items: center; }
       .hero-sub { margin-left: auto; margin-right: auto; }
-      .hero-visual { order: -1; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .hero-stats { order: -1; }
+      .steps { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
     }
     @media (max-width: 768px) {
       .nav-links, .nav-actions { display: none; }
       .hamburger { display: flex; }
       .trust-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
       .features-grid { grid-template-columns: 1fr; }
+      .pricing-card { padding: 36px 28px; }
     }
     @media (max-width: 520px) {
-      #hero { padding: 132px 0 60px; }
+      #hero { padding: 100px 0 60px; }
       .hero-headline { font-size: 1.85rem; }
-      .steps { grid-template-columns: 1fr; }
       .trust-stats { gap: 24px; }
       .footer-top { flex-direction: column; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
-      .phone-mock { width: 100%; max-width: 280px; }
     }
   </style>
 </head>
@@ -794,13 +575,12 @@
         <img src="/logo.png" alt="RecoverJob" />
       </a>
       <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#about">About Us</a></li>
         <li><a href="#demo">Contact</a></li>
-        <li><a href="/login">Login</a></li>
       </ul>
       <div class="nav-actions">
+        <a href="/login" class="nav-login">Log In</a>
         <a href="/signup" class="btn btn-green nav-cta">Get Started</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -809,11 +589,10 @@
     </div>
   </div>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
-    <a href="#about">About Us</a>
     <a href="#demo">Contact</a>
-    <a href="/login">Login</a>
+    <a href="/login">Log In</a>
     <a href="/signup" class="mobile-cta">Get Started</a>
   </div>
 </nav>
@@ -837,36 +616,46 @@
         </p>
         <div class="hero-actions">
           <a href="/signup" class="btn btn-green btn-lg">Get Started</a>
-          <a href="#how" class="btn btn-outline btn-lg">See How It Works</a>
+          <a href="#how" class="hero-secondary-link">
+            See How It Works
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
       </div>
 
-      <!-- Right: Phone mockup -->
-      <div class="hero-visual">
-        <div class="phone-mock">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="missed-call-banner">
-              <div class="icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              </div>
-              <div class="text">
-                <div class="title">Missed Call</div>
-                <div class="time">2:15 PM</div>
-              </div>
-            </div>
-            <div class="chat-bubble">
-              <div class="chat-avatar">RJ</div>
-              <div class="chat-text">
-                <span class="sender">RecoverJob · now</span>
-                <p>"Hi, this is {Business Name}. We noticed you called but couldn't reach us. Would you like to continue by text? Reply YES to connect or STOP to opt out. Msg &amp; data rates may apply."</p>
-                <span class="reply">YES</span>
-              </div>
-            </div>
+      <!-- Right: Stats -->
+      <div class="hero-stats">
+        <div style="display:flex;flex-direction:column;gap:20px;width:100%;max-width:340px;">
+          <div class="hero-stat-card">
+            <div class="hero-stat-value">15 sec</div>
+            <div class="hero-stat-label">to text back a missed caller</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-value">2-3</div>
+            <div class="hero-stat-label">qualified leads recovered per month</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-value">$0</div>
+            <div class="hero-stat-label">jobs recovered without RecoverJob</div>
           </div>
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     WHY RECOVERJOB
+═══════════════════════════════ -->
+<section style="background:#fff;padding:64px 0;text-align:center;border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div style="max-width:640px;margin:0 auto;">
+      <h2 style="font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:800;color:var(--navy);letter-spacing:-0.4px;margin-bottom:16px;">Why "RecoverJob"?</h2>
+      <p style="font-size:1rem;color:var(--gray-text);line-height:1.8;">Every missed call is a missed job. The average contractor loses 8-15 calls a month to voicemail. RecoverJob texts them back instantly, qualifies them with AI, and sends you everything you need to close the job — while you're still on the ladder.</p>
     </div>
   </div>
 </section>
@@ -905,19 +694,6 @@
 
 
 <!-- ═══════════════════════════════
-     ABOUT / WHY RECOVERJOB
-═══════════════════════════════ -->
-<section id="about">
-  <div class="container">
-    <div class="about-inner">
-      <h2>Why "RecoverJob"?</h2>
-      <p>Every missed call is a missed job. The average contractor loses 8-15 calls a month to voicemail. RecoverJob texts them back instantly, qualifies them with AI, and sends you everything you need to close the job — while you're still on the ladder.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════
      HOW IT WORKS
 ═══════════════════════════════ -->
 <section id="how">
@@ -929,30 +705,22 @@
     </div>
     <div class="steps">
       <div class="step">
-        <div class="step-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        </div>
+        <div class="step-number">01</div>
         <h3>Customer Calls Your Business Number</h3>
         <p>They call your dedicated RecoverJob number — the one on your Google profile and ads.</p>
       </div>
       <div class="step">
-        <div class="step-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-        </div>
+        <div class="step-number">02</div>
         <h3>You Miss the Call</h3>
         <p>You're on a job. No problem. RecoverJob texts the customer back within 15 seconds automatically.</p>
       </div>
       <div class="step">
-        <div class="step-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        </div>
+        <div class="step-number">03</div>
         <h3>AI Qualifies the Lead</h3>
         <p>Our AI asks 3 quick questions via SMS — what service they need, how urgent it is, and what type of property. The customer answers on their own time.</p>
       </div>
       <div class="step">
-        <div class="step-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
-        </div>
+        <div class="step-number">04</div>
         <h3>You Get a Lead Summary</h3>
         <p>We text you everything: what they need, urgency, property type, and their number. You call back a warm qualified lead instead of a cold missed call.</p>
       </div>
@@ -967,36 +735,24 @@
 <section id="features">
   <div class="container">
     <div class="section-heading">
-      <span class="section-label section-label-dark">Everything You Need</span>
+      <span class="section-label">Everything You Need</span>
       <h2>Built to Recover Every Missed Call</h2>
       <p>Every feature is designed to turn missed calls into booked jobs with zero extra effort.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        </div>
         <h3>Dedicated Business Number</h3>
         <p>Every RecoverJob member gets their own dedicated phone number. Put it on Google, your website, and your ads. Calls route straight to your cell.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        </div>
         <h3>Instant Missed Call Autotext</h3>
         <p>The moment a call goes unanswered, RecoverJob fires a text to the caller within 15 seconds. No manual work. No missed opportunities.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
-        </div>
         <h3>AI Lead Qualifying</h3>
         <p>Our AI agent texts the customer 3 questions to understand their needs before you call back. You get a complete lead summary sent straight to your phone.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
-        </div>
         <h3>Lead Summary to Your Phone</h3>
         <p>The moment a lead is qualified, we text you their name, what they need, urgency level, and property type. Everything you need to call back and close the job.</p>
       </div>
@@ -1006,35 +762,35 @@
 
 
 <!-- ═══════════════════════════════
-     LIVE DEMO / CONTACT
+     LIVE DEMO
 ═══════════════════════════════ -->
-<section id="demo">
+<section id="demo" style="background:var(--navy);padding:96px 0;text-align:center;">
   <div class="container">
-    <span class="section-label">Live Demo</span>
-    <h2 style="font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:16px;">Experience It Yourself</h2>
-    <p class="demo-sub" style="font-size:1rem;max-width:520px;margin:0 auto 48px;line-height:1.7;">Call our demo number and see exactly what your customers experience when you miss their call.</p>
+    <span class="section-label" style="background:rgba(76,175,41,0.15);color:#7ed659;">Live Demo</span>
+    <h2 style="font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;">Experience It Yourself</h2>
+    <p style="font-size:1rem;color:#93aed8;max-width:520px;margin:0 auto 48px;line-height:1.7;">Call our demo number and see exactly what your customers experience when you miss their call.</p>
 
-    <div class="demo-number-card">
-      <p class="label">Demo Number</p>
-      <p class="number">(385) 220-7651</p>
+    <div style="display:inline-block;background:rgba(76,175,41,0.12);border:2px solid rgba(76,175,41,0.3);border-radius:16px;padding:24px 52px;margin-bottom:52px;">
+      <p style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b87b8;margin-bottom:10px;">Demo Number</p>
+      <p style="font-size:2.8rem;font-weight:900;color:#4CAF29;letter-spacing:2px;">(385) 220-7651</p>
     </div>
 
-    <div class="demo-steps">
-      <div class="demo-step">
-        <div class="num">1</div>
-        <p><strong style="color:var(--navy);">Call that number</strong> from your cell phone.</p>
+    <div style="max-width:520px;margin:0 auto 44px;text-align:left;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="flex-shrink:0;width:28px;height:28px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:#fff;margin-top:2px;">1</div>
+        <p style="font-size:0.95rem;color:#93aed8;line-height:1.6;"><strong style="color:#fff;">Call that number</strong> from your cell phone.</p>
       </div>
-      <div class="demo-step">
-        <div class="num">2</div>
-        <p>Don't answer when it calls you back.</p>
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="flex-shrink:0;width:28px;height:28px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:#fff;margin-top:2px;">2</div>
+        <p style="font-size:0.95rem;color:#93aed8;line-height:1.6;">Don't answer when it calls you back.</p>
       </div>
-      <div class="demo-step">
-        <div class="num">3</div>
-        <p>Watch the autotext arrive within 15 seconds.</p>
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="flex-shrink:0;width:28px;height:28px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:#fff;margin-top:2px;">3</div>
+        <p style="font-size:0.95rem;color:#93aed8;line-height:1.6;">Watch the autotext arrive within 15 seconds.</p>
       </div>
     </div>
 
-    <p class="demo-disclaimer">This is a live demo. You will receive a real text message to the number you call from. Reply STOP at any time to opt out.</p>
+    <p style="font-size:0.82rem;color:#4a6491;font-style:italic;max-width:480px;margin:0 auto;">This is a live demo. You will receive a real text message to the number you call from. Reply STOP at any time to opt out.</p>
   </div>
 </section>
 
@@ -1049,63 +805,60 @@
       <h2>One Plan. No Surprises.</h2>
       <p>Everything included. No setup fees. No per-message fees.</p>
     </div>
-    <div class="pricing-grid">
-
-      <!-- Starter — the real, live plan -->
+    <div class="pricing-card-wrap">
       <div class="pricing-card">
-        <div class="pricing-plan-name">Starter</div>
         <div class="pricing-amount">
           <span class="pricing-dollar">$</span>
           <span class="pricing-number">99</span>
+          <span class="pricing-period">/month</span>
         </div>
-        <div class="pricing-period">/month</div>
-        <p class="pricing-note">Everything you need to get started.</p>
         <ul class="pricing-features">
           <li>
-            <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/></svg></span>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
             Dedicated business phone number
           </li>
           <li>
-            <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/></svg></span>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
             Instant missed call autotext
           </li>
           <li>
-            <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/></svg></span>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
             AI lead qualifying via SMS
           </li>
           <li>
-            <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/></svg></span>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
             Lead summary texted to you instantly
           </li>
           <li>
-            <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/></svg></span>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
             No contracts — cancel anytime
           </li>
         </ul>
-        <a href="/signup" class="btn btn-green btn-lg" style="width:100%;justify-content:center;">Get Started</a>
+        <a href="/signup" class="btn btn-green btn-lg" style="width:100%;justify-content:center;">
+          Get Started
+        </a>
       </div>
-
-      <!-- Pro — visual placeholder only, not a live plan yet -->
-      <div class="pricing-card pricing-card-featured">
-        <div class="pricing-badge">Most Popular</div>
-        <div class="pricing-plan-name">Pro</div>
-        <div class="pricing-amount">
-          <span class="pricing-dollar">$</span>
-          <span class="pricing-number">199</span>
-        </div>
-        <div class="pricing-period">/month</div>
-        <p class="pricing-note">Advanced features for growing businesses.</p>
-        <ul class="pricing-features">
-          <li>
-            <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="#0F172A" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/></svg></span>
-            Everything in Starter
-          </li>
-        </ul>
-        <button class="btn btn-disabled btn-lg" style="width:100%;justify-content:center;" disabled>Coming Soon</button>
-      </div>
-
     </div>
-    <p class="pricing-note-bottom">Try Starter free for 30 days. Cancel anytime.</p>
   </div>
 </section>
 
@@ -1113,13 +866,6 @@
 <!-- ═══════════════════════════════
      FOOTER
 ═══════════════════════════════ -->
-<section id="footer-cta">
-  <div class="container">
-    <h2>Never Lose Another Job to a Missed Call</h2>
-    <a href="/signup" class="btn btn-green btn-lg">Get Started</a>
-  </div>
-</section>
-
 <footer>
   <div class="container">
     <div class="footer-top">
@@ -1128,9 +874,8 @@
         <p class="footer-tagline">Never Lose Another Job to a Missed Call</p>
       </div>
       <nav class="footer-links">
-        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
         <a href="#pricing">Pricing</a>
-        <a href="#about">About Us</a>
         <a href="https://www.recoverjob.com/privacy-policy">Privacy Policy</a>
         <a href="https://www.recoverjob.com/terms-and-conditions">Terms</a>
         <a href="https://www.recoverjob.com/sms-consent">SMS Consent</a>
