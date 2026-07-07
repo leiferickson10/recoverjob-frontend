@@ -69,13 +69,13 @@
     }
     .btn-outline {
       background: transparent;
-      color: #fff;
+      color: var(--navy);
       padding: 12px 26px;
-      border: 2px solid rgba(255,255,255,0.35);
+      border: 2px solid var(--navy);
     }
     .btn-outline:hover {
-      border-color: rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.08);
+      background: var(--navy);
+      color: #fff;
     }
     .btn-lg { font-size: 1.05rem; padding: 16px 36px; }
     .section-label {
@@ -200,7 +200,10 @@
        HERO
     ═══════════════════════════════ */
     #hero {
-      background: var(--navy);
+      background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url('/images/hero-bg.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       padding: 120px 0 80px;
       overflow: hidden;
     }
@@ -214,7 +217,7 @@
     .hero-headline {
       font-size: clamp(2rem, 4vw, 3.1rem);
       font-weight: 900;
-      color: #fff;
+      color: var(--navy);
       line-height: 1.12;
       letter-spacing: -0.8px;
       margin-bottom: 22px;
@@ -225,7 +228,7 @@
     }
     .hero-sub {
       font-size: 1.05rem;
-      color: #93aed8;
+      color: var(--gray-text);
       line-height: 1.7;
       margin-bottom: 36px;
       max-width: 480px;
@@ -238,22 +241,23 @@
     }
     .hero-secondary-link {
       font-size: 0.88rem;
-      color: #93aed8;
+      color: var(--gray-text);
       display: flex;
       align-items: center;
       gap: 6px;
       transition: color 0.15s;
       cursor: pointer;
     }
-    .hero-secondary-link:hover { color: #fff; }
+    .hero-secondary-link:hover { color: var(--navy); }
     .hero-secondary-link svg { transition: transform 0.15s; }
     .hero-secondary-link:hover svg { transform: translateX(3px); }
 
     /* Hero stats */
     .hero-stats { display: flex; justify-content: center; align-items: center; }
     .hero-stat-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(27,47,94,0.1);
+      box-shadow: 0 4px 20px rgba(27,47,94,0.08);
       border-radius: 16px;
       padding: 24px 28px;
     }
@@ -268,7 +272,7 @@
     }
     .hero-stat-label {
       font-size: 0.9rem;
-      color: #93aed8;
+      color: var(--navy);
       line-height: 1.5;
     }
 
