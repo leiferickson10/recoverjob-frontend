@@ -283,13 +283,29 @@
       background: var(--gray-bg);
       padding: 44px 0;
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .trust-marquee {
+      width: 100%;
+      overflow: hidden;
+    }
+    .trust-track {
+      display: flex;
+      width: max-content;
+      animation: trust-scroll 36s linear infinite;
     }
     .trust-line {
-      text-align: center;
+      display: inline-block;
+      white-space: nowrap;
       font-size: 1.15rem;
       font-weight: 600;
-      color: var(--navy);
+      color: #22C55E;
       letter-spacing: 0.2px;
+      padding-right: 56px;
+    }
+    @keyframes trust-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
     }
 
     /* ═══════════════════════════════
@@ -642,8 +658,11 @@
      TRUST BAR
 ═══════════════════════════════ -->
 <section id="trust">
-  <div class="container">
-    <p class="trust-line">TCPA Compliant &middot; A2P 10DLC Registered &middot; SSL Encrypted &middot; Twilio Verified Sender &middot; Cancel Anytime</p>
+  <div class="trust-marquee">
+    <div class="trust-track">
+      <span class="trust-line">TCPA Compliant &middot; A2P 10DLC Registered &middot; SSL Encrypted &middot; Twilio Verified Sender &middot; Cancel Anytime &middot; TCPA Compliant &middot; A2P 10DLC Registered &middot; SSL Encrypted &middot; Twilio Verified Sender &middot; Cancel Anytime</span>
+      <span class="trust-line" aria-hidden="true">TCPA Compliant &middot; A2P 10DLC Registered &middot; SSL Encrypted &middot; Twilio Verified Sender &middot; Cancel Anytime &middot; TCPA Compliant &middot; A2P 10DLC Registered &middot; SSL Encrypted &middot; Twilio Verified Sender &middot; Cancel Anytime</span>
+    </div>
   </div>
 </section>
 
