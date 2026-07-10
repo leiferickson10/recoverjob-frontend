@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../lib/api';
-
-function formatPhoneDisplay(digits) {
-  const d = digits.slice(0, 10);
-  if (d.length <= 3) return d;
-  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
-  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
-}
+import { formatPhoneInput } from '../lib/phoneFormat';
 
 export default function Signup() {
   const [businessName, setBusinessName] = useState('');
@@ -90,7 +84,7 @@ export default function Signup() {
               <label className="text-sm font-medium text-[#3D3D3D]">Phone Number</label>
               <input
                 type="tel"
-                value={formatPhoneDisplay(phoneDigits)}
+                value={formatPhoneInput(phoneDigits)}
                 onChange={(e) => setPhoneDigits(e.target.value.replace(/\D/g, '').slice(0, 10))}
                 placeholder="(555) 123-4567"
                 className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1B2F5E] focus:ring-2 focus:ring-[#1B2F5E]/10 transition-colors"

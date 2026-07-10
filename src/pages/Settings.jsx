@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
+import TeamNumbersForm from '../components/TeamNumbersForm';
+import { teamNumbersToRows, rowsToTeamNumbers, validateRows } from '../lib/teamNumbers';
 
 function useSaveState() {
   const [saved, setSaved] = useState(false);
@@ -37,6 +39,10 @@ export default function Settings() {
   const [reviewUrl, setReviewUrl]   = useState('');
   const reviewSave = useSaveState();
 
+  const [teamRows, setTeamRows] = useState([]);
+  const teamSave = useSaveState();
+  const [savingTeam, setSavingTeam] = useState(false);
+
   // Billing cancel flow
   const [showConfirm, setShowConfirm]     = useState(false);
   const [cancelling, setCancelling]       = useState(false);
@@ -49,6 +55,7 @@ export default function Settings() {
         const b = res.data;
         setTwilioNumber(b.twilioNumber ?? b.twilio_number ?? b.phone ?? '');
         setReviewUrl(b.google_review_url ?? '');
+        setTeamRows(teamNumbersToRows(b.team_numbers));
       })
       .catch((err) => setFetchError(err.message))
       .finally(() => setLoading(false));
@@ -68,6 +75,23 @@ export default function Settings() {
       reviewSave.onSuccess();
     } catch (err) {
       reviewSave.onError(err);
+    }
+  }
+
+  async function saveTeamNumbers() {
+    const validationError = validateRows(teamRows);
+    if (validationError) {
+      teamSave.onError({ message: validationError });
+      return;
+    }
+    setSavingTeam(true);
+    try {
+      await api.post('/businesses/team-numbers', { team_numbers: rowsToTeamNumbers(teamRows) });
+      teamSave.onSuccess();
+    } catch (err) {
+      teamSave.onError(err);
+    } finally {
+      setSavingTeam(false);
     }
   }
 
@@ -159,6 +183,24 @@ export default function Settings() {
             </div>
           </div>
         )}
+
+        {/* Team Phone Numbers */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <h2 className="text-sm font-semibold text-[#1B2F5E] mb-1">Team Phone Numbers</h2>
+          <p className="text-xs text-gray-400 mb-5">Add up to 5 numbers to ring at once when a call comes in. Mark one as primary to receive lead summaries.</p>
+          <TeamNumbersForm rows={teamRows} onChange={setTeamRows} />
+          <div className="flex items-center gap-4 mt-5">
+            <button
+              onClick={saveTeamNumbers}
+              disabled={savingTeam}
+              className="px-5 py-2.5 rounded-xl bg-[#4CAF29] text-white text-sm font-semibold hover:bg-[#3d9422] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {savingTeam ? 'Saving…' : 'Save'}
+            </button>
+            {teamSave.saved && <span className="text-sm text-[#4CAF29] font-medium">Saved!</span>}
+            {teamSave.error && <span className="text-sm text-red-600">{teamSave.error}</span>}
+          </div>
+        </div>
 
         {/* Google Review Link */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">

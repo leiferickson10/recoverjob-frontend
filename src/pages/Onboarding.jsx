@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
+import TeamNumbersForm from '../components/TeamNumbersForm';
+import { rowsToTeamNumbers, validateRows } from '../lib/teamNumbers';
 
 function formatPhone(e164) {
   const digits = (e164 || '').replace(/\D/g, '');
@@ -41,6 +43,12 @@ export default function Onboarding() {
   // Step 3 — success
   const [done, setDone] = useState(false);
 
+  // Step 4 — team numbers (optional)
+  const [showTeamStep, setShowTeamStep] = useState(false);
+  const [teamRows, setTeamRows] = useState([]);
+  const [teamError, setTeamError] = useState('');
+  const [savingTeam, setSavingTeam] = useState(false);
+
   const step = done ? 3 : selected ? 2 : 1;
 
   useEffect(() => {
@@ -74,7 +82,7 @@ export default function Onboarding() {
     try {
       await api.post('/places/select', { place_id: selected.place_id });
       setDone(true);
-      setTimeout(() => navigate('/dashboard'), 2000);
+      setTimeout(() => setShowTeamStep(true), 2000);
     } catch (err) {
       setConfirmError(err?.response?.data?.error || 'Something went wrong. Please try again.');
     } finally {
@@ -85,6 +93,24 @@ export default function Onboarding() {
   function resetSearch() {
     setSelected(null);
     setConfirmError('');
+  }
+
+  async function handleSaveTeam() {
+    setTeamError('');
+    const validationError = validateRows(teamRows);
+    if (validationError) {
+      setTeamError(validationError);
+      return;
+    }
+    setSavingTeam(true);
+    try {
+      await api.post('/businesses/team-numbers', { team_numbers: rowsToTeamNumbers(teamRows) });
+      navigate('/dashboard');
+    } catch (err) {
+      setTeamError(err?.response?.data?.error || 'Something went wrong. Please try again.');
+    } finally {
+      setSavingTeam(false);
+    }
   }
 
   return (
@@ -114,7 +140,7 @@ export default function Onboarding() {
       <div className="max-w-2xl mx-auto px-4 py-8 flex flex-col gap-6">
 
         {/* ── Step 1: Search ── */}
-        {step === 1 && (
+        {!showTeamStep && step === 1 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <h2 className="text-lg font-bold text-[#1B2F5E] mb-1">Find Your Business</h2>
             <p className="text-sm text-gray-500 mb-5">Search for your business as it appears on Google Maps.</p>
@@ -185,7 +211,7 @@ export default function Onboarding() {
         )}
 
         {/* ── Step 2: Confirmation ── */}
-        {step === 2 && (
+        {!showTeamStep && step === 2 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <h2 className="text-lg font-bold text-[#1B2F5E] mb-5">Confirm Your Business</h2>
 
@@ -235,7 +261,7 @@ export default function Onboarding() {
         )}
 
         {/* ── Step 3: Success ── */}
-        {step === 3 && (
+        {!showTeamStep && step === 3 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-center gap-3">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#4CAF29] flex items-center justify-center">
@@ -244,6 +270,36 @@ export default function Onboarding() {
                 </svg>
               </div>
               <p className="text-sm font-semibold text-[#166534]">You are all set! Your Google review link is saved.</p>
+            </div>
+          </div>
+        )}
+
+        {/* ── Step 4: Team Numbers (optional) ── */}
+        {showTeamStep && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-bold text-[#1B2F5E] mb-1">Add Your Team (Optional)</h2>
+            <p className="text-sm text-gray-500 mb-5">
+              If others can answer calls, add their numbers so calls ring everyone at once. Skip this if it's just you.
+            </p>
+
+            <TeamNumbersForm rows={teamRows} onChange={setTeamRows} />
+
+            {teamError && <p className="text-sm text-red-500 mt-4">{teamError}</p>}
+
+            <div className="flex flex-col gap-3 mt-5">
+              <button
+                onClick={handleSaveTeam}
+                disabled={savingTeam}
+                className="w-full bg-[#4CAF29] hover:bg-[#3d9922] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm py-3.5 rounded-xl transition-colors"
+              >
+                {savingTeam ? 'Saving…' : 'Continue'}
+              </button>
+              <button
+                onClick={() => navigate('/dashboard')}
+                className="text-sm text-gray-400 hover:text-gray-600 transition-colors text-center"
+              >
+                Skip — I'll use one number
+              </button>
             </div>
           </div>
         )}
@@ -264,12 +320,14 @@ export default function Onboarding() {
 
         {/* Skip + footer */}
         <div className="text-center flex flex-col gap-3 pb-6">
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            I'll set this up later
-          </button>
+          {!showTeamStep && (
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              I'll set this up later
+            </button>
+          )}
           <p className="text-xs text-gray-400">
             Need help?{' '}
             <a href="mailto:support@recoverjob.com" className="text-[#4CAF29] hover:underline font-medium">
