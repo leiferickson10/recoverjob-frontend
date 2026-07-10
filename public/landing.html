@@ -335,9 +335,19 @@
     }
     .steps {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 32px;
       position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 68px;
+      left: 0;
+      right: 0;
+      height: 0;
+      border-top: 2px dashed #22C55E;
+      z-index: 0;
     }
     .step {
       text-align: center;
@@ -347,6 +357,7 @@
       transition: box-shadow 0.2s, transform 0.2s;
       background: #fff;
       position: relative;
+      z-index: 1;
     }
     .step:hover {
       box-shadow: 0 8px 32px rgba(27,47,94,0.1);
@@ -540,6 +551,7 @@
       .hero-sub { margin-left: auto; margin-right: auto; }
       .hero-stats { order: -1; }
       .steps { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .steps::before { display: none; }
     }
     @media (max-width: 768px) {
       .nav-links, .nav-actions { display: none; }
