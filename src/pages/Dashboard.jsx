@@ -76,6 +76,12 @@ function formatPhone(e164) {
   return e164 || '';
 }
 
+function phoneDigitsMatch(a, b) {
+  const da = (a || '').replace(/\D/g, '').slice(-10);
+  const db = (b || '').replace(/\D/g, '').slice(-10);
+  return Boolean(da && db) && da === db;
+}
+
 const TABS = [
   { key: 'calls',   label: 'Calls' },
   { key: 'reviews', label: 'Reviews' },
@@ -277,6 +283,45 @@ function ReviewsTab({ stats, recent, twilioNumber, googleProfile, qrCode, qrLoad
               </span>
             </div>
           </div>
+
+          {(googleProfile.website || googleProfile.category || googleProfile.phoneNational) && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5 pt-5 border-t border-gray-100">
+              <div className="flex flex-col gap-1">
+                <span className="text-xs text-gray-500 font-medium">Website</span>
+                {googleProfile.website ? (
+                  <a
+                    href={googleProfile.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-semibold text-[#1B2F5E] hover:underline truncate"
+                  >
+                    {googleProfile.website.replace(/^https?:\/\//, '')}
+                  </a>
+                ) : (
+                  <span className="text-sm text-gray-300">Not listed</span>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-xs text-gray-500 font-medium">Category</span>
+                <span className="text-sm font-semibold text-[#1B2F5E]">{googleProfile.category || '—'}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-xs text-gray-500 font-medium">Phone Listed on Google</span>
+                <span className="text-sm font-semibold text-[#1B2F5E]">{googleProfile.phoneNational || '—'}</span>
+              </div>
+            </div>
+          )}
+
+          {googleProfile.phoneNational && !phoneDigitsMatch(googleProfile.phoneNational, twilioNumber) && (
+            <div className="mt-4 flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+              <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+              <p className="text-sm text-amber-800 leading-relaxed">
+                Your Google listing still shows your old number — update it to your RecoverJob number so missed calls actually reach your dedicated line.
+              </p>
+            </div>
+          )}
         </div>
       )}
 
@@ -436,6 +481,9 @@ export default function Dashboard() {
             reviewCount:   b.review_count_current ?? 0,
             baseline:      b.review_count_baseline ?? 0,
             lastSynced:    b.last_synced_at ?? null,
+            website:       b.google_website ?? null,
+            phoneNational: b.google_phone_national ?? null,
+            category:      b.google_business_category ?? null,
           });
         }
       })
