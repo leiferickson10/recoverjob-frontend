@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import api from '../lib/api';
 import { formatPhoneInput } from '../lib/phoneFormat';
 
 export default function Signup() {
+  const [searchParams] = useSearchParams();
+  const planTier = searchParams.get('plan') === 'team' ? 'team' : 'starter';
+
   const [businessName, setBusinessName] = useState('');
   const [phoneDigits, setPhoneDigits] = useState('');
   const [email, setEmail] = useState('');
@@ -41,6 +44,7 @@ export default function Signup() {
         phone: `+1${phoneDigits}`,
         email: email.trim(),
         password,
+        plan: planTier,
       });
       window.location.href = data.url;
     } catch (err) {
@@ -64,6 +68,9 @@ export default function Signup() {
           />
           <h1 className="text-2xl font-bold text-[#1B2F5E] tracking-tight">Create your account</h1>
           <p className="text-gray-500 text-sm text-center">Start recovering missed calls in minutes.</p>
+          <span className="px-3 py-1 rounded-full bg-[#4CAF29]/10 text-[#4CAF29] text-xs font-bold uppercase tracking-wide">
+            {planTier === 'team' ? 'Team Plan — $199/mo' : 'Starter Plan — $99/mo'}
+          </span>
         </div>
 
         <div className="px-10 pb-10">
@@ -163,7 +170,7 @@ export default function Signup() {
           </form>
 
           <p className="mt-5 text-xs text-gray-400 text-center">
-            $99/month. Cancel anytime.
+            {planTier === 'team' ? '$199/month' : '$99/month'}. Cancel anytime.
           </p>
 
           <p className="mt-6 text-sm text-gray-500 text-center">
