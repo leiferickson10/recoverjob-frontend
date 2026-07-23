@@ -187,13 +187,19 @@
     }
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu .mobile-cta {
+      display: block;
+      width: calc(100% - 48px);
       margin: 10px 24px 0;
       text-align: center;
       background: var(--green);
       color: #fff;
+      border: none;
       border-radius: 10px;
       padding: 13px;
+      font-family: inherit;
+      font-size: 0.95rem;
       font-weight: 600;
+      cursor: pointer;
       box-shadow: 0 4px 14px rgba(34,197,94,0.3);
     }
 
@@ -433,10 +439,10 @@
     }
     .pricing-card {
       width: 100%;
-      max-width: 460px;
+      max-width: 330px;
       border: 2px solid var(--navy);
       border-radius: 20px;
-      padding: 48px 44px;
+      padding: 40px 28px;
       box-shadow: 0 16px 48px rgba(27,47,94,0.12);
       text-align: center;
     }
@@ -451,31 +457,11 @@
       color: var(--gray-text);
       margin-bottom: 20px;
     }
-    .pricing-amount {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 4px;
-      margin-bottom: 4px;
-    }
-    .pricing-dollar {
-      font-size: 1.6rem;
+    .pricing-custom {
+      font-size: 1.1rem;
       font-weight: 700;
-      color: var(--green);
-      margin-top: 10px;
-    }
-    .pricing-number {
-      font-size: 5rem;
-      font-weight: 900;
-      color: var(--green);
-      line-height: 1;
-      letter-spacing: -3px;
-    }
-    .pricing-period {
-      font-size: 1rem;
-      color: var(--gray-text);
-      font-weight: 500;
-      margin-top: 16px;
+      color: var(--navy);
+      margin: 12px 0 28px;
     }
     .pricing-features {
       list-style: none;
@@ -684,7 +670,7 @@
       </ul>
       <div class="nav-actions">
         <a href="/login" class="nav-login">Log In</a>
-        <a href="/signup" class="btn btn-green nav-cta">Get Started</a>
+        <button type="button" class="btn btn-green nav-cta talk-to-sales-trigger">Talk to Sales</button>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -696,7 +682,7 @@
     <a href="#pricing">Pricing</a>
     <a href="#demo">Contact</a>
     <a href="/login">Log In</a>
-    <a href="/signup" class="mobile-cta">Get Started</a>
+    <button type="button" class="mobile-cta talk-to-sales-trigger">Talk to Sales</button>
   </div>
 </nav>
 
@@ -718,7 +704,7 @@
         </p>
         <div class="hero-actions">
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
-            <a href="/signup" class="btn btn-green btn-lg">Get Started</a>
+            <button type="button" class="btn btn-green btn-lg talk-to-sales-trigger">Talk to Sales</button>
             <a href="mailto:leif@recoverjob.com" class="btn btn-navy btn-lg">Book a Demo</a>
           </div>
           <a href="#how" class="hero-secondary-link">
@@ -892,13 +878,57 @@
     </div>
     <div class="pricing-card-wrap">
       <div class="pricing-card">
+        <h3 class="pricing-title">Reviews</h3>
+        <p class="pricing-desc">Turn every job into a 5-star review</p>
+        <p class="pricing-custom">Custom pricing based on your business</p>
+        <ul class="pricing-features">
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Automated review request texts sent after every job
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Customers opt in via SMS before being asked to review
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Direct link straight to your Google Business review page
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            Daily tracking of your Google rating and review count
+          </li>
+          <li>
+            <span class="check">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 6l3 3 5-5"/>
+              </svg>
+            </span>
+            No contracts — cancel anytime
+          </li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
         <h3 class="pricing-title">Starter</h3>
         <p class="pricing-desc">For solo contractors</p>
-        <div class="pricing-amount">
-          <span class="pricing-dollar">$</span>
-          <span class="pricing-number">99</span>
-          <span class="pricing-period">/month</span>
-        </div>
+        <p class="pricing-custom">Custom pricing based on your business</p>
         <ul class="pricing-features">
           <li>
             <span class="check">
@@ -946,11 +976,7 @@
       <div class="pricing-card">
         <h3 class="pricing-title">Team</h3>
         <p class="pricing-desc">Everything in Starter, built for teams</p>
-        <div class="pricing-amount">
-          <span class="pricing-dollar">$</span>
-          <span class="pricing-number">199</span>
-          <span class="pricing-period">/month</span>
-        </div>
+        <p class="pricing-custom">Custom pricing based on your business</p>
         <ul class="pricing-features">
           <li>
             <span class="check">
@@ -1004,7 +1030,7 @@
       </div>
     </div>
     <div class="pricing-cta">
-      <button type="button" class="btn btn-green btn-lg" id="talk-to-sales-open">Talk to Sales</button>
+      <button type="button" class="btn btn-green btn-lg talk-to-sales-trigger">Talk to Sales</button>
     </div>
   </div>
 </section>
@@ -1098,8 +1124,8 @@
     hamburger.setAttribute('aria-expanded', isOpen);
   });
 
-  /* Close mobile menu on link click */
-  mobileMenu.querySelectorAll('a').forEach(a => {
+  /* Close mobile menu on link/button click */
+  mobileMenu.querySelectorAll('a, button').forEach(a => {
     a.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
@@ -1122,7 +1148,7 @@
   /* Talk to Sales modal */
   const API_BASE = 'https://recoverjob-backend-production.up.railway.app';
   const ttsOverlay = document.getElementById('talk-to-sales-overlay');
-  const ttsOpenBtn = document.getElementById('talk-to-sales-open');
+  const ttsOpenBtns = document.querySelectorAll('.talk-to-sales-trigger');
   const ttsCloseBtn = document.getElementById('talk-to-sales-close');
   const ttsForm = document.getElementById('talk-to-sales-form');
   const ttsSubmitBtn = document.getElementById('talk-to-sales-submit');
@@ -1135,7 +1161,7 @@
     ttsOverlay.classList.remove('open');
   }
 
-  ttsOpenBtn.addEventListener('click', openTtsModal);
+  ttsOpenBtns.forEach(btn => btn.addEventListener('click', openTtsModal));
   ttsCloseBtn.addEventListener('click', closeTtsModal);
   ttsOverlay.addEventListener('click', e => {
     if (e.target === ttsOverlay) closeTtsModal();
