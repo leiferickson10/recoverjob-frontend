@@ -505,6 +505,92 @@
       flex-shrink: 0;
     }
     .pricing-features .check svg { width: 11px; height: 11px; }
+    .pricing-cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* ═══════════════════════════════
+       TALK TO SALES MODAL
+    ═══════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(19,35,71,0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 460px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 36px;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gray-text);
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 4px;
+    }
+    .modal-close:hover { color: var(--navy); }
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .modal-sub {
+      font-size: 0.9rem;
+      color: var(--gray-text);
+      margin-bottom: 24px;
+    }
+    .form-field { margin-bottom: 16px; }
+    .form-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      color: #1a1a2e;
+      background: #fff;
+    }
+    .form-field input:focus,
+    .form-field select:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+    .modal-submit { width: 100%; justify-content: center; margin-top: 4px; }
+    .modal-status {
+      margin-top: 14px;
+      font-size: 0.88rem;
+      text-align: center;
+    }
+    .modal-status.error { color: #b91c1c; }
+    .modal-status.success { color: var(--green); font-weight: 600; }
 
     /* ═══════════════════════════════
        FOOTER
@@ -855,9 +941,6 @@
             No contracts — cancel anytime
           </li>
         </ul>
-        <a href="/signup?plan=starter" class="btn btn-green btn-lg" style="width:100%;justify-content:center;">
-          Get Started
-        </a>
       </div>
 
       <div class="pricing-card">
@@ -918,13 +1001,55 @@
             No contracts — cancel anytime
           </li>
         </ul>
-        <a href="/signup?plan=team" class="btn btn-green btn-lg" style="width:100%;justify-content:center;">
-          Get Started
-        </a>
       </div>
+    </div>
+    <div class="pricing-cta">
+      <button type="button" class="btn btn-green btn-lg" id="talk-to-sales-open">Talk to Sales</button>
     </div>
   </div>
 </section>
+
+
+<!-- ═══════════════════════════════
+     TALK TO SALES MODAL
+═══════════════════════════════ -->
+<div class="modal-overlay" id="talk-to-sales-overlay">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="talk-to-sales-close" aria-label="Close">&times;</button>
+    <h3 class="modal-title">Talk to Sales</h3>
+    <p class="modal-sub">Tell us a bit about your business and we'll reach out.</p>
+    <form id="talk-to-sales-form">
+      <div class="form-field">
+        <label for="tts-name">Name</label>
+        <input type="text" id="tts-name" name="name" required />
+      </div>
+      <div class="form-field">
+        <label for="tts-business">Business name</label>
+        <input type="text" id="tts-business" name="businessName" required />
+      </div>
+      <div class="form-field">
+        <label for="tts-phone">Phone number</label>
+        <input type="tel" id="tts-phone" name="phone" required />
+      </div>
+      <div class="form-field">
+        <label for="tts-time">Best time to reach you</label>
+        <input type="text" id="tts-time" name="bestTime" placeholder="e.g. Weekday afternoons" required />
+      </div>
+      <div class="form-field">
+        <label for="tts-product">Which product(s) are you interested in?</label>
+        <select id="tts-product" name="product" required>
+          <option value="" disabled selected>Select one</option>
+          <option value="Reviews">Reviews</option>
+          <option value="Starter">Starter</option>
+          <option value="Team">Team</option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-green btn-lg modal-submit" id="talk-to-sales-submit">Send</button>
+      <p class="modal-status" id="talk-to-sales-status"></p>
+    </form>
+  </div>
+</div>
 
 
 <!-- ═══════════════════════════════
@@ -992,6 +1117,68 @@
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     });
+  });
+
+  /* Talk to Sales modal */
+  const API_BASE = 'https://recoverjob-backend-production.up.railway.app';
+  const ttsOverlay = document.getElementById('talk-to-sales-overlay');
+  const ttsOpenBtn = document.getElementById('talk-to-sales-open');
+  const ttsCloseBtn = document.getElementById('talk-to-sales-close');
+  const ttsForm = document.getElementById('talk-to-sales-form');
+  const ttsSubmitBtn = document.getElementById('talk-to-sales-submit');
+  const ttsStatus = document.getElementById('talk-to-sales-status');
+
+  function openTtsModal() {
+    ttsOverlay.classList.add('open');
+  }
+  function closeTtsModal() {
+    ttsOverlay.classList.remove('open');
+  }
+
+  ttsOpenBtn.addEventListener('click', openTtsModal);
+  ttsCloseBtn.addEventListener('click', closeTtsModal);
+  ttsOverlay.addEventListener('click', e => {
+    if (e.target === ttsOverlay) closeTtsModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ttsOverlay.classList.contains('open')) closeTtsModal();
+  });
+
+  ttsForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    ttsStatus.textContent = '';
+    ttsStatus.className = 'modal-status';
+    ttsSubmitBtn.disabled = true;
+    ttsSubmitBtn.textContent = 'Sending…';
+
+    const payload = {
+      name: document.getElementById('tts-name').value.trim(),
+      businessName: document.getElementById('tts-business').value.trim(),
+      phone: document.getElementById('tts-phone').value.trim(),
+      bestTime: document.getElementById('tts-time').value.trim(),
+      product: document.getElementById('tts-product').value,
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/api/talk-to-sales`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
+      ttsStatus.textContent = "Thanks! We'll be in touch shortly.";
+      ttsStatus.className = 'modal-status success';
+      ttsForm.reset();
+      setTimeout(closeTtsModal, 1800);
+    } catch (err) {
+      ttsStatus.textContent = err.message || 'Something went wrong. Please try again.';
+      ttsStatus.className = 'modal-status error';
+    } finally {
+      ttsSubmitBtn.disabled = false;
+      ttsSubmitBtn.textContent = 'Send';
+    }
   });
 </script>
 
